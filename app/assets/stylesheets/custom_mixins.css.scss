@@ -1,0 +1,10 @@
+@import "compass/css3";
+@import "custom_variables";
+
+@mixin arrow-down {
+  border-top: 1px solid black;
+  border-right: 1px solid black; 
+  @include transform(rotate(133deg));
+  width: 10px;
+  height: 10px;
+}
