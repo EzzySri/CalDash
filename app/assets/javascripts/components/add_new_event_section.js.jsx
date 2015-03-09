@@ -4,6 +4,7 @@ var AddNewEventSection = React.createClass({
       mandatory: false,
       duration: null,
       forWhichDays: new Set(),
+      location: ""
     };
   },
   handleAdd: function() {
@@ -56,6 +57,12 @@ var AddNewEventSection = React.createClass({
     this.props.onLocationInputChange(
       this.refs.locationInput.getDOMNode().value
     );
+  },
+  handleLocationChoice: function(event) {
+    var loc = event.target.innerHTML;
+    this.setState({location: loc});
+    this.refs.locationInput.getDOMNode().value = loc;
+    this.refs.predictionList.getDOMNode().innerHTML = "";
   },
   render: function() {
     var startOfDay = this.props.selectedDay.startOf('day');
@@ -154,7 +161,7 @@ var AddNewEventSection = React.createClass({
           <div>
             <input className="generic-field-container" type="text" placeholder="Location" ref="locationInput" onChange={this.handleLocationInputChange} />
           </div>
-          <ul className="prediction-list no-list-style">
+          <ul ref="predictionList" onClick={this.handleLocationChoice} className="prediction-list no-list-style">
             {newPreds}
           </ul>
           <div className="borderless-field-container col-1-1">
@@ -171,3 +178,5 @@ var AddNewEventSection = React.createClass({
     );
   }
 });
+
+
