@@ -33653,3 +33653,364 @@ Started GET "/assets/index.js" for ::1 at 2015-03-08 17:03:21 -0700
 
 
 Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-08 17:03:21 -0700
+
+
+Started GET "/" for ::1 at 2015-03-08 17:30:12 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (1.8ms)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_variables.css.scss to /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_variables.scss. (called from render at /Users/ezzysriram/.rvm/gems/ruby-2.2.0@global/gems/tilt-1.4.1/lib/tilt/template.rb:103)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_variables.css.scss to /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_variables.scss. (called from render at /Users/ezzysriram/.rvm/gems/ruby-2.2.0@global/gems/tilt-1.4.1/lib/tilt/template.rb:103)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_variables.css.scss to /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_variables.scss. (called from render at /Users/ezzysriram/.rvm/gems/ruby-2.2.0@global/gems/tilt-1.4.1/lib/tilt/template.rb:103)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_variables.css.scss to /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_variables.scss. (called from render at /Users/ezzysriram/.rvm/gems/ruby-2.2.0@global/gems/tilt-1.4.1/lib/tilt/template.rb:103)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/common.css.scss to /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/common.scss. (called from render at /Users/ezzysriram/.rvm/gems/ruby-2.2.0@global/gems/tilt-1.4.1/lib/tilt/template.rb:103)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_variables.css.scss to /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_variables.scss. (called from render at /Users/ezzysriram/.rvm/gems/ruby-2.2.0@global/gems/tilt-1.4.1/lib/tilt/template.rb:103)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_variables.css.scss to /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_variables.scss. (called from render at /Users/ezzysriram/.rvm/gems/ruby-2.2.0@global/gems/tilt-1.4.1/lib/tilt/template.rb:103)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_mixins.css.scss to /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_mixins.scss. (called from render at /Users/ezzysriram/.rvm/gems/ruby-2.2.0@global/gems/tilt-1.4.1/lib/tilt/template.rb:103)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_variables.css.scss to /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_variables.scss. (called from render at /Users/ezzysriram/.rvm/gems/ruby-2.2.0@global/gems/tilt-1.4.1/lib/tilt/template.rb:103)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/common.css.scss to /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/common.scss. (called from render at /Users/ezzysriram/.rvm/gems/ruby-2.2.0@global/gems/tilt-1.4.1/lib/tilt/template.rb:103)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_variables.css.scss to /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_variables.scss. (called from render at /Users/ezzysriram/.rvm/gems/ruby-2.2.0@global/gems/tilt-1.4.1/lib/tilt/template.rb:103)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_variables.css.scss to /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_variables.scss. (called from render at /Users/ezzysriram/.rvm/gems/ruby-2.2.0@global/gems/tilt-1.4.1/lib/tilt/template.rb:103)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_mixins.css.scss to /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_mixins.scss. (called from render at /Users/ezzysriram/.rvm/gems/ruby-2.2.0@global/gems/tilt-1.4.1/lib/tilt/template.rb:103)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_variables.css.scss to /Users/ezzysriram/Desktop/CalDash/app/assets/stylesheets/custom_variables.scss. (called from render at /Users/ezzysriram/.rvm/gems/ruby-2.2.0@global/gems/tilt-1.4.1/lib/tilt/template.rb:103)
+Completed 200 OK in 5531ms (Views: 5515.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/common-791213cb28c5f7a980b71033fb1159e1.css?body=1" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/index-ca7c148b9bb6b837985b8b32133dc5ad.css?body=1" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/application-ced6810b9a415825c630c3362c504add.css?body=1" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/components/add_new_event_section-eb16ed36422a6007166ced47df2e2192.js?body=1" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/components-6ff6e48a6214766af769ad0fc74ba500.js?body=1" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/react-5e1c7bb66b207efc7c85ac036613963d.js?body=1" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/react_ujs-e7ae57f0e36228fde92f3ba11130626f.js?body=1" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/google_map_section-9a9d135d8fd7ba75c815a679b681d1b9.js?body=1" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/components/user_profile-e3fcdcedf431aed8fa58b3fba3f104e0.js?body=1" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/components/full_calendar-2b15050350a142a210bad6acb3e92203.js?body=1" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/index-63519517b56285929391ea7bfb1e1851.js?body=1" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/scheduled_events-c72898f766fb2d63eab626b5f05a4005.js?body=1" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/tutorial-86e25c41b307ffe2e122abff92d7de1f.js?body=1" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/moment/moment-66988874bf5714cb1e4a6f53d733b6e1.js?body=1" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/jquery/dist/jquery-f6430688c576903899df06242228577b.js?body=1" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar-9ff3706de7f58b87cc7b58df9a22ca0d.js?body=1" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/moment-duration-format/lib/moment-duration-format-b3a83b88c003dfd9aec608f738221025.js?body=1" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/application-9aa7b740166de6d450c98680b8ec5f40.js?body=1" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-08 17:30:18 -0700
+
+
+Started GET "/" for ::1 at 2015-03-08 17:30:18 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 117ms (Views: 116.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-08 17:30:19 -0700
+
+
+Started GET "/assets/collapsed_menu.png" for ::1 at 2015-03-08 17:30:19 -0700
+
+
+Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-08 17:30:19 -0700
+
+
+Started GET "/" for ::1 at 2015-03-08 17:31:19 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.0ms)
+Completed 200 OK in 125ms (Views: 124.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/common-791213cb28c5f7a980b71033fb1159e1.css?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/index-ca7c148b9bb6b837985b8b32133dc5ad.css?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/application-ced6810b9a415825c630c3362c504add.css?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/react-5e1c7bb66b207efc7c85ac036613963d.js?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/react_ujs-e7ae57f0e36228fde92f3ba11130626f.js?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/components/add_new_event_section-eb16ed36422a6007166ced47df2e2192.js?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/components-6ff6e48a6214766af769ad0fc74ba500.js?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/components/user_profile-e3fcdcedf431aed8fa58b3fba3f104e0.js?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/components/full_calendar-2b15050350a142a210bad6acb3e92203.js?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/google_map_section-9a9d135d8fd7ba75c815a679b681d1b9.js?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/index-63519517b56285929391ea7bfb1e1851.js?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/scheduled_events-c72898f766fb2d63eab626b5f05a4005.js?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/tutorial-86e25c41b307ffe2e122abff92d7de1f.js?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/moment/moment-66988874bf5714cb1e4a6f53d733b6e1.js?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/jquery/dist/jquery-f6430688c576903899df06242228577b.js?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar-9ff3706de7f58b87cc7b58df9a22ca0d.js?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/moment-duration-format/lib/moment-duration-format-b3a83b88c003dfd9aec608f738221025.js?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/application-9aa7b740166de6d450c98680b8ec5f40.js?body=1" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-08 17:31:19 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-08 17:31:20 -0700
+
+
+Started GET "/assets/collapsed_menu.png" for ::1 at 2015-03-08 17:31:20 -0700
+
+
+Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-08 17:31:20 -0700
+  [1m[36m (1.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.4ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to DeviseCreateUsers (20150309003603)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/ezzysriram/Desktop/CalDash/db/migrate/20150309003603_devise_create_users.rb:34)
+  [1m[35m (0.4ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar, "last_sign_in_ip" varchar, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.3ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150309003603"]]
+  [1m[36m (0.8ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+
+
+
+Started GET "/" for ::1 at 2015-03-08 17:43:08 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.0ms)
+Completed 200 OK in 145ms (Views: 144.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-08 17:43:09 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-08 17:43:09 -0700
+
+
+Started GET "/users/login" for ::1 at 2015-03-08 17:45:55 -0700
+
+ActionController::RoutingError (No route matches [GET] "/users/login"):
+  actionpack (4.2.1.rc3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  web-console (2.1.0) lib/web_console/middleware.rb:37:in `call'
+  actionpack (4.2.1.rc3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.1.rc3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.1.rc3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.1.rc3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.1.rc3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.1.rc3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.1.rc3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.1.rc3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.0) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.0) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.1.rc3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.0) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.1.rc3) lib/action_dispatch/middleware/static.rb:113:in `call'
+  rack (1.6.0) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.1.rc3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.1.rc3) lib/rails/application.rb:164:in `call'
+  rack (1.6.0) lib/rack/lock.rb:17:in `call'
+  rack (1.6.0) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.0) lib/rack/handler/webrick.rb:89:in `service'
+  /Users/ezzysriram/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/webrick/httpserver.rb:138:in `service'
+  /Users/ezzysriram/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/webrick/httpserver.rb:94:in `run'
+  /Users/ezzysriram/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/webrick/server.rb:294:in `block in start_thread'
+
+
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/actionpack-4.2.1.rc3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.0ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/actionpack-4.2.1.rc3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (1.2ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/actionpack-4.2.1.rc3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (7.1ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/actionpack-4.2.1.rc3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.1ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/actionpack-4.2.1.rc3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (66.2ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/_markup.html (0.3ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/style.css within layouts/inlined_string (0.3ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/_inner_console_markup.html within layouts/inlined_string (0.3ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/_prompt_box_markup.html within layouts/inlined_string (0.4ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/console.js within layouts/javascript (38.2ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/main.js within layouts/javascript (0.3ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/error_page.js within layouts/javascript (0.3ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/index.html (82.6ms)
+
+
+Started GET "/login" for ::1 at 2015-03-08 17:46:09 -0700
+
+ActionController::RoutingError (No route matches [GET] "/login"):
+  actionpack (4.2.1.rc3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  web-console (2.1.0) lib/web_console/middleware.rb:37:in `call'
+  actionpack (4.2.1.rc3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.1.rc3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.1.rc3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.1.rc3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.1.rc3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.1.rc3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.1.rc3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.1.rc3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.0) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.0) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.1.rc3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.0) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.1.rc3) lib/action_dispatch/middleware/static.rb:113:in `call'
+  rack (1.6.0) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.1.rc3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.1.rc3) lib/rails/application.rb:164:in `call'
+  rack (1.6.0) lib/rack/lock.rb:17:in `call'
+  rack (1.6.0) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.0) lib/rack/handler/webrick.rb:89:in `service'
+  /Users/ezzysriram/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/webrick/httpserver.rb:138:in `service'
+  /Users/ezzysriram/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/webrick/httpserver.rb:94:in `run'
+  /Users/ezzysriram/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/webrick/server.rb:294:in `block in start_thread'
+
+
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/actionpack-4.2.1.rc3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.0ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/actionpack-4.2.1.rc3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (1.5ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/actionpack-4.2.1.rc3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (0.9ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/actionpack-4.2.1.rc3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/actionpack-4.2.1.rc3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (50.8ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/_markup.html (0.2ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/style.css within layouts/inlined_string (0.2ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/_inner_console_markup.html within layouts/inlined_string (0.2ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/_prompt_box_markup.html within layouts/inlined_string (0.2ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/console.js within layouts/javascript (30.0ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/main.js within layouts/javascript (0.2ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/error_page.js within layouts/javascript (0.3ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/index.html (66.4ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2015-03-08 17:47:27 -0700
+Processing by Devise::SessionsController#new as HTML
+  Rendered devise/sessions/new.html.erb within layouts/application (15.2ms)
+Completed 500 Internal Server Error in 31ms (ActiveRecord: 0.2ms)
+
+ActionView::Template::Error (undefined method `session_path' for #<#<Class:0x007fc6201f6128>:0x007fc6201f55e8>):
+    1: <h2>Log in</h2>
+    2: 
+    3: <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    4:   <div class="field">
+    5:     <%= f.label :email %><br />
+    6:     <%= f.email_field :email, autofocus: true %>
+  app/views/devise/sessions/new.html.erb:3:in `_app_views_devise_sessions_new_html_erb__1460669549512525843_70244459585880'
+
+
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/actionpack-4.2.1.rc3/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.8ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/actionpack-4.2.1.rc3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.2ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/actionpack-4.2.1.rc3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.7ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/actionpack-4.2.1.rc3/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (43.0ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/_markup.html (0.4ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/style.css within layouts/inlined_string (0.2ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/_inner_console_markup.html within layouts/inlined_string (0.4ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/_prompt_box_markup.html within layouts/inlined_string (0.2ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/console.js within layouts/javascript (30.4ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/main.js within layouts/javascript (0.2ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/error_page.js within layouts/javascript (0.2ms)
+  Rendered /Users/ezzysriram/.rvm/gems/ruby-2.2.0/gems/web-console-2.1.0/lib/web_console/templates/index.html (68.2ms)
