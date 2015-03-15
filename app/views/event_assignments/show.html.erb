@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Event:</strong>
+  <%= @event_assignment.event_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @event_assignment.user_id %>
+</p>
+
+<p>
+  <strong>Event start time:</strong>
+  <%= @event_assignment.event_start_time %>
+</p>
+
+<p>
+  <strong>Event end time:</strong>
+  <%= @event_assignment.event_end_time %>
+</p>
+
+<%= link_to 'Edit', edit_event_assignment_path(@event_assignment) %> |
+<%= link_to 'Back', event_assignments_path %>

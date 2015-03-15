@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  event_name: MyString
+  event_type: 1
+  event_location: MyString
+  event_lat: 1.5
+  event_long: 1.5
+  event_length: 1
+  event_privacy: 1
+
+two:
+  event_name: MyString
+  event_type: 1
+  event_location: MyString
+  event_lat: 1.5
+  event_long: 1.5
+  event_length: 1
+  event_privacy: 1

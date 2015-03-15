@@ -1,7 +1,7 @@
 var UserProfile = React.createClass({
   getInitialState: function() {
     return {
-      username: '',
+      username: gon.last_name,
       profileImageUrl: '',
       shouldExpand: false
     };

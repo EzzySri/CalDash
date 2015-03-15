@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Event Assignments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>User</th>
+      <th>Event start time</th>
+      <th>Event end time</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @event_assignments.each do |event_assignment| %>
+      <tr>
+        <td><%= event_assignment.event_id %></td>
+        <td><%= event_assignment.user_id %></td>
+        <td><%= event_assignment.event_start_time %></td>
+        <td><%= event_assignment.event_end_time %></td>
+        <td><%= link_to 'Show', event_assignment %></td>
+        <td><%= link_to 'Edit', edit_event_assignment_path(event_assignment) %></td>
+        <td><%= link_to 'Destroy', event_assignment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Event assignment', new_event_assignment_path %>

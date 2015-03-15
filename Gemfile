@@ -26,6 +26,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
 gem 'showdown-rails'
+gem 'gon'
 
 gem 'bootstrap-sass'
 gem 'bootstrap_form', '2.3.0'
