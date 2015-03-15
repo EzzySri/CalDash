@@ -16,7 +16,8 @@ var AddNewEventSection = React.createClass({
       eventSource = {
         title: title,
         start: momentFrom, 
-        end: momentTo
+        end: momentTo,
+        location: this.state.location
       }
       $("#full-calendar").fullCalendar('renderEvent', eventSource, true); 
     } else {
@@ -31,7 +32,9 @@ var AddNewEventSection = React.createClass({
     }
     eventSource["mandatory"] = this.state.mandatory;
     this.props.onAddEvent(eventSource);
-    this.props.onLocationSelected(this.state.location);
+    if (this.state.location) {
+      this.props.onLocationSelected(this.state.location);
+    }
   },
   isMandatory: function() {
     if (!this.state.mandatory) {
