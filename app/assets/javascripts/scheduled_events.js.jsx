@@ -13,11 +13,11 @@ var ScheduledEvents = React.createClass({
         );
       } else {
         fields = (
-          <div className="mandatory-section">
-            <div className="event-field inner-vert-ctr col-sm-3"> {"title: " + e.title} </div>
-            <div className="event-field inner-vert-ctr col-sm-3"> {"duration: " + e.title} </div>
-            <div className="event-field inner-vert-ctr col-sm-3"> {"before: " + e.start.format(timeFormat)} </div>
-            <div className="event-field inner-vert-ctr col-sm-3"> {"after: " + e.end.format(timeFormat)} </div>
+          <div className="not-mandatory-section">
+            <div className="event-field inline-field-container inner-vert-ctr col-sm-3"> {"title: " + e.title} </div>
+            <div className="event-field inline-field-container inner-vert-ctr col-sm-3"> {"duration: " + e.title} </div>
+            <div className="event-field inline-field-container inner-vert-ctr col-sm-3"> {"before: " + e.start.format(timeFormat)} </div>
+            <div className="event-field inline-field-container inner-vert-ctr col-sm-3"> {"after: " + e.end.format(timeFormat)} </div>
           </div>
         );
       }

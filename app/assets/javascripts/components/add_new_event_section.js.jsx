@@ -31,6 +31,7 @@ var AddNewEventSection = React.createClass({
     }
     eventSource["mandatory"] = this.state.mandatory;
     this.props.onAddEvent(eventSource);
+    this.props.onLocationSelected(this.state.location);
   },
   isMandatory: function() {
     if (!this.state.mandatory) {
@@ -62,7 +63,7 @@ var AddNewEventSection = React.createClass({
     var loc = event.target.innerHTML;
     this.setState({location: loc});
     this.refs.locationInput.getDOMNode().value = loc;
-    this.refs.predictionList.getDOMNode().innerHTML = "";
+    // this.refs.predictionList.getDOMNode().innerHTML = "";
   },
   render: function() {
     var startOfDay = this.props.selectedDay.startOf('day');

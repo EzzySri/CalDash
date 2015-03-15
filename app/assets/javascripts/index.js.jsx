@@ -4,7 +4,9 @@ var CalDashApp = React.createClass({
       data: [],
       selectedDay: moment(),
       predictions: [],
-      locationService: null
+      newGeoLocationResult: null,
+      locationService: null,
+      geocoderService: null
     };
   },
   addToScheduledEvents: function(eventSource) {
@@ -13,6 +15,23 @@ var CalDashApp = React.createClass({
   },
   changeDayView: function(date) {
     this.setState({selectedDay:date});
+  },
+  retrieveGeoLocation: function(loc) {
+    var context = this;
+    var service = this.state.geocoderService,
+      new_states = {};
+    if (!service) {
+      service = new google.maps.Geocoder();
+      new_states["geocoderService"] = service;
+    }
+    service.geocode({ 'address': loc}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        context.setState({newGeoLocationResult: results[0]});
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+    this.setState(new_states);
   },
   retrieveMapPredictions: function(loc) {
     var service = this.state.locationService,
@@ -24,7 +43,7 @@ var CalDashApp = React.createClass({
     }
 
     if (loc != "") {
-      this.state.locationService.getQueryPredictions({input: loc}, this.sendPredictions);
+      service.getQueryPredictions({input: loc}, this.sendPredictions);
     } else {
       new_states['predictions'] = []
     }
@@ -48,10 +67,10 @@ var CalDashApp = React.createClass({
         </div>
         <div className="row">
           <FullCalendar onChangeDayView={this.changeDayView} />
-          <GoogleMapSection locationInput={this.state.locationInput}/>
+          <GoogleMapSection newGeoLocationResult={this.state.newGeoLocationResult} locationInput={this.state.locationInput}/>
         </div>
         <div className="row">
-          <AddNewEventSection newPredictions={this.state.predictions} selectedDay={this.state.selectedDay} onLocationInputChange={this.retrieveMapPredictions} onAddEvent={this.addToScheduledEvents}/>
+          <AddNewEventSection onLocationSelected={this.retrieveGeoLocation} newPredictions={this.state.predictions} selectedDay={this.state.selectedDay} onLocationInputChange={this.retrieveMapPredictions} onAddEvent={this.addToScheduledEvents}/>
           <ScheduledEvents data={this.state.data} />
         </div>
       </div>

@@ -7,9 +7,8 @@ var GoogleMapSection = React.createClass({
   initialize: function() {
     var mapOptions = {
       zoom: 14
-    };
-    var map;
-    if (!this.state.map) {
+    }, map = this.state.map;
+    if (!map) {
       map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
       this.setState({map: map});
       if(navigator.geolocation) {
@@ -29,6 +28,18 @@ var GoogleMapSection = React.createClass({
         // Browser doesn't support Geolocation
         this.handleNoGeolocation(map, false);
       }
+    }
+  },
+  displayNewGeoLocationResult: function() {
+    if (this.props.newGeoLocationResult) {
+      var map = this.state.map;
+      var result = this.props.newGeoLocationResult;
+      map.setCenter(result.geometry.location);
+      var marker = new google.maps.Marker({
+        map: map,
+        position: result.geometry.location,
+        title: result.formatted_address
+      });
     }
   },
   handleNoGeolocation: function(map, errorFlag) {
@@ -57,6 +68,7 @@ var GoogleMapSection = React.createClass({
     this.initialize();
   },
   render: function() {
+    this.displayNewGeoLocationResult();
     return (
       <div id="map-canvas" className="google-map-section col-6" onClick={this.autoResize}></div>
     );
