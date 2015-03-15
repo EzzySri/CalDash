@@ -23,15 +23,15 @@ var GoogleMapSection = React.createClass({
           });
           map.setCenter(pos);
         }, function() {
-          handleNoGeolocation(true);
-        });
+          this.handleNoGeolocation(map, true);
+        }.bind(this));
       } else {
         // Browser doesn't support Geolocation
-        handleNoGeolocation(false);
+        this.handleNoGeolocation(map, false);
       }
     }
   },
-  handleNoGeolocation: function(errorFlag) {
+  handleNoGeolocation: function(map, errorFlag) {
     if (errorFlag) {
       var content = 'Error: The Geolocation service failed.';
     } else {
@@ -42,6 +42,7 @@ var GoogleMapSection = React.createClass({
       position: new google.maps.LatLng(60, 105),
       content: content
     };
+    
 
     var infowindow = new google.maps.InfoWindow(options);
     map.setCenter(options.position);
@@ -57,7 +58,7 @@ var GoogleMapSection = React.createClass({
   },
   render: function() {
     return (
-      <div id="map-canvas" className="google-map-section col-1-2" onClick={this.autoResize}></div>
+      <div id="map-canvas" className="google-map-section col-6" onClick={this.autoResize}></div>
     );
   }
 });

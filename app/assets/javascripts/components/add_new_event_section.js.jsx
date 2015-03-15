@@ -92,21 +92,21 @@ var AddNewEventSection = React.createClass({
     });
     var notMandatorySection = (
       <div className="not-mandatory-section">
-        <div className="borderless-field-container col-1-1">
-          <div className="duration-text col-1-3 vert-ctr">For how long?</div>
-          <div className="duration-container col-2-3">
+        <div className="borderless-field-container col-sm-12">
+          <div className="duration-text col-sm-4 vert-ctr">For how long?</div>
+          <div className="duration-container col-sm-8">
             <select ref="duration" className="event-duration-select">
               {durationOptions}
             </select>
           </div>
         </div>
-        <div className="borderless-field-container col-1-1">
-          <div className="before-filter-text col-1-4 vert-ctr">Before:</div>
-          <select ref="beforeTime" className="before-filter-select col-1-4">
+        <div className="borderless-field-container col-sm-12">
+          <div className="before-filter-text col-sm-3 vert-ctr">Before:</div>
+          <select ref="beforeTime" className="before-filter-select col-sm-3">
             {timeOptions}
           </select>
-          <div className="after-filter-text col-1-4 vert-ctr">After:</div>
-          <select ref="afterTime" className="after-filter-select col-1-4">
+          <div className="after-filter-text col-sm-3 vert-ctr">After:</div>
+          <select ref="afterTime" className="after-filter-select col-sm-3">
             {timeOptions}
           </select>
         </div>
@@ -114,17 +114,17 @@ var AddNewEventSection = React.createClass({
     ); 
     var mandatorySection = (
       <div className="not-mandatory-section">
-        <div className="borderless-field-container col-1-1">
-          <div className="from-time-text col-1-4 vert-ctr">From:</div>
-          <select ref="fromTime" className="from-time-select col-1-4">
+        <div className="borderless-field-container col-sm-12">
+          <div className="from-time-text col-sm-3 vert-ctr"> From: </div>
+          <select ref="fromTime" className="from-time-select col-sm-3">
             {timeOptions}
           </select>
-          <div className="to-time-text col-1-4 vert-ctr">To:</div>
-          <select ref="toTime" className="to-time-select col-1-4">
+          <div className="to-time-text col-sm-3 vert-ctr">To:</div>
+          <select ref="toTime" className="to-time-select col-sm-3">
             {timeOptions}
           </select>
         </div>
-        <div className="borderless-field-container col-1-1">
+        <div className="borderless-field-container col-sm-12">
           <div className="event-day-list">
             <ul onClick={this.handleForWhichDays} className="day-container">
               <li>Sun.</li>
@@ -153,7 +153,7 @@ var AddNewEventSection = React.createClass({
     });
 
     return (
-      <div className="add-new-event-container col-1-2">
+      <div className="add-new-event-container col-sm-6">
         <form onSubmit={this.handleSubmit}>
           <div>
             <input className="generic-field-container" type="text" placeholder="Event Name" ref="eventName" />
@@ -164,10 +164,10 @@ var AddNewEventSection = React.createClass({
           <ul ref="predictionList" onClick={this.handleLocationChoice} className="prediction-list no-list-style">
             {newPreds}
           </ul>
-          <div className="borderless-field-container col-1-1">
-            <div className="is-mandatory-text col-1-3 vert-ctr" onClick={this.toggleTimeInputMenus}>Mandatory Event?</div>
-            <button className="col-1-3 inline-field-container vert-ctr merge-right-border" type="button" onClick={this.isMandatory}>Yes</button>
-            <button className="col-1-3 inline-field-container vert-ctr" type="button" onClick={this.isNotMandatory}>No</button>
+          <div className="borderless-field-container col-sm-12">
+            <div className="is-mandatory-text col-sm-4 vert-ctr" onClick={this.toggleTimeInputMenus}>Mandatory Event?</div>
+            <button className="col-sm-4 inline-field-container vert-ctr merge-right-border" type="button" onClick={this.isMandatory}>Yes</button>
+            <button className="col-sm-4 inline-field-container vert-ctr" type="button" onClick={this.isNotMandatory}>No</button>
           </div>
           {timeRangeSection}
           <div>
