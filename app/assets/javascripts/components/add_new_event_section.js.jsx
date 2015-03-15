@@ -27,7 +27,8 @@ var AddNewEventSection = React.createClass({
         title: title,
         duration: moment.duration(parseInt(this.refs.duration.getDOMNode().value)),
         start: momentBefore, 
-        end: momentAfter
+        end: momentAfter,
+        location: this.state.location
       }
     }
     eventSource["mandatory"] = this.state.mandatory;

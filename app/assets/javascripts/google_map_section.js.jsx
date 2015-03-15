@@ -68,6 +68,7 @@ var GoogleMapSection = React.createClass({
     this.initialize();
   },
   render: function() {
+    // this looks like a hack
     this.displayNewGeoLocationResult();
     return (
       <div id="map-canvas" className="google-map-section col-6" onClick={this.autoResize}></div>
