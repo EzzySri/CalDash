@@ -15,16 +15,21 @@ var CalDashApp = React.createClass({
     this.setState({selectedDay:date});
   },
   retrieveMapPredictions: function(loc) {
-    var service;
-    if (!this.state.locationService) {
+    var service = this.state.locationService,
+        new_states = {};
+
+    if (!service) {
       service = new google.maps.places.AutocompleteService();
-      this.setState({locationService: service});
+      new_states["locationService"] = service;
     }
+
     if (loc != "") {
       this.state.locationService.getQueryPredictions({input: loc}, this.sendPredictions);
     } else {
-      this.setState({predictions: []});  
+      new_states['predictions'] = []
     }
+
+    this.setState(new_states);
   },
   sendPredictions: function(predictions, status) {
     if (status != google.maps.places.PlacesServiceStatus.OK) {
@@ -35,17 +40,17 @@ var CalDashApp = React.createClass({
   },
   render: function() {
     return (
-      <div className="index-container">
-        <div className="grid">
+      <div className="container">
+        <div className="row">
           <div className="fr">
             <UserProfile url="test_user_profile.json"/>
           </div>
         </div>
-        <div className="grid">
+        <div className="row">
           <FullCalendar onChangeDayView={this.changeDayView} />
           <GoogleMapSection locationInput={this.state.locationInput}/>
         </div>
-        <div className="grid">
+        <div className="row">
           <AddNewEventSection newPredictions={this.state.predictions} selectedDay={this.state.selectedDay} onLocationInputChange={this.retrieveMapPredictions} onAddEvent={this.addToScheduledEvents}/>
           <ScheduledEvents data={this.state.data} />
         </div>
@@ -54,7 +59,10 @@ var CalDashApp = React.createClass({
   }
 });
 
-React.render(
-  <CalDashApp />,
-  document.getElementById('content')
-);
+
+$(document).ready(function () {
+  React.render(
+    <CalDashApp />,
+    document.getElementById('content')
+  );
+});

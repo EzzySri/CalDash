@@ -28,6 +28,9 @@ gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
 gem 'showdown-rails'
 gem 'gon'
 
+gem 'bootstrap-sass'
+gem 'bootstrap_form', '2.3.0'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
