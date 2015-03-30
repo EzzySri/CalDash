@@ -35419,3 +35419,2187 @@ ActionView::Template::Error (undefined method `session_path' for #<#<Class:0x007
             FROM sqlite_temp_master
             WHERE name='index_users_on_email' AND type='index'
 
+
+
+Started GET "/" for ::1 at 2015-03-15 16:39:26 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 258ms (Views: 250.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/events-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/event_assignments-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/common-6149222f65eea88f059b402e663cf1de.css?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/index-1612f49a5339c274f3a7f9b7716fd9f7.css?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/scaffolds-25548664cb85111afbd7b3977bdd1cbf.css?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/application-7e82bcf63948f4b0878b3f51a331ee9d.css?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/rails_bootstrap_forms-85a44da0cf14906976bde10ea0a42bbc.css?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/react-5e1c7bb66b207efc7c85ac036613963d.js?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/react_ujs-e7ae57f0e36228fde92f3ba11130626f.js?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/components/full_calendar-2b15050350a142a210bad6acb3e92203.js?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/components/add_new_event_section-0ed2551385d05855ab932bba645661bf.js?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/components/user_profile-1c6e42c3beecf028a69e9480d896fa45.js?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/components-59a1fc69bb08a397623217a23c355b85.js?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/event_assignments-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/events-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/google_map_section-fbd00f9d95a12e2bb069e3aa96fbc578.js?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/index-3de31dbaebecf7c0a519d81a8bc07851.js?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/scheduled_events-64ac84799c1c45a952b467638ee67447.js?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/tutorial-86e25c41b307ffe2e122abff92d7de1f.js?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/moment/moment-66988874bf5714cb1e4a6f53d733b6e1.js?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/jquery/dist/jquery-f6430688c576903899df06242228577b.js?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar-9ff3706de7f58b87cc7b58df9a22ca0d.js?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/moment-duration-format/lib/moment-duration-format-b3a83b88c003dfd9aec608f738221025.js?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/application-a5015e9e51c85d0444c77ad1a491e1fa.js?body=1" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/collapsed_menu.png" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-15 16:39:27 -0700
+
+
+Started GET "/" for ::1 at 2015-03-15 16:49:43 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.2ms)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/common.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/common.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_mixins.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_mixins.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/common.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/common.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_mixins.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_mixins.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+Completed 200 OK in 3215ms (Views: 3214.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/index-017213ed3b0f55d00f279aa2ceb532ce.css?body=1" for ::1 at 2015-03-15 16:49:46 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 16:49:46 -0700
+
+
+Started GET "/assets/common-6149222f65eea88f059b402e663cf1de.css?body=1" for ::1 at 2015-03-15 16:49:46 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/components/add_new_event_section-1f8f56f29044a76d34b95ae20641bef6.js?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/application-f6c28070814cc75e650b3ce38ebb4724.css?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/event_assignments-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/events-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/scaffolds-25548664cb85111afbd7b3977bdd1cbf.css?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/rails_bootstrap_forms-85a44da0cf14906976bde10ea0a42bbc.css?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/components-b83a5dee7b3c21c5f1171d97117d2105.js?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/application-e54cf853a78871162389b47361cac239.js?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/react-5e1c7bb66b207efc7c85ac036613963d.js?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/react_ujs-e7ae57f0e36228fde92f3ba11130626f.js?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/components/full_calendar-2b15050350a142a210bad6acb3e92203.js?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/components/user_profile-1c6e42c3beecf028a69e9480d896fa45.js?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/event_assignments-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/events-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/google_map_section-fbd00f9d95a12e2bb069e3aa96fbc578.js?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/index-3de31dbaebecf7c0a519d81a8bc07851.js?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/scheduled_events-64ac84799c1c45a952b467638ee67447.js?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/tutorial-86e25c41b307ffe2e122abff92d7de1f.js?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/jquery/dist/jquery-f6430688c576903899df06242228577b.js?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/moment/moment-66988874bf5714cb1e4a6f53d733b6e1.js?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar-9ff3706de7f58b87cc7b58df9a22ca0d.js?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/moment-duration-format/lib/moment-duration-format-b3a83b88c003dfd9aec608f738221025.js?body=1" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/collapsed_menu.png" for ::1 at 2015-03-15 16:49:47 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 16:49:48 -0700
+
+
+Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-15 16:49:48 -0700
+
+
+Started GET "/" for ::1 at 2015-03-15 16:56:11 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.2ms)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/common.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/common.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_mixins.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_mixins.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/common.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/common.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_mixins.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_mixins.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+Completed 200 OK in 3232ms (Views: 3231.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/index-34d01712a6e0463495922055c78e106c.css?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/application-be75dc38036a40f70671735a182e81ef.css?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/common-6149222f65eea88f059b402e663cf1de.css?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/event_assignments-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/events-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/scaffolds-25548664cb85111afbd7b3977bdd1cbf.css?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/rails_bootstrap_forms-85a44da0cf14906976bde10ea0a42bbc.css?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/scheduled_events-adf66b7be8f5375b39aee6fd227b1469.js?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/application-5c3370fc81ec93e624f7c3304d444785.js?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/react-5e1c7bb66b207efc7c85ac036613963d.js?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/components/add_new_event_section-1f8f56f29044a76d34b95ae20641bef6.js?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/react_ujs-e7ae57f0e36228fde92f3ba11130626f.js?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/components/full_calendar-2b15050350a142a210bad6acb3e92203.js?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/components/user_profile-1c6e42c3beecf028a69e9480d896fa45.js?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/components-b83a5dee7b3c21c5f1171d97117d2105.js?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/event_assignments-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/events-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/google_map_section-fbd00f9d95a12e2bb069e3aa96fbc578.js?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/index-3de31dbaebecf7c0a519d81a8bc07851.js?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/tutorial-86e25c41b307ffe2e122abff92d7de1f.js?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/moment/moment-66988874bf5714cb1e4a6f53d733b6e1.js?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar-9ff3706de7f58b87cc7b58df9a22ca0d.js?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/jquery/dist/jquery-f6430688c576903899df06242228577b.js?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/moment-duration-format/lib/moment-duration-format-b3a83b88c003dfd9aec608f738221025.js?body=1" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 16:56:14 -0700
+
+
+Started GET "/assets/collapsed_menu.png" for ::1 at 2015-03-15 16:56:15 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 16:56:15 -0700
+
+
+Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-15 16:56:15 -0700
+
+
+Started GET "/" for ::1 at 2015-03-15 16:58:46 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 339ms (Views: 338.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-15 16:58:46 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 16:58:46 -0700
+
+
+Started GET "/assets/events-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 16:58:46 -0700
+
+
+Started GET "/assets/common-6149222f65eea88f059b402e663cf1de.css?body=1" for ::1 at 2015-03-15 16:58:46 -0700
+
+
+Started GET "/assets/event_assignments-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 16:58:46 -0700
+
+
+Started GET "/assets/index-34d01712a6e0463495922055c78e106c.css?body=1" for ::1 at 2015-03-15 16:58:46 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 16:58:46 -0700
+
+
+Started GET "/assets/scaffolds-25548664cb85111afbd7b3977bdd1cbf.css?body=1" for ::1 at 2015-03-15 16:58:46 -0700
+
+
+Started GET "/assets/application-be75dc38036a40f70671735a182e81ef.css?body=1" for ::1 at 2015-03-15 16:58:46 -0700
+
+
+Started GET "/assets/rails_bootstrap_forms-85a44da0cf14906976bde10ea0a42bbc.css?body=1" for ::1 at 2015-03-15 16:58:46 -0700
+
+
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for ::1 at 2015-03-15 16:58:46 -0700
+
+
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for ::1 at 2015-03-15 16:58:46 -0700
+
+
+Started GET "/assets/react-5e1c7bb66b207efc7c85ac036613963d.js?body=1" for ::1 at 2015-03-15 16:58:46 -0700
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for ::1 at 2015-03-15 16:58:46 -0700
+
+
+Started GET "/assets/scheduled_events-9c2f5f9a7ce1d14405e1865604993f33.js?body=1" for ::1 at 2015-03-15 16:58:46 -0700
+
+
+Started GET "/assets/react_ujs-e7ae57f0e36228fde92f3ba11130626f.js?body=1" for ::1 at 2015-03-15 16:58:46 -0700
+
+
+Started GET "/assets/components/add_new_event_section-1f8f56f29044a76d34b95ae20641bef6.js?body=1" for ::1 at 2015-03-15 16:58:46 -0700
+
+
+Started GET "/assets/components/full_calendar-2b15050350a142a210bad6acb3e92203.js?body=1" for ::1 at 2015-03-15 16:58:46 -0700
+
+
+Started GET "/assets/components/user_profile-1c6e42c3beecf028a69e9480d896fa45.js?body=1" for ::1 at 2015-03-15 16:58:46 -0700
+
+
+Started GET "/assets/components-b83a5dee7b3c21c5f1171d97117d2105.js?body=1" for ::1 at 2015-03-15 16:58:46 -0700
+
+
+Started GET "/assets/application-73494b8dc311f91c8b3b0fddc29b2a8c.js?body=1" for ::1 at 2015-03-15 16:58:46 -0700
+
+
+Started GET "/assets/event_assignments-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 16:58:47 -0700
+
+
+Started GET "/assets/events-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 16:58:47 -0700
+
+
+Started GET "/assets/google_map_section-fbd00f9d95a12e2bb069e3aa96fbc578.js?body=1" for ::1 at 2015-03-15 16:58:47 -0700
+
+
+Started GET "/assets/index-3de31dbaebecf7c0a519d81a8bc07851.js?body=1" for ::1 at 2015-03-15 16:58:47 -0700
+
+
+Started GET "/assets/tutorial-86e25c41b307ffe2e122abff92d7de1f.js?body=1" for ::1 at 2015-03-15 16:58:47 -0700
+
+
+Started GET "/assets/jquery/dist/jquery-f6430688c576903899df06242228577b.js?body=1" for ::1 at 2015-03-15 16:58:47 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar-9ff3706de7f58b87cc7b58df9a22ca0d.js?body=1" for ::1 at 2015-03-15 16:58:47 -0700
+
+
+Started GET "/assets/moment/moment-66988874bf5714cb1e4a6f53d733b6e1.js?body=1" for ::1 at 2015-03-15 16:58:47 -0700
+
+
+Started GET "/assets/moment-duration-format/lib/moment-duration-format-b3a83b88c003dfd9aec608f738221025.js?body=1" for ::1 at 2015-03-15 16:58:47 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 16:58:47 -0700
+
+
+Started GET "/assets/collapsed_menu.png" for ::1 at 2015-03-15 16:58:47 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 16:58:47 -0700
+
+
+Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-15 16:58:47 -0700
+
+
+Started GET "/" for ::1 at 2015-03-15 17:00:26 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.2ms)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/common.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/common.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_mixins.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_mixins.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/common.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/common.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_mixins.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_mixins.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+Completed 200 OK in 3361ms (Views: 3360.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/index-96ac25e44d7e9a5876f9bd36662e1944.css?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/application-94d2240a200c75964139f2ad507cd2dc.css?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/common-6149222f65eea88f059b402e663cf1de.css?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/event_assignments-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/events-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/scaffolds-25548664cb85111afbd7b3977bdd1cbf.css?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/rails_bootstrap_forms-85a44da0cf14906976bde10ea0a42bbc.css?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/scheduled_events-7166e09ef59d8fd284d4beaaf07e6959.js?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/application-a122fbccdda0d026ba54eae41835c68d.js?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/react-5e1c7bb66b207efc7c85ac036613963d.js?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/react_ujs-e7ae57f0e36228fde92f3ba11130626f.js?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/components/add_new_event_section-1f8f56f29044a76d34b95ae20641bef6.js?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/components/full_calendar-2b15050350a142a210bad6acb3e92203.js?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/components/user_profile-1c6e42c3beecf028a69e9480d896fa45.js?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/components-b83a5dee7b3c21c5f1171d97117d2105.js?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/event_assignments-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/events-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/google_map_section-fbd00f9d95a12e2bb069e3aa96fbc578.js?body=1" for ::1 at 2015-03-15 17:00:29 -0700
+
+
+Started GET "/assets/index-3de31dbaebecf7c0a519d81a8bc07851.js?body=1" for ::1 at 2015-03-15 17:00:30 -0700
+
+
+Started GET "/assets/tutorial-86e25c41b307ffe2e122abff92d7de1f.js?body=1" for ::1 at 2015-03-15 17:00:30 -0700
+
+
+Started GET "/assets/moment/moment-66988874bf5714cb1e4a6f53d733b6e1.js?body=1" for ::1 at 2015-03-15 17:00:30 -0700
+
+
+Started GET "/assets/jquery/dist/jquery-f6430688c576903899df06242228577b.js?body=1" for ::1 at 2015-03-15 17:00:30 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar-9ff3706de7f58b87cc7b58df9a22ca0d.js?body=1" for ::1 at 2015-03-15 17:00:30 -0700
+
+
+Started GET "/assets/moment-duration-format/lib/moment-duration-format-b3a83b88c003dfd9aec608f738221025.js?body=1" for ::1 at 2015-03-15 17:00:30 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:00:30 -0700
+
+
+Started GET "/assets/collapsed_menu.png" for ::1 at 2015-03-15 17:00:30 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:00:30 -0700
+
+
+Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-15 17:00:30 -0700
+
+
+Started GET "/" for ::1 at 2015-03-15 17:01:24 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.2ms)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/common.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/common.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_mixins.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_mixins.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/common.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/common.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_mixins.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_mixins.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.css.scss to /Users/fenglin/ReactWebsite/react_website/app/assets/stylesheets/custom_variables.scss. (called from _app_views_layouts_application_html_erb__2103619664360094361_2185448320 at /Users/fenglin/ReactWebsite/react_website/app/views/layouts/application.html.erb:12)
+Completed 200 OK in 3274ms (Views: 3273.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/index-8d2dfba57a4bf97aa547655033a628d2.css?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/common-6149222f65eea88f059b402e663cf1de.css?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/application-9a4708aa5dd800185d98cf3081516638.css?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/event_assignments-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/scaffolds-25548664cb85111afbd7b3977bdd1cbf.css?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/rails_bootstrap_forms-85a44da0cf14906976bde10ea0a42bbc.css?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/events-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/scheduled_events-eaa8fe4d2553fff09e1915de64c60ff6.js?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/application-09f2c1273858f4b228e1c48e858029dd.js?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/react-5e1c7bb66b207efc7c85ac036613963d.js?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/react_ujs-e7ae57f0e36228fde92f3ba11130626f.js?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/components/add_new_event_section-1f8f56f29044a76d34b95ae20641bef6.js?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/components/full_calendar-2b15050350a142a210bad6acb3e92203.js?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/components/user_profile-1c6e42c3beecf028a69e9480d896fa45.js?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/components-b83a5dee7b3c21c5f1171d97117d2105.js?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/event_assignments-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/google_map_section-fbd00f9d95a12e2bb069e3aa96fbc578.js?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/events-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/index-3de31dbaebecf7c0a519d81a8bc07851.js?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/tutorial-86e25c41b307ffe2e122abff92d7de1f.js?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/moment/moment-66988874bf5714cb1e4a6f53d733b6e1.js?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/jquery/dist/jquery-f6430688c576903899df06242228577b.js?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar-9ff3706de7f58b87cc7b58df9a22ca0d.js?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/moment-duration-format/lib/moment-duration-format-b3a83b88c003dfd9aec608f738221025.js?body=1" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:01:27 -0700
+
+
+Started GET "/assets/collapsed_menu.png" for ::1 at 2015-03-15 17:01:28 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:01:28 -0700
+
+
+Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-15 17:01:28 -0700
+
+
+Started GET "/" for ::1 at 2015-03-15 17:02:45 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 315ms (Views: 314.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/events-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/event_assignments-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/common-6149222f65eea88f059b402e663cf1de.css?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/index-8d2dfba57a4bf97aa547655033a628d2.css?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/scaffolds-25548664cb85111afbd7b3977bdd1cbf.css?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/application-9a4708aa5dd800185d98cf3081516638.css?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/scheduled_events-2d194b8c1abf38647f67a7ba7f5fe873.js?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/rails_bootstrap_forms-85a44da0cf14906976bde10ea0a42bbc.css?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/application-3eefe43d938bf68d18c696c167f268c1.js?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/react-5e1c7bb66b207efc7c85ac036613963d.js?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/react_ujs-e7ae57f0e36228fde92f3ba11130626f.js?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/components/add_new_event_section-1f8f56f29044a76d34b95ae20641bef6.js?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/components/full_calendar-2b15050350a142a210bad6acb3e92203.js?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/components/user_profile-1c6e42c3beecf028a69e9480d896fa45.js?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/components-b83a5dee7b3c21c5f1171d97117d2105.js?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/event_assignments-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/events-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/google_map_section-fbd00f9d95a12e2bb069e3aa96fbc578.js?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/index-3de31dbaebecf7c0a519d81a8bc07851.js?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/tutorial-86e25c41b307ffe2e122abff92d7de1f.js?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/moment/moment-66988874bf5714cb1e4a6f53d733b6e1.js?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/jquery/dist/jquery-f6430688c576903899df06242228577b.js?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar-9ff3706de7f58b87cc7b58df9a22ca0d.js?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/moment-duration-format/lib/moment-duration-format-b3a83b88c003dfd9aec608f738221025.js?body=1" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:02:45 -0700
+
+
+Started GET "/assets/collapsed_menu.png" for ::1 at 2015-03-15 17:02:46 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:02:46 -0700
+
+
+Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-15 17:02:46 -0700
+
+
+Started GET "/" for ::1 at 2015-03-15 17:10:07 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.2ms)
+Completed 500 Internal Server Error in 184ms (ActiveRecord: 0.0ms)
+
+ActionView::Template::Error (Error: Parse Error: Line 37: Unexpected token return
+  (in /Users/fenglin/ReactWebsite/react_website/app/assets/javascripts/scheduled_events.js.jsx)):
+    10:   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyB0EmPhb_aKaLjZMYVnMRe8XFR-3t9ZyfY&libraries=places"></script>
+    11:   <link rel='stylesheet' href='assets/fullcalendar/dist/fullcalendar.css' />
+    12:   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    13:   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    14:   <%= csrf_meta_tags %>
+    15: </head>
+    16: <body>
+  app/views/layouts/application.html.erb:13:in `_app_views_layouts_application_html_erb__2103619664360094361_2185448320'
+
+
+  Rendered /Users/fenglin/.rvm/gems/ruby-2.1.0@react_website/gems/actionpack-4.2.1.rc3/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.8ms)
+  Rendered /Users/fenglin/.rvm/gems/ruby-2.1.0@react_website/gems/actionpack-4.2.1.rc3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.2ms)
+  Rendered /Users/fenglin/.rvm/gems/ruby-2.1.0@react_website/gems/actionpack-4.2.1.rc3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.7ms)
+  Rendered /Users/fenglin/.rvm/gems/ruby-2.1.0@react_website/gems/actionpack-4.2.1.rc3/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (20.4ms)
+  Rendered /Users/fenglin/.rvm/gems/ruby-2.1.0@react_website/gems/web-console-2.1.0/lib/web_console/templates/_markup.html (0.2ms)
+  Rendered /Users/fenglin/.rvm/gems/ruby-2.1.0@react_website/gems/web-console-2.1.0/lib/web_console/templates/style.css within layouts/inlined_string (0.2ms)
+  Rendered /Users/fenglin/.rvm/gems/ruby-2.1.0@react_website/gems/web-console-2.1.0/lib/web_console/templates/_inner_console_markup.html within layouts/inlined_string (0.2ms)
+  Rendered /Users/fenglin/.rvm/gems/ruby-2.1.0@react_website/gems/web-console-2.1.0/lib/web_console/templates/_prompt_box_markup.html within layouts/inlined_string (0.3ms)
+  Rendered /Users/fenglin/.rvm/gems/ruby-2.1.0@react_website/gems/web-console-2.1.0/lib/web_console/templates/console.js within layouts/javascript (12.7ms)
+  Rendered /Users/fenglin/.rvm/gems/ruby-2.1.0@react_website/gems/web-console-2.1.0/lib/web_console/templates/main.js within layouts/javascript (0.2ms)
+  Rendered /Users/fenglin/.rvm/gems/ruby-2.1.0@react_website/gems/web-console-2.1.0/lib/web_console/templates/error_page.js within layouts/javascript (0.3ms)
+  Rendered /Users/fenglin/.rvm/gems/ruby-2.1.0@react_website/gems/web-console-2.1.0/lib/web_console/templates/index.html (29.5ms)
+
+
+Started GET "/" for ::1 at 2015-03-15 17:10:21 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 321ms (Views: 320.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-15 17:10:21 -0700
+
+
+Started GET "/assets/event_assignments-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:10:21 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:10:21 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:10:21 -0700
+
+
+Started GET "/assets/common-6149222f65eea88f059b402e663cf1de.css?body=1" for ::1 at 2015-03-15 17:10:21 -0700
+
+
+Started GET "/assets/events-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:10:21 -0700
+
+
+Started GET "/assets/index-8d2dfba57a4bf97aa547655033a628d2.css?body=1" for ::1 at 2015-03-15 17:10:21 -0700
+
+
+Started GET "/assets/scaffolds-25548664cb85111afbd7b3977bdd1cbf.css?body=1" for ::1 at 2015-03-15 17:10:21 -0700
+
+
+Started GET "/assets/application-9a4708aa5dd800185d98cf3081516638.css?body=1" for ::1 at 2015-03-15 17:10:21 -0700
+
+
+Started GET "/assets/rails_bootstrap_forms-85a44da0cf14906976bde10ea0a42bbc.css?body=1" for ::1 at 2015-03-15 17:10:21 -0700
+
+
+Started GET "/assets/scheduled_events-c000d6d552769c6e6009f63828670d25.js?body=1" for ::1 at 2015-03-15 17:10:21 -0700
+
+
+Started GET "/assets/application-80a5bd2093f16700fab912681e0cf62c.js?body=1" for ::1 at 2015-03-15 17:10:21 -0700
+
+
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/assets/react-5e1c7bb66b207efc7c85ac036613963d.js?body=1" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/assets/react_ujs-e7ae57f0e36228fde92f3ba11130626f.js?body=1" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/assets/components/add_new_event_section-1f8f56f29044a76d34b95ae20641bef6.js?body=1" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/assets/components/full_calendar-2b15050350a142a210bad6acb3e92203.js?body=1" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/assets/components-b83a5dee7b3c21c5f1171d97117d2105.js?body=1" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/assets/components/user_profile-1c6e42c3beecf028a69e9480d896fa45.js?body=1" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/assets/event_assignments-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/assets/events-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/assets/google_map_section-fbd00f9d95a12e2bb069e3aa96fbc578.js?body=1" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/assets/index-3de31dbaebecf7c0a519d81a8bc07851.js?body=1" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/assets/tutorial-86e25c41b307ffe2e122abff92d7de1f.js?body=1" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/assets/moment/moment-66988874bf5714cb1e4a6f53d733b6e1.js?body=1" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar-9ff3706de7f58b87cc7b58df9a22ca0d.js?body=1" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/assets/jquery/dist/jquery-f6430688c576903899df06242228577b.js?body=1" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/assets/moment-duration-format/lib/moment-duration-format-b3a83b88c003dfd9aec608f738221025.js?body=1" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/assets/collapsed_menu.png" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-15 17:10:22 -0700
+
+
+Started GET "/" for ::1 at 2015-03-15 17:24:55 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 339ms (Views: 337.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/events-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/common-6149222f65eea88f059b402e663cf1de.css?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/event_assignments-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/index-8d2dfba57a4bf97aa547655033a628d2.css?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/scaffolds-25548664cb85111afbd7b3977bdd1cbf.css?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/application-9a4708aa5dd800185d98cf3081516638.css?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/rails_bootstrap_forms-85a44da0cf14906976bde10ea0a42bbc.css?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/scheduled_events-742e5b8796433f06386e1607d25e69b5.js?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/react-5e1c7bb66b207efc7c85ac036613963d.js?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/application-9d049b152c030bd2612dcf195e03167e.js?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/react_ujs-e7ae57f0e36228fde92f3ba11130626f.js?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/components/add_new_event_section-1f8f56f29044a76d34b95ae20641bef6.js?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/components/full_calendar-2b15050350a142a210bad6acb3e92203.js?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/components/user_profile-1c6e42c3beecf028a69e9480d896fa45.js?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/components-b83a5dee7b3c21c5f1171d97117d2105.js?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/events-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/event_assignments-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/google_map_section-fbd00f9d95a12e2bb069e3aa96fbc578.js?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/index-3de31dbaebecf7c0a519d81a8bc07851.js?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/moment/moment-66988874bf5714cb1e4a6f53d733b6e1.js?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/tutorial-86e25c41b307ffe2e122abff92d7de1f.js?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/jquery/dist/jquery-f6430688c576903899df06242228577b.js?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar-9ff3706de7f58b87cc7b58df9a22ca0d.js?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/moment-duration-format/lib/moment-duration-format-b3a83b88c003dfd9aec608f738221025.js?body=1" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/collapsed_menu.png" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-15 17:24:56 -0700
+
+
+Started GET "/" for ::1 at 2015-03-15 17:28:30 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 423ms (Views: 422.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/common-6149222f65eea88f059b402e663cf1de.css?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/event_assignments-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/events-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/index-8d2dfba57a4bf97aa547655033a628d2.css?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/scaffolds-25548664cb85111afbd7b3977bdd1cbf.css?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/application-9a4708aa5dd800185d98cf3081516638.css?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/rails_bootstrap_forms-85a44da0cf14906976bde10ea0a42bbc.css?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/scheduled_events-2c5ddeeeaa96d792ce212e7ed30657ed.js?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/application-4ca53ec645a67efb11ad46815c6f2f9e.js?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/react-5e1c7bb66b207efc7c85ac036613963d.js?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/react_ujs-e7ae57f0e36228fde92f3ba11130626f.js?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/components/add_new_event_section-1f8f56f29044a76d34b95ae20641bef6.js?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/components/full_calendar-2b15050350a142a210bad6acb3e92203.js?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/components/user_profile-1c6e42c3beecf028a69e9480d896fa45.js?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/components-b83a5dee7b3c21c5f1171d97117d2105.js?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/event_assignments-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/events-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/google_map_section-fbd00f9d95a12e2bb069e3aa96fbc578.js?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/tutorial-86e25c41b307ffe2e122abff92d7de1f.js?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/index-3de31dbaebecf7c0a519d81a8bc07851.js?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/moment/moment-66988874bf5714cb1e4a6f53d733b6e1.js?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/jquery/dist/jquery-f6430688c576903899df06242228577b.js?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar-9ff3706de7f58b87cc7b58df9a22ca0d.js?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/moment-duration-format/lib/moment-duration-format-b3a83b88c003dfd9aec608f738221025.js?body=1" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/collapsed_menu.png" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:28:31 -0700
+
+
+Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-15 17:28:32 -0700
+
+
+Started GET "/" for ::1 at 2015-03-15 17:28:54 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 210ms (Views: 209.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/common-6149222f65eea88f059b402e663cf1de.css?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/event_assignments-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/index-8d2dfba57a4bf97aa547655033a628d2.css?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/events-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/scaffolds-25548664cb85111afbd7b3977bdd1cbf.css?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/application-9a4708aa5dd800185d98cf3081516638.css?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/rails_bootstrap_forms-85a44da0cf14906976bde10ea0a42bbc.css?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/react-5e1c7bb66b207efc7c85ac036613963d.js?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/react_ujs-e7ae57f0e36228fde92f3ba11130626f.js?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/components/add_new_event_section-1f8f56f29044a76d34b95ae20641bef6.js?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/components/full_calendar-2b15050350a142a210bad6acb3e92203.js?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/components/user_profile-1c6e42c3beecf028a69e9480d896fa45.js?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/components-b83a5dee7b3c21c5f1171d97117d2105.js?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/event_assignments-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/google_map_section-fbd00f9d95a12e2bb069e3aa96fbc578.js?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/events-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/index-3de31dbaebecf7c0a519d81a8bc07851.js?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/scheduled_events-2c5ddeeeaa96d792ce212e7ed30657ed.js?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/tutorial-86e25c41b307ffe2e122abff92d7de1f.js?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/moment/moment-66988874bf5714cb1e4a6f53d733b6e1.js?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/jquery/dist/jquery-f6430688c576903899df06242228577b.js?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar-9ff3706de7f58b87cc7b58df9a22ca0d.js?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/moment-duration-format/lib/moment-duration-format-b3a83b88c003dfd9aec608f738221025.js?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/application-4ca53ec645a67efb11ad46815c6f2f9e.js?body=1" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:28:54 -0700
+
+
+Started GET "/assets/collapsed_menu.png" for ::1 at 2015-03-15 17:28:55 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:28:55 -0700
+
+
+Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-15 17:28:55 -0700
+
+
+Started GET "/" for ::1 at 2015-03-15 17:29:05 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 150ms (Views: 149.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/common-6149222f65eea88f059b402e663cf1de.css?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/events-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/event_assignments-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/index-8d2dfba57a4bf97aa547655033a628d2.css?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/scaffolds-25548664cb85111afbd7b3977bdd1cbf.css?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/rails_bootstrap_forms-85a44da0cf14906976bde10ea0a42bbc.css?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/application-9a4708aa5dd800185d98cf3081516638.css?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/react-5e1c7bb66b207efc7c85ac036613963d.js?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/react_ujs-e7ae57f0e36228fde92f3ba11130626f.js?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/components/full_calendar-2b15050350a142a210bad6acb3e92203.js?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/components/add_new_event_section-1f8f56f29044a76d34b95ae20641bef6.js?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/components/user_profile-1c6e42c3beecf028a69e9480d896fa45.js?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/components-b83a5dee7b3c21c5f1171d97117d2105.js?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/event_assignments-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/events-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/google_map_section-fbd00f9d95a12e2bb069e3aa96fbc578.js?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/index-3de31dbaebecf7c0a519d81a8bc07851.js?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/scheduled_events-2c5ddeeeaa96d792ce212e7ed30657ed.js?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/tutorial-86e25c41b307ffe2e122abff92d7de1f.js?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/moment/moment-66988874bf5714cb1e4a6f53d733b6e1.js?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/jquery/dist/jquery-f6430688c576903899df06242228577b.js?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar-9ff3706de7f58b87cc7b58df9a22ca0d.js?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/moment-duration-format/lib/moment-duration-format-b3a83b88c003dfd9aec608f738221025.js?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/application-4ca53ec645a67efb11ad46815c6f2f9e.js?body=1" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/collapsed_menu.png" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-15 17:29:06 -0700
+
+
+Started GET "/" for ::1 at 2015-03-15 17:29:16 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 335ms (Views: 334.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-15 17:29:16 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/event_assignments-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/common-6149222f65eea88f059b402e663cf1de.css?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/index-8d2dfba57a4bf97aa547655033a628d2.css?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/events-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/scaffolds-25548664cb85111afbd7b3977bdd1cbf.css?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/rails_bootstrap_forms-85a44da0cf14906976bde10ea0a42bbc.css?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/application-9a4708aa5dd800185d98cf3081516638.css?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/scheduled_events-883f788f82680d5d35c33d12326fcda5.js?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/application-1e2e5b25a1de1559a0de29fca7820bff.js?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/react-5e1c7bb66b207efc7c85ac036613963d.js?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/react_ujs-e7ae57f0e36228fde92f3ba11130626f.js?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/components/add_new_event_section-1f8f56f29044a76d34b95ae20641bef6.js?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/components/user_profile-1c6e42c3beecf028a69e9480d896fa45.js?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/components/full_calendar-2b15050350a142a210bad6acb3e92203.js?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/components-b83a5dee7b3c21c5f1171d97117d2105.js?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/event_assignments-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/events-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/google_map_section-fbd00f9d95a12e2bb069e3aa96fbc578.js?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/index-3de31dbaebecf7c0a519d81a8bc07851.js?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/tutorial-86e25c41b307ffe2e122abff92d7de1f.js?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/moment/moment-66988874bf5714cb1e4a6f53d733b6e1.js?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/jquery/dist/jquery-f6430688c576903899df06242228577b.js?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar-9ff3706de7f58b87cc7b58df9a22ca0d.js?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/moment-duration-format/lib/moment-duration-format-b3a83b88c003dfd9aec608f738221025.js?body=1" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/collapsed_menu.png" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-15 17:29:17 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-15 17:30:12 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:30:12 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:30:12 -0700
+
+
+Started GET "/assets/common-6149222f65eea88f059b402e663cf1de.css?body=1" for ::1 at 2015-03-15 17:30:12 -0700
+
+
+Started GET "/assets/events-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:30:12 -0700
+
+
+Started GET "/assets/event_assignments-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:30:12 -0700
+
+
+Started GET "/assets/index-8d2dfba57a4bf97aa547655033a628d2.css?body=1" for ::1 at 2015-03-15 17:30:12 -0700
+
+
+Started GET "/assets/scaffolds-25548664cb85111afbd7b3977bdd1cbf.css?body=1" for ::1 at 2015-03-15 17:30:12 -0700
+
+
+Started GET "/assets/application-9a4708aa5dd800185d98cf3081516638.css?body=1" for ::1 at 2015-03-15 17:30:12 -0700
+
+
+Started GET "/assets/rails_bootstrap_forms-85a44da0cf14906976bde10ea0a42bbc.css?body=1" for ::1 at 2015-03-15 17:30:12 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-15 17:30:37 -0700
+
+
+Started GET "/assets/common-6149222f65eea88f059b402e663cf1de.css?body=1" for ::1 at 2015-03-15 17:30:37 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:30:37 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:30:37 -0700
+
+
+Started GET "/assets/event_assignments-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:30:37 -0700
+
+
+Started GET "/assets/events-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:30:37 -0700
+
+
+Started GET "/assets/index-8d2dfba57a4bf97aa547655033a628d2.css?body=1" for ::1 at 2015-03-15 17:30:37 -0700
+
+
+Started GET "/assets/scaffolds-25548664cb85111afbd7b3977bdd1cbf.css?body=1" for ::1 at 2015-03-15 17:30:37 -0700
+
+
+Started GET "/assets/application-9a4708aa5dd800185d98cf3081516638.css?body=1" for ::1 at 2015-03-15 17:30:37 -0700
+
+
+Started GET "/assets/rails_bootstrap_forms-85a44da0cf14906976bde10ea0a42bbc.css?body=1" for ::1 at 2015-03-15 17:30:37 -0700
+
+
+Started GET "/" for ::1 at 2015-03-15 17:31:41 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 242ms (Views: 241.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/event_assignments-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/common-6149222f65eea88f059b402e663cf1de.css?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/events-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/index-8d2dfba57a4bf97aa547655033a628d2.css?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/scaffolds-25548664cb85111afbd7b3977bdd1cbf.css?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/application-9a4708aa5dd800185d98cf3081516638.css?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/rails_bootstrap_forms-85a44da0cf14906976bde10ea0a42bbc.css?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/react-5e1c7bb66b207efc7c85ac036613963d.js?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/react_ujs-e7ae57f0e36228fde92f3ba11130626f.js?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/components/full_calendar-2b15050350a142a210bad6acb3e92203.js?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/components/add_new_event_section-1f8f56f29044a76d34b95ae20641bef6.js?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/components/user_profile-1c6e42c3beecf028a69e9480d896fa45.js?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/components-b83a5dee7b3c21c5f1171d97117d2105.js?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/event_assignments-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/events-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/index-3de31dbaebecf7c0a519d81a8bc07851.js?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/google_map_section-fbd00f9d95a12e2bb069e3aa96fbc578.js?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/scheduled_events-883f788f82680d5d35c33d12326fcda5.js?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/tutorial-86e25c41b307ffe2e122abff92d7de1f.js?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/moment/moment-66988874bf5714cb1e4a6f53d733b6e1.js?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/jquery/dist/jquery-f6430688c576903899df06242228577b.js?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar-9ff3706de7f58b87cc7b58df9a22ca0d.js?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/moment-duration-format/lib/moment-duration-format-b3a83b88c003dfd9aec608f738221025.js?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/application-1e2e5b25a1de1559a0de29fca7820bff.js?body=1" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/collapsed_menu.png" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-15 17:31:42 -0700
+
+
+Started GET "/" for ::1 at 2015-03-15 17:31:45 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 372ms (Views: 371.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/common-6149222f65eea88f059b402e663cf1de.css?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/events-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/event_assignments-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/index-8d2dfba57a4bf97aa547655033a628d2.css?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/application-9a4708aa5dd800185d98cf3081516638.css?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/scaffolds-25548664cb85111afbd7b3977bdd1cbf.css?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/rails_bootstrap_forms-85a44da0cf14906976bde10ea0a42bbc.css?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/react-5e1c7bb66b207efc7c85ac036613963d.js?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/react_ujs-e7ae57f0e36228fde92f3ba11130626f.js?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/components/add_new_event_section-1f8f56f29044a76d34b95ae20641bef6.js?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/components/full_calendar-2b15050350a142a210bad6acb3e92203.js?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/components/user_profile-1c6e42c3beecf028a69e9480d896fa45.js?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/components-b83a5dee7b3c21c5f1171d97117d2105.js?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/event_assignments-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/events-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/google_map_section-fbd00f9d95a12e2bb069e3aa96fbc578.js?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/index-3de31dbaebecf7c0a519d81a8bc07851.js?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/scheduled_events-2c5ddeeeaa96d792ce212e7ed30657ed.js?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/tutorial-86e25c41b307ffe2e122abff92d7de1f.js?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/moment/moment-66988874bf5714cb1e4a6f53d733b6e1.js?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/jquery/dist/jquery-f6430688c576903899df06242228577b.js?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar-9ff3706de7f58b87cc7b58df9a22ca0d.js?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/moment-duration-format/lib/moment-duration-format-b3a83b88c003dfd9aec608f738221025.js?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/application-4ca53ec645a67efb11ad46815c6f2f9e.js?body=1" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/collapsed_menu.png" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:31:46 -0700
+
+
+Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-15 17:31:47 -0700
+
+
+Started GET "/" for ::1 at 2015-03-15 17:32:09 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 158ms (Views: 157.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/common-6149222f65eea88f059b402e663cf1de.css?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/events-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/event_assignments-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/index-8d2dfba57a4bf97aa547655033a628d2.css?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/scaffolds-25548664cb85111afbd7b3977bdd1cbf.css?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/application-9a4708aa5dd800185d98cf3081516638.css?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/rails_bootstrap_forms-85a44da0cf14906976bde10ea0a42bbc.css?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/react-5e1c7bb66b207efc7c85ac036613963d.js?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/components/add_new_event_section-1f8f56f29044a76d34b95ae20641bef6.js?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/react_ujs-e7ae57f0e36228fde92f3ba11130626f.js?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/components/full_calendar-2b15050350a142a210bad6acb3e92203.js?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/components/user_profile-1c6e42c3beecf028a69e9480d896fa45.js?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/components-b83a5dee7b3c21c5f1171d97117d2105.js?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/event_assignments-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/google_map_section-fbd00f9d95a12e2bb069e3aa96fbc578.js?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/events-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/index-3de31dbaebecf7c0a519d81a8bc07851.js?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/scheduled_events-2c5ddeeeaa96d792ce212e7ed30657ed.js?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/tutorial-86e25c41b307ffe2e122abff92d7de1f.js?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/moment/moment-66988874bf5714cb1e4a6f53d733b6e1.js?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/jquery/dist/jquery-f6430688c576903899df06242228577b.js?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar-9ff3706de7f58b87cc7b58df9a22ca0d.js?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/moment-duration-format/lib/moment-duration-format-b3a83b88c003dfd9aec608f738221025.js?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/application-4ca53ec645a67efb11ad46815c6f2f9e.js?body=1" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:32:09 -0700
+
+
+Started GET "/assets/collapsed_menu.png" for ::1 at 2015-03-15 17:32:10 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:32:10 -0700
+
+
+Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-15 17:32:10 -0700
+
+
+Started GET "/" for ::1 at 2015-03-15 17:32:33 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 220ms (Views: 219.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/common-6149222f65eea88f059b402e663cf1de.css?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/events-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/event_assignments-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/scaffolds-25548664cb85111afbd7b3977bdd1cbf.css?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/index-8d2dfba57a4bf97aa547655033a628d2.css?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/application-9a4708aa5dd800185d98cf3081516638.css?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/rails_bootstrap_forms-85a44da0cf14906976bde10ea0a42bbc.css?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/react-5e1c7bb66b207efc7c85ac036613963d.js?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/components/add_new_event_section-1f8f56f29044a76d34b95ae20641bef6.js?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/react_ujs-e7ae57f0e36228fde92f3ba11130626f.js?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/components/full_calendar-2b15050350a142a210bad6acb3e92203.js?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/components-b83a5dee7b3c21c5f1171d97117d2105.js?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/components/user_profile-1c6e42c3beecf028a69e9480d896fa45.js?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/events-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/event_assignments-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/google_map_section-fbd00f9d95a12e2bb069e3aa96fbc578.js?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/index-3de31dbaebecf7c0a519d81a8bc07851.js?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/scheduled_events-2c5ddeeeaa96d792ce212e7ed30657ed.js?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/tutorial-86e25c41b307ffe2e122abff92d7de1f.js?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/moment/moment-66988874bf5714cb1e4a6f53d733b6e1.js?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/jquery/dist/jquery-f6430688c576903899df06242228577b.js?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar-9ff3706de7f58b87cc7b58df9a22ca0d.js?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/moment-duration-format/lib/moment-duration-format-b3a83b88c003dfd9aec608f738221025.js?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/application-4ca53ec645a67efb11ad46815c6f2f9e.js?body=1" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/collapsed_menu.png" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-15 17:32:34 -0700
+
+
+Started GET "/" for ::1 at 2015-03-15 17:32:37 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 152ms (Views: 151.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/event_assignments-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/events-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/common-6149222f65eea88f059b402e663cf1de.css?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/index-8d2dfba57a4bf97aa547655033a628d2.css?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/scaffolds-25548664cb85111afbd7b3977bdd1cbf.css?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/application-9a4708aa5dd800185d98cf3081516638.css?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/rails_bootstrap_forms-85a44da0cf14906976bde10ea0a42bbc.css?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/react-5e1c7bb66b207efc7c85ac036613963d.js?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/react_ujs-e7ae57f0e36228fde92f3ba11130626f.js?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/components/full_calendar-2b15050350a142a210bad6acb3e92203.js?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/components/add_new_event_section-1f8f56f29044a76d34b95ae20641bef6.js?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/components/user_profile-1c6e42c3beecf028a69e9480d896fa45.js?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/components-b83a5dee7b3c21c5f1171d97117d2105.js?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/event_assignments-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/events-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/google_map_section-fbd00f9d95a12e2bb069e3aa96fbc578.js?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/index-3de31dbaebecf7c0a519d81a8bc07851.js?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/scheduled_events-2c5ddeeeaa96d792ce212e7ed30657ed.js?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/tutorial-86e25c41b307ffe2e122abff92d7de1f.js?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/moment/moment-66988874bf5714cb1e4a6f53d733b6e1.js?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/jquery/dist/jquery-f6430688c576903899df06242228577b.js?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar-9ff3706de7f58b87cc7b58df9a22ca0d.js?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/moment-duration-format/lib/moment-duration-format-b3a83b88c003dfd9aec608f738221025.js?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/application-4ca53ec645a67efb11ad46815c6f2f9e.js?body=1" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:32:37 -0700
+
+
+Started GET "/assets/collapsed_menu.png" for ::1 at 2015-03-15 17:32:38 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:32:38 -0700
+
+
+Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-15 17:32:38 -0700
+
+
+Started GET "/" for ::1 at 2015-03-15 17:33:55 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 159ms (Views: 157.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar.css" for ::1 at 2015-03-15 17:33:55 -0700
+
+
+Started GET "/assets/event_assignments-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:33:55 -0700
+
+
+Started GET "/assets/events-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:33:55 -0700
+
+
+Started GET "/assets/custom_variables-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:33:55 -0700
+
+
+Started GET "/assets/custom_mixins-64e62ddc273c2f5847f30d698ca14b67.css?body=1" for ::1 at 2015-03-15 17:33:55 -0700
+
+
+Started GET "/assets/common-6149222f65eea88f059b402e663cf1de.css?body=1" for ::1 at 2015-03-15 17:33:55 -0700
+
+
+Started GET "/assets/index-8d2dfba57a4bf97aa547655033a628d2.css?body=1" for ::1 at 2015-03-15 17:33:55 -0700
+
+
+Started GET "/assets/scaffolds-25548664cb85111afbd7b3977bdd1cbf.css?body=1" for ::1 at 2015-03-15 17:33:55 -0700
+
+
+Started GET "/assets/application-9a4708aa5dd800185d98cf3081516638.css?body=1" for ::1 at 2015-03-15 17:33:55 -0700
+
+
+Started GET "/assets/rails_bootstrap_forms-85a44da0cf14906976bde10ea0a42bbc.css?body=1" for ::1 at 2015-03-15 17:33:55 -0700
+
+
+Started GET "/assets/jquery-87424c3c19e96d4fb033c10ebe21ec40.js?body=1" for ::1 at 2015-03-15 17:33:55 -0700
+
+
+Started GET "/assets/jquery_ujs-e27bd20a10d28155845a22d71ef94f2f.js?body=1" for ::1 at 2015-03-15 17:33:55 -0700
+
+
+Started GET "/assets/turbolinks-f87b3583ca50adb0488b031297f5580d.js?body=1" for ::1 at 2015-03-15 17:33:55 -0700
+
+
+Started GET "/assets/react-5e1c7bb66b207efc7c85ac036613963d.js?body=1" for ::1 at 2015-03-15 17:33:55 -0700
+
+
+Started GET "/assets/react_ujs-e7ae57f0e36228fde92f3ba11130626f.js?body=1" for ::1 at 2015-03-15 17:33:55 -0700
+
+
+Started GET "/assets/components/add_new_event_section-1f8f56f29044a76d34b95ae20641bef6.js?body=1" for ::1 at 2015-03-15 17:33:55 -0700
+
+
+Started GET "/assets/components/full_calendar-2b15050350a142a210bad6acb3e92203.js?body=1" for ::1 at 2015-03-15 17:33:55 -0700
+
+
+Started GET "/assets/components/user_profile-1c6e42c3beecf028a69e9480d896fa45.js?body=1" for ::1 at 2015-03-15 17:33:55 -0700
+
+
+Started GET "/assets/components-b83a5dee7b3c21c5f1171d97117d2105.js?body=1" for ::1 at 2015-03-15 17:33:55 -0700
+
+
+Started GET "/assets/events-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:33:56 -0700
+
+
+Started GET "/assets/event_assignments-fcec5b5a277ac7c20cc9f45a209a3bcd.js?body=1" for ::1 at 2015-03-15 17:33:56 -0700
+
+
+Started GET "/assets/google_map_section-fbd00f9d95a12e2bb069e3aa96fbc578.js?body=1" for ::1 at 2015-03-15 17:33:56 -0700
+
+
+Started GET "/assets/index-3de31dbaebecf7c0a519d81a8bc07851.js?body=1" for ::1 at 2015-03-15 17:33:56 -0700
+
+
+Started GET "/assets/scheduled_events-2c5ddeeeaa96d792ce212e7ed30657ed.js?body=1" for ::1 at 2015-03-15 17:33:56 -0700
+
+
+Started GET "/assets/tutorial-86e25c41b307ffe2e122abff92d7de1f.js?body=1" for ::1 at 2015-03-15 17:33:56 -0700
+
+
+Started GET "/assets/jquery/dist/jquery-f6430688c576903899df06242228577b.js?body=1" for ::1 at 2015-03-15 17:33:56 -0700
+
+
+Started GET "/assets/moment/moment-66988874bf5714cb1e4a6f53d733b6e1.js?body=1" for ::1 at 2015-03-15 17:33:56 -0700
+
+
+Started GET "/assets/fullcalendar/dist/fullcalendar-9ff3706de7f58b87cc7b58df9a22ca0d.js?body=1" for ::1 at 2015-03-15 17:33:56 -0700
+
+
+Started GET "/assets/moment-duration-format/lib/moment-duration-format-b3a83b88c003dfd9aec608f738221025.js?body=1" for ::1 at 2015-03-15 17:33:56 -0700
+
+
+Started GET "/assets/application-4ca53ec645a67efb11ad46815c6f2f9e.js?body=1" for ::1 at 2015-03-15 17:33:56 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:33:56 -0700
+
+
+Started GET "/assets/collapsed_menu.png" for ::1 at 2015-03-15 17:33:57 -0700
+
+
+Started GET "/assets/index.js" for ::1 at 2015-03-15 17:33:57 -0700
+
+
+Started GET "/assets/test_profile_image.svg" for ::1 at 2015-03-15 17:33:57 -0700

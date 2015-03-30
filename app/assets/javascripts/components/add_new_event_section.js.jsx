@@ -157,6 +157,14 @@ var AddNewEventSection = React.createClass({
       );
     });
 
+    var mandButtonClass = "col-sm-4 inline-field-container vert-ctr merge-right-border";
+    var notMandButtonClass = "col-sm-4 inline-field-container vert-ctr";
+    if (this.state.mandatory) {
+      mandButtonClass += " pressed";
+    } else {
+      notMandButtonClass += " pressed";
+    }
+
     return (
       <div className="add-new-event-container col-sm-6">
         <form onSubmit={this.handleSubmit}>
@@ -171,8 +179,8 @@ var AddNewEventSection = React.createClass({
           </ul>
           <div className="borderless-field-container col-sm-12">
             <div className="is-mandatory-text col-sm-4 vert-ctr" onClick={this.toggleTimeInputMenus}>Mandatory Event?</div>
-            <button className="col-sm-4 inline-field-container vert-ctr merge-right-border" type="button" onClick={this.isMandatory}>Yes</button>
-            <button className="col-sm-4 inline-field-container vert-ctr" type="button" onClick={this.isNotMandatory}>No</button>
+            <button className={mandButtonClass} type="button" onClick={this.isMandatory}>Yes</button>
+            <button className={notMandButtonClass} type="button" onClick={this.isNotMandatory}>No</button>
           </div>
           {timeRangeSection}
           <div>

@@ -1,4 +1,9 @@
 var ScheduledEvents = React.createClass({
+  showExtra: function(e) {
+    temp = e.target.parentNode.parentNode.childNodes[0].className;
+    temp = temp.substring(0, temp.length - 7);
+    e.target.parentNode.parentNode.childNodes[1].className = temp;
+  },
   render: function() {
     var timeFormat = "Do, h:mm a";
     var mandatoryEvents = [];
@@ -31,7 +36,8 @@ var ScheduledEvents = React.createClass({
 
     return (
       <div className="scheduled-events col-sm-6">
-        <div className="mandatory-section borderless-field-container event-title">
+        <div className="mandatory-section borderless-field-container event-title" onMouseOver={this.showExtra}>
+          <div className="extra-info inline-field-container inner-vert-ctr col-sm-3 hidden"><span>Mandatory</span></div>
           <div className="event-field inline-field-container inner-vert-ctr col-sm-3"><span>Title</span></div>
           <div className="event-field inline-field-container inner-vert-ctr col-sm-3"><span>From</span></div>
           <div className="event-field inline-field-container inner-vert-ctr col-sm-3"><span>To</span></div>
