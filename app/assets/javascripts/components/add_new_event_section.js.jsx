@@ -9,11 +9,19 @@ var AddNewEventSection = React.createClass({
   },
   handleAdd: function() {
     var eventSource, momentFrom, momentTo, momentBefore, momentAfter, eventDescription;
-    var title = this.refs.eventName.getDOMNode().value.trim(); 
+    var title = this.refs.eventName.getDOMNode().value.trim();
+    if (!title) {
+      this.props.didError("Title should not be left empty.");
+      return
+    }
     eventDescription = this.refs.eventDescription.getDOMNode().value.trim(); 
     if (this.state.mandatory) {
       momentFrom = moment(parseInt(this.refs.fromTime.getDOMNode().value));
       momentTo = moment(parseInt(this.refs.toTime.getDOMNode().value));
+      if (momentFrom >= momentTo) {
+        this.props.didError("Starting time should not be after or equal to ending time.");
+        return   
+      }
       eventSource = {
         title: title,
         start: momentFrom, 
@@ -24,6 +32,10 @@ var AddNewEventSection = React.createClass({
     } else {
       momentBefore = moment(parseInt(this.refs.beforeTime.getDOMNode().value));
       momentAfter = moment(parseInt(this.refs.afterTime.getDOMNode().value));
+      if (momentBefore <= momentAfter) {
+        this.props.didError("Before Estimate should not be less than or equal to After Estimate.");
+        return   
+      }
       eventSource = {
         title: title,
         duration: moment.duration(parseInt(this.refs.duration.getDOMNode().value)),

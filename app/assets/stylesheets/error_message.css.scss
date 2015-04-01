@@ -1,0 +1,24 @@
+@import "compass/css3";
+@import "common";
+@import "custom_variables";
+@import "custom_mixins";
+
+.error-message-enter {
+  height: 30px !important;
+  @include transition(all 2s ease);
+  @include transition-delay(5s);
+}
+.error-message-enter-active {
+  height: 0px !important;
+}
+
+.error-message-container {
+  position: absolute;
+  background-color: $task-button-hover-grey;
+  height: 0px;
+  color: white;
+  font-size: 12px;
+  padding-left: 15px;
+  padding-right: 15px;
+  overflow: hidden;
+}

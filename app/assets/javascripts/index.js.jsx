@@ -11,7 +11,9 @@ var CalDashApp = React.createClass({
       geocoderService: null,
       isViewMode: true,
       logisticsPage: null,
-      logisticsPageLabel: ""
+      logisticsPageLabel: "",
+      errorMessage: "",
+      errorMessageRandom: 0
     };
   },
   addToScheduledEvents: function(eventSource) {
@@ -78,10 +80,10 @@ var CalDashApp = React.createClass({
       this.setState({isViewMode: true});
     }
   },
-  handleSignUp: function() {
+  submitSignUpForm: function() {
 
   },
-  handleSignIn: function() {
+  submitSignInForm: function() {
 
   },
   handleSignIn: function() {
@@ -98,7 +100,7 @@ var CalDashApp = React.createClass({
             <input className="generic-field-container" type="password" />
           </div>
           <div>
-            <button className="generic-field-container user-sign-in-button submit-text" type="button" onClick={this.handleSignIn}> Submit </button>
+            <button className="generic-field-container user-sign-in-button submit-text" type="button" onClick={this.submitSignInForm}> Submit </button>
           </div>
           <div className="col-sm-4"></div>
         </div>
@@ -128,7 +130,7 @@ var CalDashApp = React.createClass({
             <input className="generic-field-container" type="password" />
           </div>
           <div>
-            <button className="generic-field-container new-user-submit-button submit-text" type="button" onClick={this.handleSignUp}> Submit </button>
+            <button className="generic-field-container new-user-submit-button submit-text" type="button" onClick={this.submitSignUpForm}> Submit </button>
           </div>
         </div>
         <div className="col-sm-4"></div>
@@ -143,6 +145,11 @@ var CalDashApp = React.createClass({
   toScheduleMode: function() {
     if (this.state.isViewMode) {
       this.setState({isViewMode: false});
+    }
+  },
+  displayErrorMessage: function(message) {
+    if ($(".error-message-container").css("height") == "0px") {
+      this.setState({errorMessage: message, errorMessageRandom: Math.random()});
     }
   },
   render: function() {
@@ -166,9 +173,11 @@ var CalDashApp = React.createClass({
             {this.state.logisticsPage}
           </ReactCSSTransitionGroup>
         </div>
-
         <div className="row show-grid">
           <div className="task-panel col-sm-12">
+            <div className="">
+              <ErrorMessage errorMessage={this.state.errorMessage} errorMessageRandom={this.state.errorMessageRandom} />
+            </div>
             <div className="col-sm-9"></div>
             <div className="col-sm-3">
               <div className="row">
@@ -185,7 +194,7 @@ var CalDashApp = React.createClass({
         <div className="row show-grid">
           <div className="col-sm-4">
             <div className="show-grid">
-              <AddNewEventSection onLocationSelected={this.retrieveGeoLocation} newPredictions={this.state.predictions} selectedDay={this.state.selectedDay} onLocationInputChange={this.retrieveMapPredictions} onAddEvent={this.addToScheduledEvents}/>
+              <AddNewEventSection didError={this.displayErrorMessage} onLocationSelected={this.retrieveGeoLocation} newPredictions={this.state.predictions} selectedDay={this.state.selectedDay} onLocationInputChange={this.retrieveMapPredictions} onAddEvent={this.addToScheduledEvents}/>
             </div>
             <GoogleMapSection newGeoLocationResult={this.state.newGeoLocationResult} locationInput={this.state.locationInput}/>
           </div>
