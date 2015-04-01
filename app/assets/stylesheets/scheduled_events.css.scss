@@ -5,10 +5,20 @@
 
 .scheduled-events {
   background-color: white;
-  th {
-    font-weight: bold;
-    background-color: $background-green;
-    color: white;
+  thead {
+    th {
+      font-weight: bold;
+      background-color: $background-green;
+      color: white;
+      text-align: center;
+    }  
+  }
+  tbody {
+    th {
+      background-color: white;
+      color: black;
+      text-align: center;
+    }
   }
   #optimize-button {
     @include nav-button($green);

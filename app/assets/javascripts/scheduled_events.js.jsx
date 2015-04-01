@@ -17,6 +17,7 @@ var ScheduledEvents = React.createClass({
             <th> {e.start.format(timeFormat)} </th>
             <th> {e.end.format(timeFormat)} </th>
             <th> {e.location} </th>
+            <th> {e.eventDescription} </th>
           </tr>
         );
         mandatoryEvents.push(fields);
@@ -24,9 +25,11 @@ var ScheduledEvents = React.createClass({
         fields = (
           <tr>
             <th> {e.title} </th>
-            <th> {e.start.format(timeFormat)} </th>
-            <th> {e.end.format(timeFormat)} </th>
+            <th> {e.duration.humanize()} </th>
+            <th> {e.before.format(timeFormat)} </th>
+            <th> {e.after.format(timeFormat)} </th>
             <th> {e.location} </th>
+            <th> {e.eventDescription} </th>
           </tr>
         );
         notMandatoryEvents.push(fields);
@@ -34,7 +37,7 @@ var ScheduledEvents = React.createClass({
     });
 
     return (
-      <div className="scheduled-events col-sm-6">
+      <div className="scheduled-events">
         <div className="row">
           <div className="col-sm-4"></div>
           <div className="col-sm-4">
@@ -45,7 +48,6 @@ var ScheduledEvents = React.createClass({
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>#</th>
               <th>Title</th>
               <th>From</th>
               <th>To</th>
@@ -60,7 +62,6 @@ var ScheduledEvents = React.createClass({
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>#</th>
               <th>Title</th>
               <th>Duration</th>
               <th>Before</th>

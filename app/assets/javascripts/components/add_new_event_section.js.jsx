@@ -8,8 +8,9 @@ var AddNewEventSection = React.createClass({
     };
   },
   handleAdd: function() {
-    var eventSource, momentFrom, momentTo, momentBefore, momentAfter;
+    var eventSource, momentFrom, momentTo, momentBefore, momentAfter, eventDescription;
     var title = this.refs.eventName.getDOMNode().value.trim(); 
+    eventDescription = this.refs.eventDescription.getDOMNode().value.trim(); 
     if (this.state.mandatory) {
       momentFrom = moment(parseInt(this.refs.fromTime.getDOMNode().value));
       momentTo = moment(parseInt(this.refs.toTime.getDOMNode().value));
@@ -26,12 +27,13 @@ var AddNewEventSection = React.createClass({
       eventSource = {
         title: title,
         duration: moment.duration(parseInt(this.refs.duration.getDOMNode().value)),
-        start: momentBefore, 
-        end: momentAfter,
+        before: momentBefore, 
+        after: momentAfter,
         location: this.state.location
       }
     }
     eventSource["mandatory"] = this.state.mandatory;
+    eventSource["eventDescription"] = eventDescription;
     this.props.onAddEvent(eventSource);
     if (this.state.location) {
       this.props.onLocationSelected(this.state.location);
@@ -185,13 +187,13 @@ var AddNewEventSection = React.createClass({
               <div className="location-text"> Location </div>
               <input className="generic-field-container" type="text" ref="locationInput" onChange={this.handleLocationInputChange} />
             </div>
+            <ul ref="predictionList" onClick={this.handleLocationChoice} className="prediction-list no-list-style">
+              {newPreds}
+            </ul>
             <div>
               <div className="evnet-description-text"> Description </div>
               <input className="generic-field-container" type="text" ref="eventDescription" />
             </div>
-            <ul ref="predictionList" onClick={this.handleLocationChoice} className="prediction-list no-list-style">
-              {newPreds}
-            </ul>
           </div>
           <div>
             <button className="new-event-submit-button" type="button" onClick={this.handleAdd}>Add</button>

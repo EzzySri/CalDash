@@ -1,0 +1,13 @@
+@import "compass/css3";
+@import "common";
+@import "custom_variables";
+@import "custom_mixins";
+
+.task-panel {
+  .task-button {
+    @include task-button($background-green, $task-button-border-grey);
+  }
+  .task-button:hover {
+    @include task-button-transform;
+  }
+}

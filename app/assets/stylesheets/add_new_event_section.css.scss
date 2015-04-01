@@ -71,15 +71,17 @@
     color: white;  
   }
   .prediction-list {
-    margin: 0;
+    margin: 0 0 15px 0;
     padding: 0;
     li {
+      font-size: 10px;
+      width: 100%;
       background-color: white;
       display: inline-block;
     }
     li:hover {
       @include transition(all 1s ease);
-      background-color: black;
+      background-color: $green;
       color: white;  
     }
   }

@@ -8,6 +8,7 @@ var FullCalendar = React.createClass({
         right: 'month, agendaWeek, agendaDay'
       },
       defaultView: 'agendaDay',
+      aspectRatio: 1,
       dayClick: function(date, jsEvent, view) {
           calendar.fullCalendar('changeView', "agendaDay");
           context.props.onChangeDayView(date);

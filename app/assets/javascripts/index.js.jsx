@@ -6,7 +6,8 @@ var CalDashApp = React.createClass({
       predictions: [],
       newGeoLocationResult: null,
       locationService: null,
-      geocoderService: null
+      geocoderService: null,
+      isViewMode: true
     };
   },
   addToScheduledEvents: function(eventSource) {
@@ -57,25 +58,49 @@ var CalDashApp = React.createClass({
     }
     this.setState({predictions: predictions});
   },
+  toViewMode: function() {
+    if (!this.state.isViewMode) {
+      this.setState({isViewMode: true});
+    }
+  },
+  toScheduleMode: function() {
+    if (this.state.isViewMode) {
+      this.setState({isViewMode: false});
+    }
+  },
   render: function() {
+    var rightComponent = this.state.isViewMode ? (<FullCalendar onChangeDayView={this.changeDayView} />) : (<ScheduledEvents data={this.state.data} />);
+    
     return (
       <div className="container">
-        <div className="row show-grid full-extend-white-background">
+        <div className="row full-extend-white-background">
           <NavigationPanel />
         </div>
         <div className="row show-grid">
-          <div className="col-sm-4">
-            <AddNewEventSection onLocationSelected={this.retrieveGeoLocation} newPredictions={this.state.predictions} selectedDay={this.state.selectedDay} onLocationInputChange={this.retrieveMapPredictions} onAddEvent={this.addToScheduledEvents}/>
-          </div>
-          <div className="col-sm-4">
-            <FullCalendar onChangeDayView={this.changeDayView} />
-          </div>
-          <div className="col-sm-4">
-            <GoogleMapSection newGeoLocationResult={this.state.newGeoLocationResult} locationInput={this.state.locationInput}/>
+          <div className="task-panel col-sm-12">
+            <div className="col-sm-9"></div>
+            <div className="col-sm-3">
+              <div className="row">
+                <div className="col-sm-6 col-0-gutter">
+                  <div className="task-button" onClick={this.toViewMode}> View Schedule </div>
+                </div>
+                <div className="col-sm-6 col-0-gutter">
+                  <div className="task-button" onClick={this.toScheduleMode}> Manage Events </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className="row show-grid">
-          <ScheduledEvents data={this.state.data} />
+          <div className="col-sm-4">
+            <div className="show-grid">
+              <AddNewEventSection onLocationSelected={this.retrieveGeoLocation} newPredictions={this.state.predictions} selectedDay={this.state.selectedDay} onLocationInputChange={this.retrieveMapPredictions} onAddEvent={this.addToScheduledEvents}/>
+            </div>
+            <GoogleMapSection newGeoLocationResult={this.state.newGeoLocationResult} locationInput={this.state.locationInput}/>
+          </div>
+          <div className="col-sm-8">
+            {rightComponent}
+          </div>
         </div>
       </div>
     );
