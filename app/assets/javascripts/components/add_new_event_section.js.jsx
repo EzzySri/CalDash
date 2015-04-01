@@ -97,50 +97,43 @@ var AddNewEventSection = React.createClass({
     });
     var notMandatorySection = (
       <div className="not-mandatory-section">
-        <div className="borderless-field-container col-sm-12">
-          <div className="duration-text col-sm-4 vert-ctr">For how long?</div>
-          <div className="duration-container col-sm-8">
-            <select ref="duration" className="event-duration-select">
-              {durationOptions}
-            </select>
-          </div>
-        </div>
-        <div className="borderless-field-container col-sm-12">
-          <div className="before-filter-text col-sm-3 vert-ctr">Before:</div>
-          <select ref="beforeTime" className="before-filter-select col-sm-3">
+        <div className="col-sm-4">
+          <select ref="beforeTime" className="generic-field-container">
             {timeOptions}
           </select>
-          <div className="after-filter-text col-sm-3 vert-ctr">After:</div>
-          <select ref="afterTime" className="after-filter-select col-sm-3">
+        </div>
+        <div className="col-sm-4">
+          <select ref="afterTime" className="generic-field-container">
             {timeOptions}
+          </select>
+        </div>
+        <div className="col-sm-4">
+          <select ref="duration" className="generic-field-container">
+            {durationOptions}
           </select>
         </div>
       </div>
     ); 
     var mandatorySection = (
       <div className="not-mandatory-section">
-        <div className="borderless-field-container col-sm-12">
-          <div className="from-time-text col-sm-3 vert-ctr"> From: </div>
-          <select ref="fromTime" className="from-time-select col-sm-3">
-            {timeOptions}
-          </select>
-          <div className="to-time-text col-sm-3 vert-ctr">To:</div>
-          <select ref="toTime" className="to-time-select col-sm-3">
+        <div className="col-sm-6">
+          <select ref="fromTime" className="generic-field-container">
             {timeOptions}
           </select>
         </div>
-        <div className="borderless-field-container col-sm-12">
-          <div className="event-day-list">
-            <ul onClick={this.handleForWhichDays} className="day-container">
-              <li>Sun.</li>
-              <li >Mon.</li>
-              <li>Tue.</li>
-              <li>Wed.</li>
-              <li>Thu.</li>
-              <li>Fri.</li>
-              <li>Sat.</li>
-            </ul>
-          </div>
+        <div className="col-sm-6">
+          <select ref="toTime" className="generic-field-container">
+            {timeOptions}
+          </select>
+        </div>
+        <div className="event-day-list" onClick={this.handleForWhichDays}>
+          <li>Sun.</li>
+          <li >Mon.</li>
+          <li>Tue.</li>
+          <li>Wed.</li>
+          <li>Thu.</li>
+          <li>Fri.</li>
+          <li>Sat.</li>
         </div>
       </div>
     );
@@ -157,8 +150,8 @@ var AddNewEventSection = React.createClass({
       );
     });
 
-    var mandButtonClass = "col-sm-4 inline-field-container vert-ctr merge-right-border";
-    var notMandButtonClass = "col-sm-4 inline-field-container vert-ctr";
+    var mandButtonClass = "generic-field-container";
+    var notMandButtonClass = "generic-field-container";
     if (this.state.mandatory) {
       mandButtonClass += " pressed";
     } else {
@@ -166,25 +159,42 @@ var AddNewEventSection = React.createClass({
     }
 
     return (
-      <div className="add-new-event-container col-sm-6">
+      <div className="add-new-event-container">
         <form onSubmit={this.handleSubmit}>
-          <div>
-            <input className="generic-field-container" type="text" placeholder="Event Name" ref="eventName" />
+          <div className="new-event-form-upper">
+            <div>
+              <div className="event-name-text"> Event Name </div>
+              <input className="generic-field-container" type="text" ref="eventName" />
+            </div>
+            <div>
+              <div className="is-mandatory-text" onClick={this.toggleTimeInputMenus}> Mandatory Event </div>
+              <div className="col-sm-6 mandatory-button">
+                <button className={mandButtonClass} type="button" onClick={this.isMandatory}>Yes</button>
+              </div>
+              <div className="col-sm-6 not-mandatory-button">
+                <button className={notMandButtonClass} type="button" onClick={this.isNotMandatory}>No</button>
+              </div>
+            </div>
+            <div>
+              <div className="date-duration-text"> Desired Time Range & Duration </div>
+              {timeRangeSection}
+            </div>
+          </div>
+          <div className="new-event-form-lower">
+            <div>
+              <div className="location-text"> Location </div>
+              <input className="generic-field-container" type="text" ref="locationInput" onChange={this.handleLocationInputChange} />
+            </div>
+            <div>
+              <div className="evnet-description-text"> Description </div>
+              <input className="generic-field-container" type="text" ref="eventDescription" />
+            </div>
+            <ul ref="predictionList" onClick={this.handleLocationChoice} className="prediction-list no-list-style">
+              {newPreds}
+            </ul>
           </div>
           <div>
-            <input className="generic-field-container" type="text" placeholder="Location" ref="locationInput" onChange={this.handleLocationInputChange} />
-          </div>
-          <ul ref="predictionList" onClick={this.handleLocationChoice} className="prediction-list no-list-style">
-            {newPreds}
-          </ul>
-          <div className="borderless-field-container col-sm-12">
-            <div className="is-mandatory-text col-sm-4 vert-ctr" onClick={this.toggleTimeInputMenus}>Mandatory Event?</div>
-            <button className={mandButtonClass} type="button" onClick={this.isMandatory}>Yes</button>
-            <button className={notMandButtonClass} type="button" onClick={this.isNotMandatory}>No</button>
-          </div>
-          {timeRangeSection}
-          <div>
-            <button className="generic-field-container" type="button" onClick={this.handleAdd}>Add</button>
+            <button className="new-event-submit-button" type="button" onClick={this.handleAdd}>Add</button>
           </div>
         </form>
       </div>

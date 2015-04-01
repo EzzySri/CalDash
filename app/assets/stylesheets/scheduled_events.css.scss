@@ -1,0 +1,18 @@
+@import "compass/css3";
+@import "common";
+@import "custom_variables";
+@import "custom_mixins";
+
+.scheduled-events {
+  background-color: white;
+  th {
+    font-weight: bold;
+    background-color: $background-green;
+    color: white;
+  }
+  #optimize-button {
+    @include nav-button($green);
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}

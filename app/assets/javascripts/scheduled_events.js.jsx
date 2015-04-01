@@ -12,23 +12,22 @@ var ScheduledEvents = React.createClass({
       var fields; 
       if (e.mandatory) {
         fields = (
-          <div className="mandatory-section borderless-field-container">
-            <div className="event-field inline-field-container inner-vert-ctr col-sm-3"> {e.title} </div>
-            <div className="event-field inline-field-container inner-vert-ctr col-sm-3"> {e.start.format(timeFormat)} </div>
-            <div className="event-field inline-field-container inner-vert-ctr col-sm-3"> {e.end.format(timeFormat)} </div>
-            <div className="event-field inline-field-container inner-vert-ctr col-sm-3"> {e.location} </div>
-          </div>
+          <tr>
+            <th> {e.title} </th>
+            <th> {e.start.format(timeFormat)} </th>
+            <th> {e.end.format(timeFormat)} </th>
+            <th> {e.location} </th>
+          </tr>
         );
         mandatoryEvents.push(fields);
       } else {
         fields = (
-          <div className="not-mandatory-section borderless-field-container">
-            <div className="event-field inline-field-container inner-vert-ctr col-sm-2"> {e.title} </div>
-            <div className="event-field inline-field-container inner-vert-ctr col-sm-2"> {e.title} </div>
-            <div className="event-field inline-field-container inner-vert-ctr col-sm-2"> {e.start.format(timeFormat)} </div>
-            <div className="event-field inline-field-container inner-vert-ctr col-sm-2"> {e.end.format(timeFormat)} </div>
-            <div className="event-field inline-field-container inner-vert-ctr col-sm-2"> {e.location} </div>
-          </div>
+          <tr>
+            <th> {e.title} </th>
+            <th> {e.start.format(timeFormat)} </th>
+            <th> {e.end.format(timeFormat)} </th>
+            <th> {e.location} </th>
+          </tr>
         );
         notMandatoryEvents.push(fields);
       }
@@ -36,22 +35,44 @@ var ScheduledEvents = React.createClass({
 
     return (
       <div className="scheduled-events col-sm-6">
-        <div className="mandatory-section borderless-field-container event-title" onMouseOver={this.showExtra}>
-          <div className="extra-info inline-field-container inner-vert-ctr col-sm-3 hidden"><span>Mandatory</span></div>
-          <div className="event-field inline-field-container inner-vert-ctr col-sm-3"><span>Title</span></div>
-          <div className="event-field inline-field-container inner-vert-ctr col-sm-3"><span>From</span></div>
-          <div className="event-field inline-field-container inner-vert-ctr col-sm-3"><span>To</span></div>
-          <div className="event-field inline-field-container inner-vert-ctr col-sm-3"><span>Location</span></div>
+        <div className="row">
+          <div className="col-sm-4"></div>
+          <div className="col-sm-4">
+            <div id="optimize-button"> Get Optimal Schedule </div>
+          </div>
+          <div className="col-sm-4"></div>
         </div>
-        {mandatoryEvents}
-        <div className="not-mandatory-section borderless-field-container event-title">
-          <div className="event-field inline-field-container inner-vert-ctr col-sm-15"><span>Title</span></div>
-          <div className="event-field inline-field-container inner-vert-ctr col-sm-15"><span>Duration</span></div>
-          <div className="event-field inline-field-container inner-vert-ctr col-sm-15"><span>Before</span></div>
-          <div className="event-field inline-field-container inner-vert-ctr col-sm-15"><span>After</span></div>
-          <div className="event-field inline-field-container inner-vert-ctr col-sm-15"><span>Location</span></div>
-        </div>
-        {notMandatoryEvents}
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>From</th>
+              <th>To</th>
+              <th>Location</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {mandatoryEvents}
+          </tbody>
+        </table>
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Duration</th>
+              <th>Before</th>
+              <th>After</th>
+              <th>Location</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {notMandatoryEvents}
+          </tbody>
+        </table>
       </div>
     );
   }

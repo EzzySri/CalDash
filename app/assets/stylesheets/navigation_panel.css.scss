@@ -1,0 +1,22 @@
+@import "compass/css3";
+@import "common";
+@import "custom_variables";
+@import "custom_mixins";
+
+.navigation-panel {
+  #sign-up-button {
+    @include nav-button($green);
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  #sign-in-button {
+    @include nav-button($blue); 
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  #profile-button {
+    @include nav-button($dark-red);  
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}

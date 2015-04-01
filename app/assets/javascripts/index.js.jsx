@@ -60,17 +60,21 @@ var CalDashApp = React.createClass({
   render: function() {
     return (
       <div className="container">
-        <div className="row">
-          <div className="fr">
-            <UserProfile url="test_user_profile.json"/>
+        <div className="row show-grid full-extend-white-background">
+          <NavigationPanel />
+        </div>
+        <div className="row show-grid">
+          <div className="col-sm-4">
+            <AddNewEventSection onLocationSelected={this.retrieveGeoLocation} newPredictions={this.state.predictions} selectedDay={this.state.selectedDay} onLocationInputChange={this.retrieveMapPredictions} onAddEvent={this.addToScheduledEvents}/>
+          </div>
+          <div className="col-sm-4">
+            <FullCalendar onChangeDayView={this.changeDayView} />
+          </div>
+          <div className="col-sm-4">
+            <GoogleMapSection newGeoLocationResult={this.state.newGeoLocationResult} locationInput={this.state.locationInput}/>
           </div>
         </div>
-        <div className="row">
-          <FullCalendar onChangeDayView={this.changeDayView} />
-          <GoogleMapSection newGeoLocationResult={this.state.newGeoLocationResult} locationInput={this.state.locationInput}/>
-        </div>
-        <div className="row">
-          <AddNewEventSection onLocationSelected={this.retrieveGeoLocation} newPredictions={this.state.predictions} selectedDay={this.state.selectedDay} onLocationInputChange={this.retrieveMapPredictions} onAddEvent={this.addToScheduledEvents}/>
+        <div className="row show-grid">
           <ScheduledEvents data={this.state.data} />
         </div>
       </div>
