@@ -67,3 +67,16 @@
   color: white;
   background-color: $task-button-hover-grey; 
 }
+
+@mixin delete-event-button($background-color) {
+  width: 80%;
+  margin: 0 auto;
+  height: 20px;
+  border: 1px solid $background-color;
+  background-color: $background-color;
+  color: white;
+  font-size: 10px;
+  text-align: center;
+  padding: 4px 0 4px 0;
+  cursor: pointer;
+}

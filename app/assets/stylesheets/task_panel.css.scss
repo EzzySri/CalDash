@@ -10,4 +10,7 @@
   .task-button:hover {
     @include task-button-transform;
   }
+  .task-button-pressed {
+    @include task-button-transform;
+  }
 }

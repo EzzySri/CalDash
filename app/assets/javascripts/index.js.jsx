@@ -14,6 +14,17 @@ var CalDashApp = React.createClass({
     this.state.data.push(eventSource);
     this.setState({data: this.state.data});
   },
+  deleteEvent: function(titleText) {
+    eSources = this.state.data;
+    for (i = 0; i < eSources.length; i += 1) {
+      e = this.state.data[i];
+      if (e.title == titleText) {
+        eSources.splice(i, 1);
+        this.setState({data:eSources});
+        return
+      }
+    }
+  },
   changeDayView: function(date) {
     this.setState({selectedDay:date});
   },
@@ -69,8 +80,16 @@ var CalDashApp = React.createClass({
     }
   },
   render: function() {
-    var rightComponent = this.state.isViewMode ? (<FullCalendar onChangeDayView={this.changeDayView} />) : (<ScheduledEvents data={this.state.data} />);
+    var rightComponent = this.state.isViewMode ? (<FullCalendar onChangeDayView={this.changeDayView} />) : (<ScheduledEvents onDeleteEvent={this.deleteEvent} data={this.state.data} />);
     
+    var viewScheduleButtonClass = "task-button";
+    var manageEventsButtonClass = "task-button";
+    if (this.state.isViewMode) {
+      viewScheduleButtonClass += " task-button-pressed";
+    } else {
+      manageEventsButtonClass += " task-button-pressed";
+    }
+
     return (
       <div className="container">
         <div className="row full-extend-white-background">
@@ -82,10 +101,10 @@ var CalDashApp = React.createClass({
             <div className="col-sm-3">
               <div className="row">
                 <div className="col-sm-6 col-0-gutter">
-                  <div className="task-button" onClick={this.toViewMode}> View Schedule </div>
+                  <div className={viewScheduleButtonClass} onClick={this.toViewMode}> View Schedule </div>
                 </div>
                 <div className="col-sm-6 col-0-gutter">
-                  <div className="task-button" onClick={this.toScheduleMode}> Manage Events </div>
+                  <div className={manageEventsButtonClass} onClick={this.toScheduleMode}> Manage Events </div>
                 </div>
               </div>
             </div>

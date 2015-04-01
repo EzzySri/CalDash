@@ -1,13 +1,14 @@
 var ScheduledEvents = React.createClass({
-  showExtra: function(e) {
-    temp = e.target.parentNode.parentNode.childNodes[0].className;
-    temp = temp.substring(0, temp.length - 7);
-    e.target.parentNode.parentNode.childNodes[1].className = temp;
+  deleteCurrentEvent: function(e) {
+    titleNode = e.target.parentNode.parentNode.children[0];
+    titleText = titleNode.innerText;
+    this.props.onDeleteEvent(titleText);
   },
   render: function() {
     var timeFormat = "Do, h:mm a";
     var mandatoryEvents = [];
     var notMandatoryEvents = [];
+    var context = this;
     events = this.props.data.map(function(e) {
       var fields; 
       if (e.mandatory) {
@@ -18,6 +19,7 @@ var ScheduledEvents = React.createClass({
             <th> {e.end.format(timeFormat)} </th>
             <th> {e.location} </th>
             <th> {e.eventDescription} </th>
+            <th className="hori-ctr" onClick={context.deleteCurrentEvent}><div id="delete-event-button">Remove</div></th>
           </tr>
         );
         mandatoryEvents.push(fields);
@@ -30,6 +32,7 @@ var ScheduledEvents = React.createClass({
             <th> {e.after.format(timeFormat)} </th>
             <th> {e.location} </th>
             <th> {e.eventDescription} </th>
+            <th className="hori-ctr" onClick={context.deleteCurrentEvent}><div id="delete-event-button">Remove</div></th>
           </tr>
         );
         notMandatoryEvents.push(fields);
@@ -53,6 +56,7 @@ var ScheduledEvents = React.createClass({
               <th>To</th>
               <th>Location</th>
               <th>Description</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -68,6 +72,7 @@ var ScheduledEvents = React.createClass({
               <th>After</th>
               <th>Location</th>
               <th>Description</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>

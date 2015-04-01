@@ -25,4 +25,7 @@
     margin-top: 20px;
     margin-bottom: 20px;
   }
+  #delete-event-button {
+    @include delete-event-button($background-green);
+  }
 }
