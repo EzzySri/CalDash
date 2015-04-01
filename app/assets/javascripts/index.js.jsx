@@ -1,3 +1,5 @@
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
 var CalDashApp = React.createClass({
   getInitialState: function() {
     return {
@@ -7,7 +9,9 @@ var CalDashApp = React.createClass({
       newGeoLocationResult: null,
       locationService: null,
       geocoderService: null,
-      isViewMode: true
+      isViewMode: true,
+      logisticsPage: null,
+      logisticsPageLabel: ""
     };
   },
   addToScheduledEvents: function(eventSource) {
@@ -74,6 +78,68 @@ var CalDashApp = React.createClass({
       this.setState({isViewMode: true});
     }
   },
+  handleSignUp: function() {
+
+  },
+  handleSignIn: function() {
+
+  },
+  handleSignIn: function() {
+    signInPage = (
+      <div className="full-extend-blue-background sign-in-section">
+        <div className="col-sm-4"></div>
+        <div className="col-sm-4 vert-ctr">
+          <div>
+            <div className="user-account-text"> Account </div>
+            <input className="generic-field-container" type="text" />
+          </div>
+          <div>
+            <div className="user-password-text"> Password </div>
+            <input className="generic-field-container" type="password" />
+          </div>
+          <div>
+            <button className="generic-field-container user-sign-in-button submit-text" type="button" onClick={this.handleSignIn}> Submit </button>
+          </div>
+          <div className="col-sm-4"></div>
+        </div>
+      </div>
+    );
+    if (this.state.logisticsPageLabel == "signIn") {
+      this.setState({logisticsPage: null, logisticsPageLabel: ""});
+    } else {
+      this.setState({logisticsPage: signInPage, logisticsPageLabel: "signIn"});
+    }
+  },
+  handleSignUp: function() {
+    signUpPage = (
+      <div className="sign-up-section full-extend-green-background">
+        <div className="col-sm-4"></div>
+        <div className="col-sm-4 vert-ctr">
+          <div>
+            <div className="user-name-text"> Name </div>
+            <input className="generic-field-container" type="text" />
+          </div>
+          <div>
+            <div className="user-account-text"> Account </div>
+            <input className="generic-field-container" type="text" />
+          </div>
+          <div>
+            <div className="user-password-text"> Password </div>
+            <input className="generic-field-container" type="password" />
+          </div>
+          <div>
+            <button className="generic-field-container new-user-submit-button submit-text" type="button" onClick={this.handleSignUp}> Submit </button>
+          </div>
+        </div>
+        <div className="col-sm-4"></div>
+      </div>
+    );
+    if (this.state.logisticsPageLabel == "signUp") {
+      this.setState({logisticsPage: null, logisticsPageLabel: ""});
+    } else {
+      this.setState({logisticsPage: signUpPage, logisticsPageLabel: "signUp"});
+    }
+  },
   toScheduleMode: function() {
     if (this.state.isViewMode) {
       this.setState({isViewMode: false});
@@ -93,8 +159,14 @@ var CalDashApp = React.createClass({
     return (
       <div className="container">
         <div className="row full-extend-white-background">
-          <NavigationPanel />
+          <NavigationPanel onSignUp={this.handleSignUp} onSignIn={this.handleSignIn}/>
         </div>
+        <div className="logistics-section row" ref="logisticsSection">
+          <ReactCSSTransitionGroup transitionName="logistics-page">
+            {this.state.logisticsPage}
+          </ReactCSSTransitionGroup>
+        </div>
+
         <div className="row show-grid">
           <div className="task-panel col-sm-12">
             <div className="col-sm-9"></div>

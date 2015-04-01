@@ -1,0 +1,87 @@
+@import "compass/css3";
+@import "common";
+@import "custom_variables";
+@import "custom_mixins";
+
+.sign-up-section {
+  background-color: $green;
+  height: 300px;
+  overflow: hidden;
+
+  [class*='-text'] {
+    @include common-font;
+    font-size: 14px;
+    font-weight: 800;
+    color: white;
+    line-height: 22px;
+  }
+  input, select, button, li {
+    font-size: 10px;
+  }
+  .generic-field-container {
+    margin-bottom: 15px;
+    height: 35px;
+    border-radius: 7px;
+  }
+  .new-user-submit-button {
+    background-color: white;
+    color: $green;
+    height: 40px;
+    margin: 0px;
+  }
+}
+
+.sign-in-section {
+  background-color: $blue;
+  height: 300px;
+  overflow: hidden;
+
+  [class*='-text'] {
+    @include common-font;
+    font-size: 14px;
+    font-weight: 800;
+    color: white;
+    line-height: 22px;
+  }
+  input, select, button, li {
+    font-size: 10px;
+  }
+  .generic-field-container {
+    border-color: $blue;
+    margin-bottom: 15px;
+    height: 35px;
+    border-radius: 7px;
+  }
+  .user-sign-in-button {
+    background-color: white;
+    color: $blue;
+    height: 40px;
+    margin: 0px;
+  }
+}
+
+.full-extend-green-background {
+  @include full-extend-background($green);
+}
+
+.full-extend-blue-background {
+  @include full-extend-background($blue);
+}
+
+.logistics-page-enter {
+  height: 0px;
+  @include transition(all 0.5s ease); 
+}
+
+.logistics-page-enter.logistics-page-enter-active {
+  height: 300px;
+}
+
+.logistics-page-leave {
+  height: 300px;
+  @include transition(all 0.5s ease); 
+}
+
+.logistics-page-leave.logistics-page-leave-active {
+  height: 0px;
+}

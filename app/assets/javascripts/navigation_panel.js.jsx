@@ -10,10 +10,10 @@ var NavigationPanel = React.createClass({
         <div className="col-sm-4">
           <div className="row">
             <div className="col-sm-4 col-5-gutter">
-              <div id="sign-up-button"> Sign Up </div>
+              <div id="sign-up-button" onClick={this.props.onSignUp}> Sign Up </div>
             </div>
             <div className="col-sm-4 col-5-gutter">
-              <div id="sign-in-button"> Log In </div>
+              <div id="sign-in-button" onClick={this.props.onSignIn}> Log In </div>
             </div>
             <div className="col-sm-4 col-5-gutter">
               <div id="profile-button"> My Profile </div>

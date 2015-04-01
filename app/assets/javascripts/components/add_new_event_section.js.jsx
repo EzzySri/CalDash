@@ -69,6 +69,7 @@ var AddNewEventSection = React.createClass({
     var loc = event.target.innerHTML;
     this.setState({location: loc});
     this.refs.locationInput.getDOMNode().value = loc;
+    // TO-DOs: use a react way to achieve this feature
     // this.refs.predictionList.getDOMNode().innerHTML = "";
   },
   render: function() {

@@ -29,6 +29,9 @@
   .generic-field-container {
     margin-bottom: 15px;
   }
+  .generic-field-container:hover {
+    @include generic-field-container-transform;  
+  }
   .new-event-form-upper, .new-event-form-lower {
     background-color: $event-form-light-grey;
     padding: 4% 4% 0 4%;

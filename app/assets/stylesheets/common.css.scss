@@ -6,6 +6,10 @@ body {
   background-color: $background-green !important;
 }
 
+#content {
+  overflow:hidden;
+}
+
 .container {
   min-width: 1250px;
 }
@@ -26,12 +30,16 @@ body {
   }
 }
 
-.full-extend-white-background {
+@mixin full-extend-background($color) {
   margin-right: -3000px !important;
   padding-right: 3000px !important;
   margin-left: -3000px !important;
   padding-left: 3000px !important;
-  background-color: white;
+  background-color: $color;
+}
+
+.full-extend-white-background {
+  @include full-extend-background(white);
 }
 
 .fl {
@@ -110,9 +118,7 @@ body {
 .generic-field-container {
   @include generic-field-container;
 }
-.generic-field-container:hover {
-  @include generic-field-container-transform;  
-}
+
 .inline-field-container {
   @include generic-field-container;
   margin: 0;
