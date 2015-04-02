@@ -5,7 +5,7 @@ define(['constants'], function(Constants){
     },
 
     removeEvent: function(eventName) {
-      this.dispatch(Constants.REMOVE_EVENT, {eventName: eventName});
+      this.dispatch(Constants.REMOVE_EVENT, eventName);
     }
   };
   return eventActions;

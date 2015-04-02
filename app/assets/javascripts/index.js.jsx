@@ -1,11 +1,17 @@
-define(['react', 'moment', 'full_calendar', 'navigation_panel', 'error_message', 'add_new_event_section', 'google_map_section'],
-  function(React, _, FullCalendar, NavigationPanel, ErrorMessage, AddNewEventSection, GoogleMapSection) {
+define(['optimized_schedule', 'scheduled_events', 'event_store', 'fluxxor', 'react', 'moment', 'full_calendar', 'navigation_panel', 'error_message', 'add_new_event_section', 'google_map_section'],
+  function(OptimizedSchedule, ScheduledEvents, _, Fluxxor, React, _, FullCalendar, NavigationPanel, ErrorMessage, AddNewEventSection, GoogleMapSection) {
+  
+  var FluxMixin = Fluxxor.FluxMixin(React);
+  var StoreWatchMixin = Fluxxor.StoreWatchMixin;
+
   var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
   var CalDashApp = React.createClass({
+
+    mixins: [FluxMixin, StoreWatchMixin("EventStore")],
+
     getInitialState: function() {
       return {
-        data: [],
         selectedDay: moment(),
         predictions: [],
         newGeoLocationResult: null,
@@ -18,20 +24,14 @@ define(['react', 'moment', 'full_calendar', 'navigation_panel', 'error_message',
         errorMessageRandom: 0
       };
     },
+    getStateFromFlux: function() {
+      return this.getFlux().store('EventStore').getState();
+    },
     addToScheduledEvents: function(eventSource) {
-      this.state.data.push(eventSource);
-      this.setState({data: this.state.data});
+      this.getFlux().actions.eventActions.addEvent(eventSource);
     },
     deleteEvent: function(titleText) {
-      eSources = this.state.data;
-      for (i = 0; i < eSources.length; i += 1) {
-        e = this.state.data[i];
-        if (e.title == titleText) {
-          eSources.splice(i, 1);
-          this.setState({data:eSources});
-          return
-        }
-      }
+      this.getFlux().actions.eventActions.removeEvent(titleText);
     },
     changeDayView: function(date) {
       this.setState({selectedDay:date});
@@ -160,7 +160,7 @@ define(['react', 'moment', 'full_calendar', 'navigation_panel', 'error_message',
           break;
         case "events-mode":
           manageEventsButtonClass += " task-button-pressed";
-          rightComponent = (<ScheduledEvents onDeleteEvent={this.deleteEvent} data={this.state.data} />);
+          rightComponent = (<ScheduledEvents onDeleteEvent={this.deleteEvent} data={this.getStateFromFlux().events} />);
           break;
         default:
           resultsButtonClass += " task-button-pressed";
