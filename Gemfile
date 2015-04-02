@@ -31,7 +31,9 @@ gem 'gon'
 gem 'bootstrap-sass'
 gem 'bootstrap_form', '2.3.0'
 
-gem 'react-router-rails', '~>0.11.6.1'
+gem 'requirejs-rails'
+
+gem 'react-router-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
