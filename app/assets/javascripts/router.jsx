@@ -1,4 +1,4 @@
-define(['react_router', 'CalDashApp'], function(ReactRouter, CalDashApp) {
+define(['react_router', 'index'], function(ReactRouter, CalDashApp) {
   var Route = ReactRouter.Route;
   var DefaultRoute = Route.DefaultRoute;
   var routes = (

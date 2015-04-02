@@ -2,7 +2,8 @@ require.config({
   paths: {
     react: "react",
     routes: "router",
-    react_router: "react_router"
+    react_router: "react_router",
+    event_store: "stores/event_store"
   }
 });
 
@@ -12,9 +13,24 @@ require.config({
 //   });
 // });
 
-require(['jquery', 'react', 'index'], function($, React, CalDashApp) {
+require(['jquery', 'react', 'index', 'fluxxor', 'event_store', 'event_actions'], function($, React, CalDashApp, Fluxxor, EventStore, eventActions) {
+  var stores = {
+    EventStore: new EventStore()
+  };
+  var actions = {
+    eventActions: eventActions
+  }
+  var flux = new Fluxxor.Flux(stores, actions);
+  window.flux = flux;
+
+  flux.on("dispatch", function(type, payload) {
+    if (console && console.log) {
+      console.log("[Dispatch]", type, payload);
+    }
+  });
+
   React.render(
-    <CalDashApp />,
+    <CalDashApp flux={flux}/>,
     document.getElementById('content')
   );
 });
