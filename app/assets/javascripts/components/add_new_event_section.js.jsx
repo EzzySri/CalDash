@@ -11,7 +11,7 @@ var AddNewEventSection = React.createClass({
     var eventSource, momentFrom, momentTo, momentBefore, momentAfter, eventDescription;
     var title = this.refs.eventName.getDOMNode().value.trim();
     if (!title) {
-      this.props.didError("Title should not be left empty.");
+      this.props.didError("Event Name should not be empty.");
       return
     }
     eventDescription = this.refs.eventDescription.getDOMNode().value.trim(); 
@@ -159,12 +159,6 @@ var AddNewEventSection = React.createClass({
       timeRangeSection = notMandatorySection;
     }
 
-    var newPreds = this.props.newPredictions.map(function(pred) {
-      return (
-        <li className="prediction-text">{pred.description}</li>
-      );
-    });
-
     var mandButtonClass = "generic-field-container";
     var notMandButtonClass = "generic-field-container";
     if (this.state.mandatory) {
@@ -201,7 +195,12 @@ var AddNewEventSection = React.createClass({
               <input className="generic-field-container" type="text" ref="locationInput" onChange={this.handleLocationInputChange} />
             </div>
             <ul ref="predictionList" onClick={this.handleLocationChoice} className="prediction-list no-list-style">
-              {newPreds}
+              {this.props.newPredictions.map(function(pred) {
+                  return (
+                    <li key={pred.id} className="prediction-text">{pred.description}</li>
+                  );
+                })
+              }
             </ul>
             <div>
               <div className="evnet-description-text"> Description </div>

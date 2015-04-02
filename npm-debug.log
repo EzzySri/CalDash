@@ -1,0 +1,149 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install', 'flux' ]
+2 info using npm@1.4.16
+3 info using node@v0.10.29
+4 verbose node symlink /usr/local/bin/node
+5 verbose cache add [ 'flux', null ]
+6 verbose cache add name=undefined spec="flux" args=["flux",null]
+7 verbose parsed url { protocol: null,
+7 verbose parsed url   slashes: null,
+7 verbose parsed url   auth: null,
+7 verbose parsed url   host: null,
+7 verbose parsed url   port: null,
+7 verbose parsed url   hostname: null,
+7 verbose parsed url   hash: null,
+7 verbose parsed url   search: null,
+7 verbose parsed url   query: null,
+7 verbose parsed url   pathname: 'flux',
+7 verbose parsed url   path: 'flux',
+7 verbose parsed url   href: 'flux' }
+8 silly lockFile ab35ba20-flux flux
+9 verbose lock flux /Users/fenglin/.npm/ab35ba20-flux.lock
+10 silly lockFile ab35ba20-flux flux
+11 silly lockFile ab35ba20-flux flux
+12 verbose addNamed [ 'flux', '' ]
+13 verbose addNamed [ null, '*' ]
+14 silly lockFile eeb000d8-flux flux@
+15 verbose lock flux@ /Users/fenglin/.npm/eeb000d8-flux.lock
+16 silly addNameRange { name: 'flux', range: '*', hasData: false }
+17 verbose request where is /flux
+18 verbose request registry https://registry.npmjs.org/
+19 verbose request id 4b05b2081f9501c8
+20 verbose url raw /flux
+21 verbose url resolving [ 'https://registry.npmjs.org/', './flux' ]
+22 verbose url resolved https://registry.npmjs.org/flux
+23 verbose request where is https://registry.npmjs.org/flux
+24 info trying registry request attempt 1 at 23:09:24
+25 http GET https://registry.npmjs.org/flux
+26 http 200 https://registry.npmjs.org/flux
+27 silly registry.get cb [ 200,
+27 silly registry.get   { date: 'Thu, 02 Apr 2015 06:07:24 GMT',
+27 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+27 silly registry.get     etag: '"7IB6J1W6K7PWVO6W7E69GYOYN"',
+27 silly registry.get     'content-type': 'application/json',
+27 silly registry.get     'cache-control': 'max-age=60',
+27 silly registry.get     'content-length': '13709',
+27 silly registry.get     'accept-ranges': 'bytes',
+27 silly registry.get     via: '1.1 varnish',
+27 silly registry.get     age: '29',
+27 silly registry.get     'x-served-by': 'cache-sjc3121-SJC',
+27 silly registry.get     'x-cache': 'HIT',
+27 silly registry.get     'x-cache-hits': '2',
+27 silly registry.get     'x-timer': 'S1427954844.692593,VS0,VE0',
+27 silly registry.get     vary: 'Accept',
+27 silly registry.get     'keep-alive': 'timeout=10, max=50',
+27 silly registry.get     connection: 'Keep-Alive' } ]
+28 silly addNameRange number 2 { name: 'flux', range: '*', hasData: true }
+29 silly addNameRange versions [ 'flux', [ '1.0.0', '1.0.1', '1.0.2', '2.0.0', '2.0.1' ] ]
+30 verbose addNamed [ 'flux', '2.0.1' ]
+31 verbose addNamed [ '2.0.1', '2.0.1' ]
+32 silly lockFile 97ef7caa-flux-2-0-1 flux@2.0.1
+33 verbose lock flux@2.0.1 /Users/fenglin/.npm/97ef7caa-flux-2-0-1.lock
+34 silly lockFile 37eba447-ry-npmjs-org-flux-flux-2-0-1-tgz https://registry.npmjs.org/flux/-/flux-2.0.1.tgz
+35 verbose lock https://registry.npmjs.org/flux/-/flux-2.0.1.tgz /Users/fenglin/.npm/37eba447-ry-npmjs-org-flux-flux-2-0-1-tgz.lock
+36 verbose addRemoteTarball [ 'https://registry.npmjs.org/flux/-/flux-2.0.1.tgz',
+36 verbose addRemoteTarball   'e19f53113a762b6a7a28ada1745701558a255c63' ]
+37 info retry fetch attempt 1 at 23:09:24
+38 verbose fetch to= /var/folders/xw/ppvf1x_n3kzdg429v4_dk98r0000gn/T/npm-14236-5dQvu8xD/registry.npmjs.org/flux/-/flux-2.0.1.tgz
+39 http GET https://registry.npmjs.org/flux/-/flux-2.0.1.tgz
+40 http 200 https://registry.npmjs.org/flux/-/flux-2.0.1.tgz
+41 silly lockFile 37eba447-ry-npmjs-org-flux-flux-2-0-1-tgz https://registry.npmjs.org/flux/-/flux-2.0.1.tgz
+42 silly lockFile 37eba447-ry-npmjs-org-flux-flux-2-0-1-tgz https://registry.npmjs.org/flux/-/flux-2.0.1.tgz
+43 silly lockFile 97ef7caa-flux-2-0-1 flux@2.0.1
+44 silly lockFile 97ef7caa-flux-2-0-1 flux@2.0.1
+45 silly lockFile eeb000d8-flux flux@
+46 silly lockFile eeb000d8-flux flux@
+47 silly resolved [ { name: 'flux',
+47 silly resolved     version: '2.0.1',
+47 silly resolved     description: 'An application architecture based on a unidirectional data flow',
+47 silly resolved     keywords: [ 'flux', 'react', 'facebook', 'dispatcher' ],
+47 silly resolved     homepage: 'http://facebook.github.io/flux/',
+47 silly resolved     bugs: { url: 'https://github.com/facebook/flux/issues' },
+47 silly resolved     files: [ 'index.js', 'lib/', 'LICENSE', 'PATENTS' ],
+47 silly resolved     main: 'index.js',
+47 silly resolved     scripts: { prepublish: 'gulp publish' },
+47 silly resolved     repository: { type: 'git', url: 'https://github.com/facebook/flux' },
+47 silly resolved     author: { name: 'Facebook' },
+47 silly resolved     contributors: [ [Object], [Object], [Object] ],
+47 silly resolved     license: 'BSD',
+47 silly resolved     devDependencies:
+47 silly resolved      { browserify: '^5.9.1',
+47 silly resolved        del: '^0.1.2',
+47 silly resolved        gulp: '^3.8.6',
+47 silly resolved        'gulp-react': '^0.5.0',
+47 silly resolved        'gulp-replace': '^0.4.0',
+47 silly resolved        'vinyl-source-stream': '^0.1.1' },
+47 silly resolved     gitHead: '1ef594410af4163df18b32d069caa5c5ca47a7d8',
+47 silly resolved     _id: 'flux@2.0.1',
+47 silly resolved     _shasum: 'e19f53113a762b6a7a28ada1745701558a255c63',
+47 silly resolved     _from: 'flux@',
+47 silly resolved     _npmVersion: '1.4.14',
+47 silly resolved     _npmUser: { name: 'fisherwebdev', email: 'fisherwebdev@gmail.com' },
+47 silly resolved     maintainers: [ [Object] ],
+47 silly resolved     dist:
+47 silly resolved      { shasum: 'e19f53113a762b6a7a28ada1745701558a255c63',
+47 silly resolved        tarball: 'http://registry.npmjs.org/flux/-/flux-2.0.1.tgz' },
+47 silly resolved     directories: {},
+47 silly resolved     _resolved: 'https://registry.npmjs.org/flux/-/flux-2.0.1.tgz' } ]
+48 info install flux@2.0.1 into /Users/fenglin
+49 info installOne flux@2.0.1
+50 verbose node_modules/flux unbuild
+51 verbose tar unpack /Users/fenglin/.npm/flux/2.0.1/package.tgz
+52 silly lockFile 8f421a33--Users-fenglin-node-modules-flux tar:///Users/fenglin/node_modules/flux
+53 verbose lock tar:///Users/fenglin/node_modules/flux /Users/fenglin/.npm/8f421a33--Users-fenglin-node-modules-flux.lock
+54 silly lockFile a3f9ea8a-nglin-npm-flux-2-0-1-package-tgz tar:///Users/fenglin/.npm/flux/2.0.1/package.tgz
+55 verbose lock tar:///Users/fenglin/.npm/flux/2.0.1/package.tgz /Users/fenglin/.npm/a3f9ea8a-nglin-npm-flux-2-0-1-package-tgz.lock
+56 silly gunzTarPerm modes [ '755', '644' ]
+57 silly gunzTarPerm extractEntry package.json
+58 silly gunzTarPerm extractEntry README.md
+59 silly gunzTarPerm extractEntry LICENSE
+60 silly gunzTarPerm extractEntry index.js
+61 silly gunzTarPerm extractEntry PATENTS
+62 silly gunzTarPerm extractEntry lib/Dispatcher.js
+63 silly gunzTarPerm extractEntry lib/invariant.js
+64 silly lockFile 8f421a33--Users-fenglin-node-modules-flux tar:///Users/fenglin/node_modules/flux
+65 silly lockFile 8f421a33--Users-fenglin-node-modules-flux tar:///Users/fenglin/node_modules/flux
+66 silly lockFile a3f9ea8a-nglin-npm-flux-2-0-1-package-tgz tar:///Users/fenglin/.npm/flux/2.0.1/package.tgz
+67 silly lockFile a3f9ea8a-nglin-npm-flux-2-0-1-package-tgz tar:///Users/fenglin/.npm/flux/2.0.1/package.tgz
+68 info preinstall flux@2.0.1
+69 verbose readDependencies using package.json deps
+70 verbose readDependencies using package.json deps
+71 silly resolved []
+72 verbose about to build /Users/fenglin/node_modules/flux
+73 info build /Users/fenglin/node_modules/flux
+74 verbose linkStuff [ false, false, false, '/Users/fenglin/node_modules' ]
+75 info linkStuff flux@2.0.1
+76 verbose linkBins flux@2.0.1
+77 verbose linkMans flux@2.0.1
+78 verbose rebuildBundles flux@2.0.1
+79 info install flux@2.0.1
+80 info postinstall flux@2.0.1
+81 error peerinvalid The package react does not satisfy its siblings' peerDependencies requirements!
+81 error peerinvalid Peer react-router@0.13.2 wants react@0.13.x
+82 error System Darwin 14.1.0
+83 error command "node" "/usr/local/bin/npm" "install" "flux"
+84 error cwd /Users/fenglin/ReactWebsite/react_website
+85 error node -v v0.10.29
+86 error npm -v 1.4.16
+87 error code EPEERINVALID
+88 verbose exit [ 1, true ]

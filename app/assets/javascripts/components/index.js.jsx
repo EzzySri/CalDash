@@ -211,3 +211,11 @@ var CalDashApp = React.createClass({
     );
   }
 });
+
+
+$(document).ready(function () {
+  React.render(
+    <CalDashApp />,
+    document.getElementById('content')
+  );
+});
