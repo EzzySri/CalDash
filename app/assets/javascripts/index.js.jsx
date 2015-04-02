@@ -9,7 +9,7 @@ var CalDashApp = React.createClass({
       newGeoLocationResult: null,
       locationService: null,
       geocoderService: null,
-      isViewMode: true,
+      mode: "view-mode",
       logisticsPage: null,
       logisticsPageLabel: "",
       errorMessage: "",
@@ -75,10 +75,8 @@ var CalDashApp = React.createClass({
     }
     this.setState({predictions: predictions});
   },
-  toViewMode: function() {
-    if (!this.state.isViewMode) {
-      this.setState({isViewMode: true});
-    }
+  switchMode: function(event) {
+    this.setState({mode: event.target.id});
   },
   submitSignUpForm: function() {
 
@@ -142,25 +140,29 @@ var CalDashApp = React.createClass({
       this.setState({logisticsPage: signUpPage, logisticsPageLabel: "signUp"});
     }
   },
-  toScheduleMode: function() {
-    if (this.state.isViewMode) {
-      this.setState({isViewMode: false});
-    }
-  },
   displayErrorMessage: function(message) {
     if ($(".error-message-container").css("height") == "0px") {
       this.setState({errorMessage: message, errorMessageRandom: Math.random()});
     }
   },
   render: function() {
-    var rightComponent = this.state.isViewMode ? (<FullCalendar onChangeDayView={this.changeDayView} />) : (<ScheduledEvents onDeleteEvent={this.deleteEvent} data={this.state.data} />);
+    var rightComponent;
     
     var viewScheduleButtonClass = "task-button";
     var manageEventsButtonClass = "task-button";
-    if (this.state.isViewMode) {
-      viewScheduleButtonClass += " task-button-pressed";
-    } else {
-      manageEventsButtonClass += " task-button-pressed";
+    var resultsButtonClass = "task-button";
+    switch (this.state.mode) {
+      case "view-mode":
+        viewScheduleButtonClass += " task-button-pressed";
+        rightComponent = (<FullCalendar onChangeDayView={this.changeDayView} />);
+        break;
+      case "events-mode":
+        manageEventsButtonClass += " task-button-pressed";
+        rightComponent = (<ScheduledEvents onDeleteEvent={this.deleteEvent} data={this.state.data} />);
+        break;
+      default:
+        resultsButtonClass += " task-button-pressed";
+        rightComponent = (<OptimizedSchedule selectedDay={this.state.selectedDay} />);
     }
 
     return (
@@ -178,14 +180,17 @@ var CalDashApp = React.createClass({
             <div className="">
               <ErrorMessage errorMessage={this.state.errorMessage} errorMessageRandom={this.state.errorMessageRandom} />
             </div>
-            <div className="col-sm-9"></div>
-            <div className="col-sm-3">
+            <div className="col-sm-8"></div>
+            <div className="col-sm-4">
               <div className="row">
-                <div className="col-sm-6 col-0-gutter">
-                  <div className={viewScheduleButtonClass} onClick={this.toViewMode}> View Schedule </div>
+                <div className="col-sm-4 col-0-gutter">
+                    <div id="results-mode" className={resultsButtonClass} onClick={this.switchMode}> View Results </div>
                 </div>
-                <div className="col-sm-6 col-0-gutter">
-                  <div className={manageEventsButtonClass} onClick={this.toScheduleMode}> Manage Events </div>
+                <div className="col-sm-4 col-0-gutter">
+                  <div id="view-mode" className={viewScheduleButtonClass} onClick={this.switchMode}> View Schedule </div>
+                </div>
+                <div className="col-sm-4 col-0-gutter">
+                  <div id="events-mode" className={manageEventsButtonClass} onClick={this.switchMode}> Manage Events </div>
                 </div>
               </div>
             </div>

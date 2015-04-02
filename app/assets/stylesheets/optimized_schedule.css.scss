@@ -1,0 +1,44 @@
+@import "compass/css3";
+@import "common";
+@import "custom_variables";
+@import "custom_mixins";
+
+.optimized-schedule {
+  background-color: white;
+  padding: 15px;
+  height: 856px;
+  overflow: scroll;
+  .y-axis {
+    width: 120px;
+    text-align: center;
+    font-weight: bold;
+  }
+  .data-row-minor {
+    border-top-style: dotted;
+    border-width: 2px;
+  }
+  #r-0-c-1 {
+    text-align: center;
+    padding: 0;
+  }
+  .control-panel {
+    font-weight: 500;
+    .control-panel-middle {
+      padding-top: 10px;
+    }
+    .control-button {
+      @include task-button($green, $green, white);
+      height: 40px !important;
+    }
+  }
+  .table-data-row {
+    height: 2.4em;
+  }
+  .table-event-cell {
+    background-color: $calendar-light-grey;
+  }
+  .row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
