@@ -1,4 +1,4 @@
-define(['react', 'moment'], function(React, Moment) {
+define(['react', 'moment'], function(React, moment) {
   var AddNewEventSection = React.createClass({
     getInitialState: function() {
       return {

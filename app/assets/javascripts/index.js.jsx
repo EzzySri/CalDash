@@ -1,5 +1,5 @@
-define(['optimized_schedule', 'scheduled_events', 'event_store', 'fluxxor', 'react', 'moment', 'full_calendar', 'navigation_panel', 'error_message', 'add_new_event_section', 'google_map_section'],
-  function(OptimizedSchedule, ScheduledEvents, _, Fluxxor, React, _, FullCalendar, NavigationPanel, ErrorMessage, AddNewEventSection, GoogleMapSection) {
+define(['optimized_schedule', 'scheduled_events', 'event_store', 'session_store', 'fluxxor', 'react', 'moment', 'full_calendar', 'navigation_panel', 'error_message', 'add_new_event_section', 'google_map_section'],
+  function(OptimizedSchedule, ScheduledEvents, _, _, Fluxxor, React, moment, FullCalendar, NavigationPanel, ErrorMessage, AddNewEventSection, GoogleMapSection) {
   
   var FluxMixin = Fluxxor.FluxMixin(React);
   var StoreWatchMixin = Fluxxor.StoreWatchMixin;
@@ -8,7 +8,7 @@ define(['optimized_schedule', 'scheduled_events', 'event_store', 'fluxxor', 'rea
 
   var CalDashApp = React.createClass({
 
-    mixins: [FluxMixin, StoreWatchMixin("EventStore")],
+    mixins: [FluxMixin, StoreWatchMixin("EventStore", "SessionStore")],
 
     getInitialState: function() {
       return {
@@ -18,7 +18,6 @@ define(['optimized_schedule', 'scheduled_events', 'event_store', 'fluxxor', 'rea
         locationService: null,
         geocoderService: null,
         mode: "view-mode",
-        logisticsPage: null,
         logisticsPageLabel: "",
         errorMessage: "",
         errorMessageRandom: 0
@@ -84,63 +83,26 @@ define(['optimized_schedule', 'scheduled_events', 'event_store', 'fluxxor', 'rea
 
     },
     submitSignInForm: function() {
-
+      var email = this.refs.email.getDOMNode().value;
+      var password = this.refs.password.getDOMNode().value;
+      this.getFlux().actions.sessionActions.login(email, password);
     },
     handleSignIn: function() {
-      signInPage = (
-        <div className="full-extend-blue-background sign-in-section">
-          <div className="col-sm-4"></div>
-          <div className="col-sm-4 vert-ctr">
-            <div>
-              <div className="user-account-text"> Account </div>
-              <input className="generic-field-container" type="text" />
-            </div>
-            <div>
-              <div className="user-password-text"> Password </div>
-              <input className="generic-field-container" type="password" />
-            </div>
-            <div>
-              <button className="generic-field-container user-sign-in-button submit-text" type="button" onClick={this.submitSignInForm}> Submit </button>
-            </div>
-            <div className="col-sm-4"></div>
-          </div>
-        </div>
-      );
       if (this.state.logisticsPageLabel == "signIn") {
-        this.setState({logisticsPage: null, logisticsPageLabel: ""});
+        this.setState({logisticsPageLabel: ""});
       } else {
-        this.setState({logisticsPage: signInPage, logisticsPageLabel: "signIn"});
+        this.setState({logisticsPageLabel: "signIn"});
       }
     },
     handleSignUp: function() {
-      signUpPage = (
-        <div className="sign-up-section full-extend-green-background">
-          <div className="col-sm-4"></div>
-          <div className="col-sm-4 vert-ctr">
-            <div>
-              <div className="user-name-text"> Name </div>
-              <input className="generic-field-container" type="text" />
-            </div>
-            <div>
-              <div className="user-account-text"> Account </div>
-              <input className="generic-field-container" type="text" />
-            </div>
-            <div>
-              <div className="user-password-text"> Password </div>
-              <input className="generic-field-container" type="password" />
-            </div>
-            <div>
-              <button className="generic-field-container new-user-submit-button submit-text" type="button" onClick={this.submitSignUpForm}> Submit </button>
-            </div>
-          </div>
-          <div className="col-sm-4"></div>
-        </div>
-      );
       if (this.state.logisticsPageLabel == "signUp") {
-        this.setState({logisticsPage: null, logisticsPageLabel: ""});
+        this.setState({logisticsPageLabel: ""});
       } else {
-        this.setState({logisticsPage: signUpPage, logisticsPageLabel: "signUp"});
+        this.setState({logisticsPageLabel: "signUp"});
       }
+    },
+    handleSignOut: function() {
+      this.getFlux().actions.sessionActions.logout();
     },
     displayErrorMessage: function(message) {
       if ($(".error-message-container").css("height") == "0px") {
@@ -167,14 +129,63 @@ define(['optimized_schedule', 'scheduled_events', 'event_store', 'fluxxor', 'rea
           rightComponent = (<OptimizedSchedule selectedDay={this.state.selectedDay} />);
       }
 
+      var logisticsPage;
+      switch (this.state.logisticsPageLabel) {
+        case "signIn":
+          logisticsPage = (
+            <div key={this.state.logisticsPageLabel} className="full-extend-blue-background sign-in-section">
+              <div className="col-sm-4"></div>
+              <div className="col-sm-4 vert-ctr">
+                <div>
+                  <div className="user-account-text"> Account </div>
+                  <input className="generic-field-container" type="text" ref="email"/>
+                </div>
+                <div>
+                  <div className="user-password-text"> Password </div>
+                  <input className="generic-field-container" type="password" ref="password"/>
+                </div>
+                <div>
+                  <button className="generic-field-container user-sign-in-button submit-text" type="button" onClick={this.submitSignInForm}> Submit </button>
+                </div>
+                <div className="col-sm-4"></div>
+              </div>
+            </div>
+          );
+          break;
+        default:
+          logisticsPage = (
+            <div key={this.state.logisticsPageLabel} className="sign-up-section full-extend-green-background">
+              <div className="col-sm-4"></div>
+              <div className="col-sm-4 vert-ctr">
+                <div>
+                  <div className="user-name-text"> Name </div>
+                  <input className="generic-field-container" type="text" />
+                </div>
+                <div>
+                  <div className="user-account-text"> Account </div>
+                  <input className="generic-field-container" type="text" />
+                </div>
+                <div>
+                  <div className="user-password-text"> Password </div>
+                  <input className="generic-field-container" type="password" />
+                </div>
+                <div>
+                  <button className="generic-field-container new-user-submit-button submit-text" type="button" onClick={this.submitSignUpForm}> Submit </button>
+                </div>
+              </div>
+              <div className="col-sm-4"></div>
+            </div>
+          );
+      }
+
       return (
         <div className="container">
           <div className="row full-extend-white-background">
-            <NavigationPanel onSignUp={this.handleSignUp} onSignIn={this.handleSignIn}/>
+            <NavigationPanel onSignUp={this.handleSignUp} onSignIn={this.handleSignIn} onSignOut={this.handleSignOut}/>
           </div>
           <div className="logistics-section row" ref="logisticsSection">
             <ReactCSSTransitionGroup transitionName="logistics-page">
-              {this.state.logisticsPage}
+              {logisticsPage}
             </ReactCSSTransitionGroup>
           </div>
           <div className="row show-grid">

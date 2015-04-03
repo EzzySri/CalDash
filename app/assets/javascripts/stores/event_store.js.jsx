@@ -22,6 +22,7 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
         e = this.events[i];
         if (e.title == titleText) {
           this.events.splice(i, 1);
+          break
         }
       }
       this.emit("change");

@@ -14,6 +14,11 @@
     margin-top: 20px;
     margin-bottom: 20px;
   }
+  #sign-out-button {
+    @include nav-button($blue); 
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
   #profile-button {
     @include nav-button($dark-red);  
     margin-top: 20px;
