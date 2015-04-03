@@ -1,5 +1,5 @@
-define(['optimized_schedule', 'scheduled_events', 'event_store', 'session_store', 'fluxxor', 'react', 'moment', 'full_calendar', 'navigation_panel', 'error_message', 'add_new_event_section', 'google_map_section'],
-  function(OptimizedSchedule, ScheduledEvents, _, _, Fluxxor, React, moment, FullCalendar, NavigationPanel, ErrorMessage, AddNewEventSection, GoogleMapSection) {
+define(['constants', 'optimized_schedule', 'scheduled_events', 'event_store', 'session_store', 'fluxxor', 'react', 'moment', 'full_calendar', 'navigation_panel', 'error_message', 'add_new_event_section', 'google_map_section'],
+  function(Constants, OptimizedSchedule, ScheduledEvents, _, _, Fluxxor, React, moment, FullCalendar, NavigationPanel, ErrorMessage, AddNewEventSection, GoogleMapSection) {
   
   var FluxMixin = Fluxxor.FluxMixin(React);
   var StoreWatchMixin = Fluxxor.StoreWatchMixin;
@@ -98,6 +98,13 @@ define(['optimized_schedule', 'scheduled_events', 'event_store', 'session_store'
         this.setState({logisticsPageLabel: "signIn"});
       }
     },
+    afterSignIn: function(status) {
+      if (status == Constants.SUCCESS) {
+        this.refs.email.getDOMNode().value = "";
+        this.refs.password.getDOMNode().value = "";
+        this.setState({logisticsPageLabel: ""});
+      }
+    },
     handleSignUp: function() {
       if (this.state.logisticsPageLabel == "signUp") {
         this.setState({logisticsPageLabel: ""});
@@ -112,6 +119,9 @@ define(['optimized_schedule', 'scheduled_events', 'event_store', 'session_store'
       if ($(".error-message-container").css("height") == "0px") {
         this.setState({errorMessage: message, errorMessageRandom: Math.random()});
       }
+    },
+    componentDidMount: function() {
+      this.getFlux().store("SessionStore").on(Constants.SIGNIN_EVENT, this.afterSignIn);
     },
     render: function() {
       var rightComponent;

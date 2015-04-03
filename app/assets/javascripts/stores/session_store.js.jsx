@@ -30,6 +30,10 @@ define(['jquery_ujs', 'jquery', 'fluxxor', 'constants'], function(_, $, Fluxxor,
       this.emit(CHANGE_EVENT);
     },
 
+    addSuccessListener: function(callback) {
+      this.on(SUCCESS_EVENT, callback);
+    },
+
     addChangeListener: function(callback) {
       this.on(CHANGE_EVENT, callback);
     },
@@ -110,6 +114,7 @@ define(['jquery_ujs', 'jquery', 'fluxxor', 'constants'], function(_, $, Fluxxor,
           }
         }, 
         success: function(data) {
+          this.emit(Constants.SIGNIN_EVENT, Constants.SUCCESS);
           // ServerActions.receiveLogin(json, null);
         }.bind(this),
         error: function(xhr, status, err) {
@@ -138,6 +143,7 @@ define(['jquery_ujs', 'jquery', 'fluxxor', 'constants'], function(_, $, Fluxxor,
         }, 
         success: function(data) {
           this.onLoginResponse({json: data, errors: null});
+          this.emit(Constants.SIGNIN_EVENT, Constants.SUCCESS);
         }.bind(this),
         error: function(xhr, status, err) {
           // var errorMsgs = _getErrors(err);

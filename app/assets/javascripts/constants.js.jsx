@@ -5,6 +5,11 @@ define([], function(){
   var Constants = {
     ADD_EVENT: "ADD_EVENT",
     REMOVE_EVENT: "REMOVE_EVENT",
+    SIGNIN_EVENT: "SIGNIN_EVENT",
+    SIGNOUT_EVENT: "SIGNOUT_EVENT",
+
+    SUCCESS: "success",
+    ERROR: "error",
 
     APIEndpoints: {
       LOGIN:          APIRoot + "/users/sign_in",
