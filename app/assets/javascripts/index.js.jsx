@@ -24,7 +24,11 @@ define(['optimized_schedule', 'scheduled_events', 'event_store', 'session_store'
       };
     },
     getStateFromFlux: function() {
-      return this.getFlux().store('EventStore').getState();
+      var flux = this.getFlux();
+      return {
+        eventStoreState: flux.store('EventStore').getState(),
+        sessionStoreState: flux.store('SessionStore').getState()
+      };
     },
     addToScheduledEvents: function(eventSource) {
       this.getFlux().actions.eventActions.addEvent(eventSource);
@@ -152,7 +156,7 @@ define(['optimized_schedule', 'scheduled_events', 'event_store', 'session_store'
             </div>
           );
           break;
-        default:
+        case "signUp":
           logisticsPage = (
             <div key={this.state.logisticsPageLabel} className="sign-up-section full-extend-green-background">
               <div className="col-sm-4"></div>
@@ -176,12 +180,13 @@ define(['optimized_schedule', 'scheduled_events', 'event_store', 'session_store'
               <div className="col-sm-4"></div>
             </div>
           );
+        default:
       }
 
       return (
         <div className="container">
           <div className="row full-extend-white-background">
-            <NavigationPanel onSignUp={this.handleSignUp} onSignIn={this.handleSignIn} onSignOut={this.handleSignOut}/>
+            <NavigationPanel isSignedIn={this.getFlux().store('SessionStore').isLoggedIn()} onSignUp={this.handleSignUp} onSignIn={this.handleSignIn} onSignOut={this.handleSignOut}/>
           </div>
           <div className="logistics-section row" ref="logisticsSection">
             <ReactCSSTransitionGroup transitionName="logistics-page">

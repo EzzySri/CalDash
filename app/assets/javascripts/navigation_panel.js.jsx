@@ -5,6 +5,12 @@ define(['react'], function(React){
       };
     },
     render : function() {
+      sessionComponent = this.props.isSignedIn ? (<div className="col-sm-3 col-5-gutter">
+                    <div id="sign-out-button" onClick={this.props.onSignOut}> Log Out </div>
+                  </div>) : (<div className="col-sm-3 col-5-gutter">
+                    <div id="sign-in-button" onClick={this.props.onSignIn}> Log In </div>
+                  </div>);
+
       return (
         <div className="navigation-panel col-sm-12">
           <div className="col-sm-8"></div>
@@ -13,12 +19,7 @@ define(['react'], function(React){
               <div className="col-sm-3 col-5-gutter">
                 <div id="sign-up-button" onClick={this.props.onSignUp}> Sign Up </div>
               </div>
-              <div className="col-sm-3 col-5-gutter">
-                <div id="sign-in-button" onClick={this.props.onSignIn}> Log In </div>
-              </div>
-              <div className="col-sm-3 col-5-gutter">
-                <div id="sign-out-button" onClick={this.props.onSignOut}> Log Out </div>
-              </div>
+              {sessionComponent}
               <div className="col-sm-3 col-5-gutter">
                 <div id="profile-button"> My Profile </div>
               </div>

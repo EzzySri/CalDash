@@ -19,9 +19,9 @@ define([], function(){
 
     ActionTypes: {
       // Session
-      LOGIN_REQUEST: "LOGIN_REQUEST",
-      LOGIN_RESPONSE: "LOGIN_RESPONSE",
-      LOGOUT_REQUEST: "LOGIN_REQUEST",
+      LOGIN: "LOGIN",
+      LOGOUT: "LOGOUT",
+      SIGNUP: "SIGNUP",
       // Routes
       REDIRECT: "REDIRECT"
     }

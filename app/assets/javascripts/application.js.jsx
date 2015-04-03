@@ -7,11 +7,7 @@ require.config({
     event_store: "stores/event_store",
     session_store: "stores/session_store",
 
-    session_actions: "actions/session_actions",
-    event_actions: "actions/event_actions",
-    server_actions: "actions/server_actions",
-
-    web_api_utils: "utils/web_api_utils",
+    web_api_utils: "utils/web_api_utils"
   }
 });
 
@@ -21,8 +17,8 @@ require.config({
 //   });
 // });
 
-require(['jquery', 'react', 'index', 'fluxxor', 'event_store', 'session_store', 'server_actions', 'session_actions', 'event_actions'],
-  function($, React, CalDashApp, Fluxxor, EventStore, SessionStore, serverActions, sessionActions, eventActions) {
+require(['jquery', 'react', 'index', 'fluxxor', 'event_store', 'session_store', 'actions'],
+  function($, React, CalDashApp, Fluxxor, EventStore, SessionStore, actions) {
   
   $(document).ajaxComplete(function(event, xhr, settings) {
     var csrf_token = xhr.getResponseHeader('X-CSRF-Token');
@@ -35,11 +31,7 @@ require(['jquery', 'react', 'index', 'fluxxor', 'event_store', 'session_store', 
     EventStore: new EventStore(),
     SessionStore: new SessionStore()
   };
-  var actions = {
-    eventActions: eventActions,
-    sessionActions: sessionActions,
-    serverActions: serverActions
-  };
+
   var flux = new Fluxxor.Flux(stores, actions);
   window.flux = flux;
 

@@ -1,4 +1,5 @@
-define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
+define(['jquery_ujs', 'jquery', 'fluxxor', 'constants'], function(_, $, Fluxxor, Constants){
+
 
   var ActionTypes = Constants.ActionTypes;
   var CHANGE_EVENT = 'change';
@@ -16,10 +17,12 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
 
       this.email = null;
       this.name = null;
+      this.userId = null;
 
       this.bindActions(
-        Constants.ActionTypes.LOGIN_RESPONSE, this.onLoginResponse,
-        Constants.ActionTypes.LOGOUT_REQUEST, this.onLogoutRequest
+        Constants.ActionTypes.LOGIN, this.onLogin,
+        Constants.ActionTypes.LOGOUT, this.onLogout,
+        Constants.ActionTypes.SIGNUP, this.onSignup
       );
     },
 
@@ -51,29 +54,111 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
       return this.errors;
     },
 
+    getState: function() {
+      return {
+        errors: this.errors,
+        isSignedIn: this.isSignedIn,
+        email: this.email,
+        name: this.name,
+        userId: this.userId
+      };
+    },
+
     onLoginResponse: function(payload) {
-      if (payload.json && payload.json.access_token) {
-        this.email = action.json.email;
-        this.name = action.json.name;
+      if (payload.json) {
+        this.userId = payload.json.id
+        this.email = payload.json.email;
+        this.name = payload.json.first_name + " " + payload.json.last_name;
         this.isSignedIn = true;
         // Token will always live in the session, so that the API can grab it with no hassle
         // sessionStorage.setItem('accessToken', _accessToken);
         // sessionStorage.setItem('email', _email);
       }
-      if (action.errors) {
-        this.errors = action.errors;
+      if (payload.errors) {
+        this.errors = payload.errors;
       }
       this.emitChange();
     },
 
-    onLogoutRequest: function() {
+    onLogoutResponse: function(payload) {
       this.email = null;
       this.name = null;
+      this.userId = null;
       this.isSignedIn = false;
       // sessionStorage.removeItem("email");
       // sessionStorage.removeItem('');
-      SessionStore.emitChange();
+      this.emitChange();
     },
+
+    onSignup: function(payload) {
+
+      email = payload.email;
+      username = payload.username;
+      password = payload.password;
+      passwordConfirmation = payload.passwordConfirmation;
+
+      $.ajax({
+        url: APIEndpoints.REGISTRATION,
+        method: "POST",
+        dataType: "json",
+        data: {
+          user: { 
+            email: email, 
+            username: username,
+            password: password,
+            password_confirmation: passwordConfirmation
+          }
+        }, 
+        success: function(data) {
+          // ServerActions.receiveLogin(json, null);
+        }.bind(this),
+        error: function(xhr, status, err) {
+          // var errorMsgs = _getErrors(err);
+          // ServerActions.receiveLogin(null, errorMsgs);
+        }.bind(this)
+      });
+    },
+
+    onLogin: function(payload) {
+
+      var email = payload.email;
+      var password = payload.password;
+
+      $.ajax({
+        url: "/users/sign_in",
+        method: "POST",
+        dataType: "json",
+        data: {
+          user: {
+            email: email, 
+            password: password,
+            remember_me: 0
+          },
+          commit: "Log in"
+        }, 
+        success: function(data) {
+          this.onLoginResponse({json: data, errors: null});
+        }.bind(this),
+        error: function(xhr, status, err) {
+          // var errorMsgs = _getErrors(err);
+          // ServerActions.receiveLogin(null, errorMsgs);
+        }.bind(this)
+      });
+    },
+
+    onLogout: function(payload) {
+      $.ajax({
+        url: "/users/sign_out",
+        method: "DELETE",
+        success: function(data) {
+          this.onLogoutResponse({json: null, errors: null});
+        }.bind(this),
+        error: function(xhr, status, err) {
+          // var errorMsgs = _getErrors(err);
+          // ServerActions.receiveLogin(null, errorMsgs);
+        }.bind(this)
+      });
+    }
   });
   return SessionStore;
 });
