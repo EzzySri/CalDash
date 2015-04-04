@@ -5,7 +5,7 @@
 
 .sign-up-section {
   background-color: $green;
-  height: 300px;
+  height: 400px;
   overflow: hidden;
 
   [class*='-text'] {
@@ -29,11 +29,36 @@
     height: 40px;
     margin: 0px;
   }
+  .user-name-input {
+    @include input-placeholder {
+      color: $green;
+      text-align: left;
+      padding-left: 10px;
+    }
+  }
+}
+
+.my-profile-section {
+
+  background-color: $dark-red;
+  height: 400px;
+  overflow: hidden;
+
+  [class*='-text'] {
+    @include common-font;
+    font-size: 14px;
+    font-weight: 800;
+    color: white;
+    line-height: 22px;
+  }
+  input, select, button, li {
+    font-size: 10px;
+  }
 }
 
 .sign-in-section {
   background-color: $blue;
-  height: 300px;
+  height: 400px;
   overflow: hidden;
 
   [class*='-text'] {
@@ -64,6 +89,10 @@
   @include full-extend-background($green);
 }
 
+.full-extend-dark-red-background {
+  @include full-extend-background($dark-red);
+}
+
 .full-extend-blue-background {
   @include full-extend-background($blue);
 }
@@ -74,11 +103,11 @@
 }
 
 .logistics-page-enter.logistics-page-enter-active {
-  height: 300px;
+  height: 400px;
 }
 
 .logistics-page-leave {
-  height: 300px;
+  height: 400px;
   @include transition(all 0.5s ease); 
 }
 

@@ -13,7 +13,7 @@ define([], function(){
 
     APIEndpoints: {
       LOGIN:          APIRoot + "/users/sign_in",
-      REGISTRATION:   APIRoot + "/users/sign_up",
+      REGISTRATION:   APIRoot + "/users/",
       LOGOUT:        APIRoot + "/users/sign_out"
     },
 

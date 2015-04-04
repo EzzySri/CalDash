@@ -21,7 +21,7 @@ define(['react'], function(React){
               </div>
               {sessionComponent}
               <div className="col-sm-3 col-5-gutter">
-                <div id="profile-button"> My Profile </div>
+                <div id="profile-button" onClick={this.props.onViewProfile}> My Profile </div>
               </div>
             </div>
           </div>

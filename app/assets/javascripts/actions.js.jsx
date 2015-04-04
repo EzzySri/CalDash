@@ -11,8 +11,8 @@ define(['constants'], function(Constants){
     },
     sessionActions: {
      
-      signup: function(payload) {
-        this.dispatch(Constants.ActionTypes.SIGNUP, {email: payload.email, username: payload.username, password: payload.password, passwordConfirmation: payload.passwordConfirmation});
+      signup: function(name, email, password, passwordConfirmation) {
+        this.dispatch(Constants.ActionTypes.SIGNUP, {email: email, name: name, password: password, passwordConfirmation: passwordConfirmation});
       },
       login: function(email, password) {
         this.dispatch(Constants.ActionTypes.LOGIN, {email: email, password: password});

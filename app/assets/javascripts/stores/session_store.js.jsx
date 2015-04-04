@@ -97,24 +97,25 @@ define(['jquery_ujs', 'jquery', 'fluxxor', 'constants'], function(_, $, Fluxxor,
     onSignup: function(payload) {
 
       email = payload.email;
-      username = payload.username;
+      fullName = payload.name.split(" ");
       password = payload.password;
       passwordConfirmation = payload.passwordConfirmation;
 
       $.ajax({
-        url: APIEndpoints.REGISTRATION,
+        url: Constants.APIEndpoints.REGISTRATION,
         method: "POST",
         dataType: "json",
         data: {
           user: { 
             email: email, 
-            username: username,
+            first_name: fullName[0],
+            last_name: fullName[1],
             password: password,
             password_confirmation: passwordConfirmation
           }
         }, 
         success: function(data) {
-          this.emit(Constants.SIGNIN_EVENT, Constants.SUCCESS);
+          this.emit(Constants.SIGNUP_EVENT, Constants.SUCCESS);
           // ServerActions.receiveLogin(json, null);
         }.bind(this),
         error: function(xhr, status, err) {
