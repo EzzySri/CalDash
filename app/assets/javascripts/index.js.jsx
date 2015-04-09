@@ -1,5 +1,5 @@
-define(['constants', 'optimized_schedule', 'scheduled_events', 'event_store', 'session_store', 'fluxxor', 'react', 'moment', 'full_calendar', 'navigation_panel', 'error_message', 'add_new_event_section', 'google_map_section'],
-  function(Constants, OptimizedSchedule, ScheduledEvents, _, _, Fluxxor, React, moment, FullCalendar, NavigationPanel, ErrorMessage, AddNewEventSection, GoogleMapSection) {
+define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'event_store', 'session_store', 'fluxxor', 'react', 'moment', 'full_calendar', 'navigation_panel', 'error_message', 'add_new_event_section', 'google_map_section'],
+  function(StepsBar, Constants, OptimizedSchedule, ScheduledEvents, _, _, Fluxxor, React, moment, FullCalendar, NavigationPanel, ErrorMessage, AddNewEventSection, GoogleMapSection) {
   
   var FluxMixin = Fluxxor.FluxMixin(React);
   var StoreWatchMixin = Fluxxor.StoreWatchMixin;
@@ -20,7 +20,9 @@ define(['constants', 'optimized_schedule', 'scheduled_events', 'event_store', 's
         mode: "view-mode",
         logisticsPageLabel: "",
         errorMessage: "",
-        errorMessageRandom: 0
+        errorMessageRandom: 0,
+        stepCount: 0,
+        optimizedResults: this.getFlux().store("EventStore").getState().optimizedResults
       };
     },
     getStateFromFlux: function() {
@@ -35,9 +37,6 @@ define(['constants', 'optimized_schedule', 'scheduled_events', 'event_store', 's
     },
     deleteEvent: function(titleText) {
       this.getFlux().actions.eventActions.removeEvent(titleText);
-    },
-    changeDayView: function(date) {
-      this.setState({selectedDay:date});
     },
     retrieveGeoLocation: function(loc) {
       var context = this;
@@ -75,7 +74,6 @@ define(['constants', 'optimized_schedule', 'scheduled_events', 'event_store', 's
     },
     sendPredictions: function(predictions, status) {
       if (status != google.maps.places.PlacesServiceStatus.OK) {
-        alert(status);
         return;
       }
       this.setState({predictions: predictions});
@@ -150,30 +148,56 @@ define(['constants', 'optimized_schedule', 'scheduled_events', 'event_store', 's
         this.setState({errorMessage: message, errorMessageRandom: Math.random()});
       }
     },
+    // TO-DO
+    getOptimizedSchedules: function() {
+      this.getFlux().actions.eventActions.getOptimizedSchedules(this.state.selectedDay);
+    },
+    afterGetOptimizedSchedule: function() {
+      this.setState({mode: "results-mode", stepCount: 1});
+    },
     componentDidMount: function() {
       this.getFlux().store("SessionStore").on(Constants.SIGNIN_EVENT, this.afterSignIn);
       this.getFlux().store("SessionStore").on(Constants.SIGNUP_EVENT, this.afterSignUp);
+      this.getFlux().store("EventStore").on(Constants.GET_OPTIMIZED_SCHEDULES_EVENT, this.afterGetOptimizedSchedule);
+    },
+    changeDate: function(diffInDays) {
+      newDate = this.state.selectedDay.add(diffInDays, 'days');
+      this.setState({selectedDay: newDate});
+    },
+    handleConfirmSchedule: function() {
+      this.getFlux().actions.eventActions.mergeResultsToCalendar();
+      this.getFlux().actions.eventActions.clearOptimizedResults();
+      this.setState({stepCount: 2});
+    },
+    handleLocationChoice: function() {
+      this.setState({predictions: []});
     },
     render: function() {
       var rightComponent;
-      
       var viewScheduleButtonClass = "task-button";
       var manageEventsButtonClass = "task-button";
       var resultsButtonClass = "task-button";
       switch (this.state.mode) {
         case "view-mode":
           viewScheduleButtonClass += " task-button-pressed";
-          rightComponent = (<FullCalendar onChangeDayView={this.changeDayView} />);
           break;
         case "events-mode":
           manageEventsButtonClass += " task-button-pressed";
-          rightComponent = (<ScheduledEvents onDeleteEvent={this.deleteEvent} data={this.getStateFromFlux().events} />);
+          rightComponent =
+            (<ScheduledEvents
+              selectedDay={this.selectedDay}
+              onGetOptimizedSchedules={this.getOptimizedSchedules}
+              onDeleteEvent={this.deleteEvent}
+              data={this.getStateFromFlux().eventStoreState.events} />);
           break;
         default:
           resultsButtonClass += " task-button-pressed";
-          rightComponent = (<OptimizedSchedule selectedDay={this.state.selectedDay} />);
+          rightComponent =
+            (<OptimizedSchedule
+              onConfirmSchedule={this.handleConfirmSchedule}
+              results = {this.state.optimizedResults}
+              selectedDay={this.state.selectedDay} />);
       }
-
       var logisticsPage;
       switch (this.state.logisticsPageLabel) {
         case "signIn":
@@ -234,7 +258,6 @@ define(['constants', 'optimized_schedule', 'scheduled_events', 'event_store', 's
           break;
         default:
       }
-
       return (
         <div className="container">
           <div className="row full-extend-white-background">
@@ -254,13 +277,13 @@ define(['constants', 'optimized_schedule', 'scheduled_events', 'event_store', 's
               <div className="col-sm-4">
                 <div className="row">
                   <div className="col-sm-4 col-0-gutter">
+                    <div id="events-mode" className={manageEventsButtonClass} onClick={this.switchMode}> Manage Events </div>
+                  </div>
+                  <div className="col-sm-4 col-0-gutter">
                       <div id="results-mode" className={resultsButtonClass} onClick={this.switchMode}> View Results </div>
                   </div>
                   <div className="col-sm-4 col-0-gutter">
-                    <div id="view-mode" className={viewScheduleButtonClass} onClick={this.switchMode}> View Schedule </div>
-                  </div>
-                  <div className="col-sm-4 col-0-gutter">
-                    <div id="events-mode" className={manageEventsButtonClass} onClick={this.switchMode}> Manage Events </div>
+                    <div id="view-mode" className={viewScheduleButtonClass} onClick={this.switchMode}> Expand Calendar </div>
                   </div>
                 </div>
               </div>
@@ -269,12 +292,38 @@ define(['constants', 'optimized_schedule', 'scheduled_events', 'event_store', 's
           <div className="row show-grid">
             <div className="col-sm-4">
               <div className="show-grid">
-                <AddNewEventSection didError={this.displayErrorMessage} onLocationSelected={this.retrieveGeoLocation} newPredictions={this.state.predictions} selectedDay={this.state.selectedDay} onLocationInputChange={this.retrieveMapPredictions} onAddEvent={this.addToScheduledEvents}/>
+                <AddNewEventSection
+                  onLocationChoice={this.handleLocationChoice}
+                  didError={this.displayErrorMessage}
+                  onLocationSelected={this.retrieveGeoLocation}
+                  newPredictions={this.state.predictions}
+                  selectedDay={this.state.selectedDay}
+                  onLocationInputChange={this.retrieveMapPredictions}
+                  onAddEvent={this.addToScheduledEvents}/>
               </div>
               <GoogleMapSection newGeoLocationResult={this.state.newGeoLocationResult} locationInput={this.state.locationInput}/>
             </div>
             <div className="col-sm-8">
-              {rightComponent}
+              {this.state.mode == "view-mode" ? (
+                  <FullCalendar
+                    events={flux.store('EventStore').getMandatoryEvents()}
+                    selectedDay={this.state.selectedDay}
+                    onChangeDate={this.changeDate} />
+                ) : (
+                  <div className="row">
+                    <div className="col-sm-6">
+                      <StepsBar stepCount={this.state.stepCount} />
+                      {rightComponent}
+                    </div>
+                    <div className="col-sm-6">
+                      <FullCalendar
+                        events={flux.store('EventStore').getMandatoryEvents()}
+                        selectedDay={this.state.selectedDay}
+                        onChangeDate={this.changeDate} />
+                    </div>
+                  </div>
+                )
+              }
             </div>
           </div>
         </div>

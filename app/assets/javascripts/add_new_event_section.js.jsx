@@ -1,4 +1,4 @@
-define(['react', 'moment'], function(React, moment) {
+define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, React, moment, PredictionList) {
   var AddNewEventSection = React.createClass({
     getInitialState: function() {
       return {
@@ -29,7 +29,6 @@ define(['react', 'moment'], function(React, moment) {
           end: momentTo,
           location: this.state.location
         }
-        $("#full-calendar").fullCalendar('renderEvent', eventSource, true); 
       } else {
         momentBefore = moment(parseInt(this.refs.beforeTime.getDOMNode().value));
         momentAfter = moment(parseInt(this.refs.afterTime.getDOMNode().value));
@@ -82,8 +81,7 @@ define(['react', 'moment'], function(React, moment) {
       var loc = event.target.innerHTML;
       this.setState({location: loc});
       this.refs.locationInput.getDOMNode().value = loc;
-      // TO-DOs: use a react way to achieve this feature
-      // this.refs.predictionList.getDOMNode().innerHTML = "";
+      this.props.onLocationChoice();
     },
     render: function() {
       var startOfDay = this.props.selectedDay.startOf('day');
@@ -94,9 +92,20 @@ define(['react', 'moment'], function(React, moment) {
       for (i = 1; i < 48; i += 1) {
         times.push(startOfDay.add(30, "m").clone());
       }
+      times.push(startOfDay.add(29, "m").clone());
       var timeOptions = times.map(function(momentObj) {
         return (
           <option value={momentObj.valueOf()}>{momentObj.format(momentStrFormat)}</option>
+        );
+      });
+      var beforeTimeOptions = times.map(function(momentObj) {
+        return (
+          <option value={momentObj.valueOf()}>{"before " + momentObj.format(momentStrFormat)}</option>
+        );
+      });
+      var afterTimeOptions = times.map(function(momentObj) {
+        return (
+          <option value={momentObj.valueOf()}>{"after " + momentObj.format(momentStrFormat)}</option>
         );
       });
 
@@ -112,17 +121,17 @@ define(['react', 'moment'], function(React, moment) {
       });
       var notMandatorySection = (
         <div className="not-mandatory-section">
-          <div className="col-sm-4">
-            <select ref="beforeTime" className="generic-field-container">
-              {timeOptions}
+          <div className="col-sm-6 after-time-container">
+            <select ref="afterTime" value={times[0].valueOf()} className="generic-field-container">
+              {afterTimeOptions}
             </select>
           </div>
-          <div className="col-sm-4">
-            <select ref="afterTime" className="generic-field-container">
-              {timeOptions}
+          <div className="col-sm-6 before-time-container">
+            <select ref="beforeTime" value={times[times.length - 1].valueOf()} className="generic-field-container">
+              {beforeTimeOptions}
             </select>
           </div>
-          <div className="col-sm-4">
+          <div className="col-sm-6 duration-container">
             <select ref="duration" className="generic-field-container">
               {durationOptions}
             </select>
@@ -131,31 +140,36 @@ define(['react', 'moment'], function(React, moment) {
       ); 
       var mandatorySection = (
         <div className="not-mandatory-section">
-          <div className="col-sm-6">
+          <div className="col-sm-6 from-time-container">
             <select ref="fromTime" className="generic-field-container">
               {timeOptions}
             </select>
           </div>
-          <div className="col-sm-6">
+          <div className="col-sm-6 to-time-container">
             <select ref="toTime" className="generic-field-container">
               {timeOptions}
             </select>
           </div>
           <div className="event-day-list" onClick={this.handleForWhichDays}>
-            <li>Sun.</li>
-            <li >Mon.</li>
-            <li>Tue.</li>
-            <li>Wed.</li>
-            <li>Thu.</li>
-            <li>Fri.</li>
-            <li>Sat.</li>
+            <div className="row">
+              <li>Sun.</li>
+              <li >Mon.</li>
+              <li>Tue.</li>
+              <li>Wed.</li>
+              <li>Thu.</li>
+              <li>Fri.</li>
+              <li>Sat.</li>
+            </div>
           </div>
         </div>
       );
       var timeRangeSection;
+      var timeRangeSectionText;
       if (this.state.mandatory) {
+        timeRangeSectionText = "Fixed Time Range"
         timeRangeSection = mandatorySection;
       } else {
+        timeRangeSectionText = "Desired Time Constraints & Duration"
         timeRangeSection = notMandatorySection;
       }
 
@@ -167,13 +181,28 @@ define(['react', 'moment'], function(React, moment) {
         notMandButtonClass += " pressed";
       }
 
+      var categoryOptions = Object.keys(Constants.CategoryImagePairs).map(function(cat) {
+          return (
+            <option value={cat}>{cat}</option>
+          );
+        }
+      );
+
       return (
         <div className="add-new-event-container">
           <form onSubmit={this.handleSubmit}>
             <div className="new-event-form-upper">
               <div>
-                <div className="event-name-text"> Event Name </div>
-                <input className="generic-field-container" type="text" ref="eventName" />
+                <div className="event-name-text"> Event Name & Category </div>
+                <div className="col-sm-6 event-name-container">
+                  <input className="generic-field-container" type="text" ref="eventName" />
+                </div>
+                <div className="col-sm-6 category-select-container">
+                  <select value="placeholder" ref="categorySelect" className="generic-field-container">
+                    <option value="placeholder" disabled>Select a category</option>
+                    {categoryOptions}
+                  </select>
+                </div>
               </div>
               <div>
                 <div className="is-mandatory-text" onClick={this.toggleTimeInputMenus}> Mandatory Event </div>
@@ -185,7 +214,7 @@ define(['react', 'moment'], function(React, moment) {
                 </div>
               </div>
               <div>
-                <div className="date-duration-text"> Desired Time Range & Duration </div>
+                <div className="date-duration-text">{timeRangeSectionText}</div>
                 {timeRangeSection}
               </div>
             </div>
@@ -194,14 +223,9 @@ define(['react', 'moment'], function(React, moment) {
                 <div className="location-text"> Location </div>
                 <input className="generic-field-container" type="text" ref="locationInput" onChange={this.handleLocationInputChange} />
               </div>
-              <ul ref="predictionList" onClick={this.handleLocationChoice} className="prediction-list no-list-style">
-                {this.props.newPredictions.map(function(pred) {
-                    return (
-                      <li key={pred.id} className="prediction-text">{pred.description}</li>
-                    );
-                  })
-                }
-              </ul>
+              <PredictionList
+                onLocationChoice={this.handleLocationChoice}
+                newPredictions={this.props.newPredictions} />
               <div>
                 <div className="evnet-description-text"> Description </div>
                 <input className="generic-field-container" type="text" ref="eventDescription" />
@@ -217,4 +241,3 @@ define(['react', 'moment'], function(React, moment) {
   });
   return AddNewEventSection;
 });
-

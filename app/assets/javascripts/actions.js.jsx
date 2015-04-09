@@ -7,6 +7,15 @@ define(['constants'], function(Constants){
       },
       removeEvent: function(eventName) {
         this.dispatch(Constants.REMOVE_EVENT, eventName);
+      },
+      getOptimizedSchedules: function(date) {
+        this.dispatch(Constants.GET_OPTIMIZED_SCHEDULES, date);
+      },
+      mergeResultsToCalendar: function() {
+        this.dispatch(Constants.MERGE_RESULTS_TO_CALENDAR, {});
+      },
+      clearOptimizedResults: function() {
+        this.dispatch(Constants.CLEAR_OPTIMIZED_RESULTS, {});
       }
     },
     sessionActions: {

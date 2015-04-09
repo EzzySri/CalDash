@@ -16,16 +16,6 @@
   input, select, button, li {
     font-size: 10px;
   }
-  [class*='-select'] {
-    border: 1px solid black;
-    @include border-radius(0px);
-    @include appearance(none);
-    height: 50px;
-    background: url(/assets/collapsed_menu.png) no-repeat;
-    background-size: 13px 11px;
-    background-position: 91% 50%;
-    padding-left: 8px;
-  }
   .generic-field-container {
     margin-bottom: 15px;
   }
@@ -46,14 +36,15 @@
     height: 35px;
     margin: 0px;
   }
-  .mandatory-button {
+  .mandatory-button, .from-time-container, .after-time-container, .duration-container, .event-name-container {
     padding-left: 0px;
     padding-right: 5px;
   }
-  .not-mandatory-button {
+  .not-mandatory-button, .to-time-container, .before-time-container, .category-select-container {
     padding-left: 5px;
     padding-right: 0px;
   }
+
   [class*='mandatory-section'] {
     overflow: hidden;
     .col-sm-4 {
@@ -62,9 +53,14 @@
     }
   }
   .event-day-list {
+    .row {
+      margin-left: 0px;
+      margin-right: 0px;
+    }
     li {
       @extend .generic-field-container;
       @extend .col-sm-17;
+      width: 14.8% !important;
       margin-right: -2px;
       list-style: none;
     }

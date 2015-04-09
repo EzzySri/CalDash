@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   resources :event_assignments
-  resources :events
+  
+  resources :events do 
+    collection do
+      post "optimize" => "events#optimize", as: :optimize
+    end
+  end
+  
   devise_for :users, :controllers => { registrations: 'registrations', sessions: 'sessions'}  
   root to: 'home#index'
   # The priority is based upon order of creation: first created -> highest priority.

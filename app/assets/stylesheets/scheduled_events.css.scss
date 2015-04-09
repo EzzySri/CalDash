@@ -4,6 +4,8 @@
 @import "custom_mixins";
 
 .scheduled-events {
+  height: 865px;
+  overflow: scroll;
   background-color: white;
   thead {
     th {
@@ -18,6 +20,7 @@
       background-color: white;
       color: black;
       text-align: center;
+      vertical-align: middle !important;
     }
   }
   #optimize-button {
@@ -27,5 +30,9 @@
   }
   #delete-event-button {
     @include delete-event-button($background-green);
+  }
+  .event-card-container {
+    margin: 0;
+    padding: 0 4% 4% 4%;
   }
 }

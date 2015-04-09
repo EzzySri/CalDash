@@ -1,0 +1,53 @@
+@import "compass/css3";
+@import "common";
+@import "custom_variables";
+@import "custom_mixins";
+
+.steps-bar {
+  position: relative;
+  background-color: $background-green;
+  color: $task-button-grey;
+  text-align: center;
+  font-size: 12px;
+  .row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  p {
+    margin: 0;
+    font-size: 12px;
+  }
+  .steps-bar-inner-container {
+    padding: 0;
+  }
+  .step-explanation-container {
+    height: 200px;
+    z-index: 10;
+    padding: 30px 15px 30px 15px;
+    width: 100%;
+    color: white;
+    background-color: $dark-red;
+  }
+  [class*='-icon'] {
+    height: 100px;
+    -webkit-filter: brightness(0) invert(1);
+  }
+  .step-explanation-text {
+    padding: 15px;
+  }
+  .arrow-left-icon {
+    position: absolute;
+    left: 2%;
+    height: 30px;
+  }
+  .arrow-right-icon {
+    position: absolute;
+    right: 2%;
+    height: 30px;
+  }
+  .arrow-down-icon {
+    position: absolute;
+    bottom: 2%;
+    height: 30px;
+  }
+}

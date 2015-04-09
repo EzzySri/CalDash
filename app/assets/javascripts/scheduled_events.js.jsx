@@ -1,4 +1,4 @@
-define(['react'], function(React){
+define(['react', 'event_card'], function(React, EventCard){
   var ScheduledEvents = React.createClass({
     deleteCurrentEvent: function(e) {
       titleNode = e.target.parentNode.parentNode.children[0];
@@ -6,80 +6,54 @@ define(['react'], function(React){
       this.props.onDeleteEvent(titleText);
     },
     render: function() {
-      var timeFormat = "Do, h:mm a";
-      var mandatoryEvents = [];
-      var notMandatoryEvents = [];
       var context = this;
-      events = this.props.data.map(function(e) {
-        var fields; 
-        if (e.mandatory) {
-          fields = (
-            <tr>
-              <th> {e.title} </th>
-              <th> {e.start.format(timeFormat)} </th>
-              <th> {e.end.format(timeFormat)} </th>
-              <th> {e.location} </th>
-              <th> {e.eventDescription} </th>
-              <th className="hori-ctr" onClick={context.deleteCurrentEvent}><div id="delete-event-button">Remove</div></th>
-            </tr>
-          );
-          mandatoryEvents.push(fields);
-        } else {
-          fields = (
-            <tr>
-              <th> {e.title} </th>
-              <th> {e.duration.humanize()} </th>
-              <th> {e.before.format(timeFormat)} </th>
-              <th> {e.after.format(timeFormat)} </th>
-              <th> {e.location} </th>
-              <th> {e.eventDescription} </th>
-              <th className="hori-ctr" onClick={context.deleteCurrentEvent}><div id="delete-event-button">Remove</div></th>
-            </tr>
-          );
-          notMandatoryEvents.push(fields);
-        }
-      });
+      var selectedDay = this.props.selectedDay;
+      var eventSources = this.props.data;
+      var events;
+      if (eventSources.length == 0) {
+        var introEvent1 = {
+          title: "Lunch with friends",
+          category: "dining",
+          mandatory: true,
+          example: true,
+          from: moment().startOf('day').add(12, "hours"),
+          to: moment().startOf('day').add(13, "hours"),
+          location: "Great China 2190 Bancroft Way, Berkeley, CA 94704",
+          description: "Can't wait for Peking Duck : )"
+        };
+        var introEvent2 = {
+          title: "Study for Midterm",
+          category: "work",
+          mandatory: false,
+          example: true,
+          before: moment().startOf('day').add(12, "hours"),
+          after: moment().startOf('day').add(8, "hours"),
+          location: "UC Doe Library, Berkeley, CA 94704",
+          description: "No more procrastination!"
+        };
+        events = [];
+        events.push((<div className="row event-card-container"><EventCard eventSource={introEvent1}/></div>));
+        events.push((<div className="row event-card-container"><EventCard eventSource={introEvent2}/></div>));
+      } else {
+        events = eventSources.map(function(e) {
+          <div className="row event-card-container">
+            <EventCard eventSource={e} />        
+          </div>
+        });
+      }
 
       return (
         <div className="scheduled-events">
           <div className="row">
-            <div className="col-sm-4"></div>
-            <div className="col-sm-4">
-              <div id="optimize-button"> Get Optimal Schedule </div>
+            <div className="col-sm-1"></div>
+            <div className="col-sm-10">
+              <div id="optimize-button" onClick={this.props.onGetOptimizedSchedules}> Optimize Schedule </div>
             </div>
-            <div className="col-sm-4"></div>
+            <div className="col-sm-1"></div>
           </div>
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>From</th>
-                <th>To</th>
-                <th>Location</th>
-                <th>Description</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {mandatoryEvents}
-            </tbody>
-          </table>
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Duration</th>
-                <th>Before</th>
-                <th>After</th>
-                <th>Location</th>
-                <th>Description</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {notMandatoryEvents}
-            </tbody>
-          </table>
+          <div className="event-cards-list">
+          {events}
+          </div>
         </div>
       );
     }

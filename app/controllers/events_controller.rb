@@ -61,6 +61,11 @@ class EventsController < ApplicationController
     end
   end
 
+  # dummy function for testing front-test
+  def optimize
+    render json: params
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
