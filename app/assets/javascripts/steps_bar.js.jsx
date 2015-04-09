@@ -6,7 +6,8 @@ define(['react', 'constants'], function(React, Constants){
     getInitialState: function() {
       return {
         stepLabel: "Step1",
-        hover: false
+        hover: false,
+        explanationVisible: true
       };
     },
     handleMouseOverBars: function(e) {
@@ -21,7 +22,15 @@ define(['react', 'constants'], function(React, Constants){
     handleMouseOutBars: function(e) {
       this.setState({hover: false});
     },
-    render : function() {
+    toggleExplanation: function(e) {
+      if (this.state.explanationVisible) {
+        this.setState({explanationVisible: false});
+      } else {
+        this.setState({explanationVisible: true});
+      }
+      this.props.onToggleExplanation();
+    },
+    render: function() {
       var barLeftSytle;
       var barMiddleStyle;
       var barRightStyle;
@@ -110,6 +119,8 @@ define(['react', 'constants'], function(React, Constants){
         }
       }
 
+      var isVisible = this.state.explanationVisible ? {display: ""} : {display: "none"};
+
       return (
         <div className="steps-bar">
           <div className="row">
@@ -117,7 +128,10 @@ define(['react', 'constants'], function(React, Constants){
             <div onMouseOver={this.handleMouseOverBars} onMouseOut={this.handleMouseOutBars} className="col-sm-4 steps-bar-inner-container" style={barMiddleStyle}><p>Step2:</p><p>Optimize Events</p></div>
             <div onMouseOver={this.handleMouseOverBars} onMouseOut={this.handleMouseOutBars} className="col-sm-4 steps-bar-inner-container" style={barRightStyle}><p>Step3:</p><p>Confirm Schedule</p></div>
           </div>
-          {stepExplanation}
+          <div style={isVisible}>
+            {stepExplanation}
+          </div>
+          <div onClick={this.toggleExplanation} className={this.state.explanationVisible ? "step-explanation-toggle" : "step-explanation-toggle step-explanation-toggle-inverted"}/>
         </div>
       );
     }

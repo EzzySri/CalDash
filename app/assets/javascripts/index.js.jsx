@@ -17,11 +17,12 @@ define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'eve
         newGeoLocationResult: null,
         locationService: null,
         geocoderService: null,
-        mode: "view-mode",
+        mode: "events-mode",
         logisticsPageLabel: "",
         errorMessage: "",
         errorMessageRandom: 0,
         stepCount: 0,
+        stepExplanationCollapsed: false,
         optimizedResults: this.getFlux().store("EventStore").getState().optimizedResults
       };
     },
@@ -172,6 +173,13 @@ define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'eve
     handleLocationChoice: function() {
       this.setState({predictions: []});
     },
+    handleToggleExplanation: function() {
+      if (this.state.stepExplanationCollapsed) {
+        this.setState({stepExplanationCollapsed: false});
+      } else {
+        this.setState({stepExplanationCollapsed: true});
+      }
+    },
     render: function() {
       var rightComponent;
       var viewScheduleButtonClass = "task-button";
@@ -185,6 +193,7 @@ define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'eve
           manageEventsButtonClass += " task-button-pressed";
           rightComponent =
             (<ScheduledEvents
+              stepExplanationCollapsed={this.state.stepExplanationCollapsed}
               selectedDay={this.selectedDay}
               onGetOptimizedSchedules={this.getOptimizedSchedules}
               onDeleteEvent={this.deleteEvent}
@@ -312,7 +321,9 @@ define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'eve
                 ) : (
                   <div className="row">
                     <div className="col-sm-6">
-                      <StepsBar stepCount={this.state.stepCount} />
+                      <StepsBar
+                        stepCount={this.state.stepCount}
+                        onToggleExplanation={this.handleToggleExplanation} />
                       {rightComponent}
                     </div>
                     <div className="col-sm-6">

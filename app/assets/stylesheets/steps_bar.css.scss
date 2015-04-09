@@ -51,3 +51,19 @@
     height: 30px;
   }
 }
+.step-explanation-toggle {
+  height: 15px;
+  width: 15px;
+  border-left: 4px solid $green;
+  border-bottom: 4px solid $green;
+  position: absolute;
+  z-index: 20;
+  bottom: -9%;
+  right: 2%;
+  @include transform(rotate(135deg));
+}
+.step-explanation-toggle-inverted {
+  @include transform(rotate(-45deg)); 
+  top: 100% !important;
+}
+
