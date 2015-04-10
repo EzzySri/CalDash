@@ -6,6 +6,8 @@ require.config({
 
     event_store: "stores/event_store",
     session_store: "stores/session_store",
+    prediction_store: "stores/prediction_store",
+    google_service_store: "stores/google_service_store",
 
     web_api_utils: "utils/web_api_utils"
   }
@@ -17,8 +19,8 @@ require.config({
 //   });
 // });
 
-require(['jquery', 'react', 'index', 'fluxxor', 'event_store', 'session_store', 'actions'],
-  function($, React, CalDashApp, Fluxxor, EventStore, SessionStore, actions) {
+require(['jquery', 'react', 'index', 'fluxxor', 'google_service_store', 'prediction_store', 'event_store', 'session_store', 'actions'],
+  function($, React, CalDashApp, Fluxxor, GoogleServiceStore, PredictionStore, EventStore, SessionStore, actions) {
   
   $(document).ajaxComplete(function(event, xhr, settings) {
     var csrf_token = xhr.getResponseHeader('X-CSRF-Token');
@@ -29,7 +31,9 @@ require(['jquery', 'react', 'index', 'fluxxor', 'event_store', 'session_store', 
 
   var stores = {
     EventStore: new EventStore(),
-    SessionStore: new SessionStore()
+    SessionStore: new SessionStore(),
+    PredictionStore: new PredictionStore(),
+    GoogleServiceStore: new GoogleServiceStore()
   };
 
   var flux = new Fluxxor.Flux(stores, actions);

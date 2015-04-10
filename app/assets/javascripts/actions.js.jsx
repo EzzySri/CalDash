@@ -16,6 +16,12 @@ define(['constants'], function(Constants){
       },
       clearOptimizedResults: function() {
         this.dispatch(Constants.CLEAR_OPTIMIZED_RESULTS, {});
+      },
+      setLocation: function(loc) {
+        this.dispatch(Constants.ActionTypes.SET_LOCATION, {location: loc});
+      },
+      setMandatory: function(isMandatory) {
+        this.dispatch(Constants.ActionTypes.SET_MANDATORY, {mandatory: isMandatory});
       }
     },
     sessionActions: {
@@ -28,6 +34,28 @@ define(['constants'], function(Constants){
       },
       logout: function() {
         this.dispatch(Constants.ActionTypes.LOGOUT, {});
+      }
+    },
+    predictionActions: {
+      setPredictions: function(predictions) {
+        this.dispatch(Constants.ActionTypes.SET_PREDICTIONS, {predictions: predictions});
+      },
+      clearPredictions: function() {
+        this.dispatch(Constants.ActionTypes.CLEAR_PREDICTIONS, {});
+      }
+    },
+    googleServiceActions: {
+      setGeocoderService: function(geocoderService) {
+        this.dispatch(Constants.ActionTypes.SET_GEOCODER_SERVICE, {geocoderService: geocoderService});
+      },
+      setLocationService: function(locationService) {
+        this.dispatch(Constants.ActionTypes.SET_LOCATION_SERVICE, {locationService: locationService});
+      },
+      retrieveGeoLocation: function() {
+        this.dispatch(Constants.ActionTypes.RETRIEVE_GEO_LOCATION, {});
+      },
+      setMap: function(){
+        this.dispatch(Constants.ActionTypes.SET_MAP, {});
       }
     }
   };

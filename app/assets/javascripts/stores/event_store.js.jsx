@@ -5,13 +5,41 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
       // stored temporarily; cleared after user confirmation his choice
       this.optimizedResults = [];
 
+      this.currentEventInput = {
+        location: "",
+        mandatory: false,
+        title: "",
+        category: "",
+        start: null,
+        end: null,
+        after: null,
+        before: null,
+        description: ""
+      },
+
       this.bindActions(
         Constants.ADD_EVENT, this.onAddEvent,
         Constants.REMOVE_EVENT, this.onRemoveEvent,
         Constants.GET_OPTIMIZED_SCHEDULES, this.onGetOptimizedSchedules,
         Constants.CLEAR_OPTIMIZED_RESULTS, this.onClearOptimizedResults,
-        Constants.MERGE_RESULTS_TO_CALENDAR, this.onMergeResultsToCalendar
+        Constants.MERGE_RESULTS_TO_CALENDAR, this.onMergeResultsToCalendar,
+        Constants.ActionTypes.SET_LOCATION, this.onSetLocation,
+        Constants.ActionTypes.SET_MANDATORY, this.onSetMandatory
       );
+    },
+
+    onSetLocation: function(payload) {
+      this.currentEventInput.location = payload.location;
+      this.emit("change");
+    },
+
+    onSetMandatory: function(payload) {
+      this.currentEventInput.mandatory = payload.mandatory;
+      this.emit("change");
+    },
+
+    mergeWithCurrentEvent: function(partialEventSource) {
+
     },
 
     onAddEvent: function(payload) {
@@ -103,7 +131,8 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
     getState: function() {
       return {
         optimizedResults: this.optimizedResults,
-        events: this.events
+        events: this.events,
+        currentEventInput: this.currentEventInput
       };
     }
   });

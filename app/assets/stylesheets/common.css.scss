@@ -38,6 +38,15 @@ body {
   background-color: $color;
 }
 
+@mixin generic-toggle {
+  height: 15px;
+  width: 15px;
+  border-left: 4px solid $green;
+  border-bottom: 4px solid $green;
+  position: absolute;
+  z-index: 20;
+}
+
 .full-extend-white-background {
   @include full-extend-background(white);
 }

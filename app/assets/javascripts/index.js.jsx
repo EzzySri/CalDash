@@ -8,29 +8,28 @@ define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'eve
 
   var CalDashApp = React.createClass({
 
-    mixins: [FluxMixin, StoreWatchMixin("EventStore", "SessionStore")],
+    mixins: [FluxMixin, StoreWatchMixin("EventStore", "SessionStore", "PredictionStore")],
 
     getInitialState: function() {
       return {
         selectedDay: moment(),
-        predictions: [],
-        newGeoLocationResult: null,
         locationService: null,
-        geocoderService: null,
         mode: "events-mode",
         logisticsPageLabel: "",
         errorMessage: "",
         errorMessageRandom: 0,
         stepCount: 0,
-        stepExplanationCollapsed: false,
-        optimizedResults: this.getFlux().store("EventStore").getState().optimizedResults
+        moreCalendar: false,
+        stepExplanationCollapsed: false
       };
     },
     getStateFromFlux: function() {
       var flux = this.getFlux();
       return {
         eventStoreState: flux.store('EventStore').getState(),
-        sessionStoreState: flux.store('SessionStore').getState()
+        sessionStoreState: flux.store('SessionStore').getState(),
+        predictionStoreState: flux.store('PredictionStore').getState(),
+        googleServiceStoreState: flux.store('GoogleServiceStore').getState(),
       };
     },
     addToScheduledEvents: function(eventSource) {
@@ -38,23 +37,6 @@ define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'eve
     },
     deleteEvent: function(titleText) {
       this.getFlux().actions.eventActions.removeEvent(titleText);
-    },
-    retrieveGeoLocation: function(loc) {
-      var context = this;
-      var service = this.state.geocoderService,
-        new_states = {};
-      if (!service) {
-        service = new google.maps.Geocoder();
-        new_states["geocoderService"] = service;
-      }
-      service.geocode({ 'address': loc}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          context.setState({newGeoLocationResult: results[0]});
-        } else {
-          alert("Geocode was not successful for the following reason: " + status);
-        }
-      });
-      this.setState(new_states);
     },
     retrieveMapPredictions: function(loc) {
       var service = this.state.locationService,
@@ -68,7 +50,7 @@ define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'eve
       if (loc != "") {
         service.getQueryPredictions({input: loc}, this.sendPredictions);
       } else {
-        new_states['predictions'] = []
+        this.getFlux().actions.predictionActions.clearPredictions();
       }
 
       this.setState(new_states);
@@ -77,7 +59,7 @@ define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'eve
       if (status != google.maps.places.PlacesServiceStatus.OK) {
         return;
       }
-      this.setState({predictions: predictions});
+      this.getFlux().actions.predictionActions.setPredictions(predictions);
     },
     switchMode: function(event) {
       this.setState({mode: event.target.id});
@@ -149,7 +131,6 @@ define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'eve
         this.setState({errorMessage: message, errorMessageRandom: Math.random()});
       }
     },
-    // TO-DO
     getOptimizedSchedules: function() {
       this.getFlux().actions.eventActions.getOptimizedSchedules(this.state.selectedDay);
     },
@@ -171,7 +152,10 @@ define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'eve
       this.setState({stepCount: 2});
     },
     handleLocationChoice: function() {
-      this.setState({predictions: []});
+      this.getFlux().actions.predictionActions.clearPredictions();
+      if (this.getStateFromFlux().eventStoreState.currentEventInput.location) {
+        this.getFlux().actions.googleServiceActions.retrieveGeoLocation();
+      }
     },
     handleToggleExplanation: function() {
       if (this.state.stepExplanationCollapsed) {
@@ -180,15 +164,19 @@ define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'eve
         this.setState({stepExplanationCollapsed: true});
       }
     },
+    handleToggleCalendar: function() {
+      if (this.state.moreCalendar) {
+        this.setState({moreCalendar: false});
+      } else {
+        this.setState({moreCalendar: true});
+      }
+    },
     render: function() {
       var rightComponent;
       var viewScheduleButtonClass = "task-button";
       var manageEventsButtonClass = "task-button";
       var resultsButtonClass = "task-button";
       switch (this.state.mode) {
-        case "view-mode":
-          viewScheduleButtonClass += " task-button-pressed";
-          break;
         case "events-mode":
           manageEventsButtonClass += " task-button-pressed";
           rightComponent =
@@ -197,14 +185,14 @@ define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'eve
               selectedDay={this.selectedDay}
               onGetOptimizedSchedules={this.getOptimizedSchedules}
               onDeleteEvent={this.deleteEvent}
-              data={this.getStateFromFlux().eventStoreState.events} />);
+              events={this.getStateFromFlux().eventStoreState.events} />);
           break;
         default:
           resultsButtonClass += " task-button-pressed";
           rightComponent =
             (<OptimizedSchedule
               onConfirmSchedule={this.handleConfirmSchedule}
-              results = {this.state.optimizedResults}
+              results = {this.getStateFromFlux().eventStoreState.optimizedResults}
               selectedDay={this.state.selectedDay} />);
       }
       var logisticsPage;
@@ -292,7 +280,6 @@ define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'eve
                       <div id="results-mode" className={resultsButtonClass} onClick={this.switchMode}> View Results </div>
                   </div>
                   <div className="col-sm-4 col-0-gutter">
-                    <div id="view-mode" className={viewScheduleButtonClass} onClick={this.switchMode}> Expand Calendar </div>
                   </div>
                 </div>
               </div>
@@ -302,19 +289,25 @@ define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'eve
             <div className="col-sm-4">
               <div className="show-grid">
                 <AddNewEventSection
+                  flux = {this.getFlux()}
+                  eventStoreState={this.getStateFromFlux().eventStoreState}
                   onLocationChoice={this.handleLocationChoice}
                   didError={this.displayErrorMessage}
-                  onLocationSelected={this.retrieveGeoLocation}
-                  newPredictions={this.state.predictions}
+                  newPredictions={this.getStateFromFlux().predictionStoreState.predictions}
                   selectedDay={this.state.selectedDay}
                   onLocationInputChange={this.retrieveMapPredictions}
                   onAddEvent={this.addToScheduledEvents}/>
               </div>
-              <GoogleMapSection newGeoLocationResult={this.state.newGeoLocationResult} locationInput={this.state.locationInput}/>
+              <GoogleMapSection
+                flux={this.getFlux()}
+                googleServiceStoreState={this.getStateFromFlux().googleServiceStoreState}
+                locationInput={this.state.locationInput}/>
             </div>
             <div className="col-sm-8">
-              {this.state.mode == "view-mode" ? (
+              {this.state.moreCalendar ? (
                   <FullCalendar
+                    moreCalendar={this.state.moreCalendar}
+                    onToggleCalendar={this.handleToggleCalendar}
                     events={flux.store('EventStore').getMandatoryEvents()}
                     selectedDay={this.state.selectedDay}
                     onChangeDate={this.changeDate} />
@@ -328,6 +321,8 @@ define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'eve
                     </div>
                     <div className="col-sm-6">
                       <FullCalendar
+                        moreCalendar={this.state.moreCalendar}
+                        onToggleCalendar={this.handleToggleCalendar}
                         events={flux.store('EventStore').getMandatoryEvents()}
                         selectedDay={this.state.selectedDay}
                         onChangeDate={this.changeDate} />

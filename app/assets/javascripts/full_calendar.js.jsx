@@ -1,9 +1,5 @@
 define(['react', 'jquery', 'react_calendar'], function(React, $, ReactCalendar){
   var FullCalendar = React.createClass({
-    getInitialState: function() {
-      return {
-      };
-    },
     dateForward: function() {
       this.props.onChangeDate(1);
     },
@@ -14,6 +10,7 @@ define(['react', 'jquery', 'react_calendar'], function(React, $, ReactCalendar){
       var tableHeadDateFormat = "LL"
       return (
         <div className="full-calendar">
+          <div onClick={this.props.onToggleCalendar} className={this.props.moreCalendar ? "more-calendar-toggle more-calendar-toggle-inverted" : "more-calendar-toggle"}/>
           <div className="control-panel row show-grid">
             <div className="col-sm-2 col-0-gutter">
               <div className="control-button" onClick={this.dateBackward}> Previous </div>

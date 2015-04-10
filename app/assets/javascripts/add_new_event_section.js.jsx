@@ -1,14 +1,16 @@
 define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, React, moment, PredictionList) {
+  
   var AddNewEventSection = React.createClass({
     getInitialState: function() {
       return {
-        mandatory: false,
-        duration: null,
-        forWhichDays: new Set(),
-        location: ""
+        forWhichDays: new Set()
       };
     },
+    getCurrentEventInput: function() {
+      return this.props.eventStoreState.currentEventInput;
+    },
     handleAdd: function() {
+      var currentEventInput = this.getCurrentEventInput();
       var eventSource, momentFrom, momentTo, momentBefore, momentAfter, eventDescription;
       var title = this.refs.eventName.getDOMNode().value.trim();
       if (!title) {
@@ -16,7 +18,7 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
         return
       }
       eventDescription = this.refs.eventDescription.getDOMNode().value.trim(); 
-      if (this.state.mandatory) {
+      if (currentEventInput.mandatory) {
         momentFrom = moment(parseInt(this.refs.fromTime.getDOMNode().value));
         momentTo = moment(parseInt(this.refs.toTime.getDOMNode().value));
         if (momentFrom >= momentTo) {
@@ -27,7 +29,7 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
           title: title,
           start: momentFrom, 
           end: momentTo,
-          location: this.state.location
+          location: currentEventInput.location
         }
       } else {
         momentBefore = moment(parseInt(this.refs.beforeTime.getDOMNode().value));
@@ -41,24 +43,23 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
           duration: moment.duration(parseInt(this.refs.duration.getDOMNode().value)),
           before: momentBefore, 
           after: momentAfter,
-          location: this.state.location
+          location: currentEventInput.location
         }
       }
-      eventSource["mandatory"] = this.state.mandatory;
+      eventSource["mandatory"] = currentEventInput.mandatory;
       eventSource["eventDescription"] = eventDescription;
       this.props.onAddEvent(eventSource);
-      if (this.state.location) {
-        this.props.onLocationSelected(this.state.location);
-      }
     },
     isMandatory: function() {
-      if (!this.state.mandatory) {
-        this.setState({mandatory: true});
+      var currentEventInput = this.props.eventStoreState.currentEventInput;
+      if (!currentEventInput.mandatory) {
+        this.props.flux.actions.eventActions.setMandatory(true);
       }
     },
     isNotMandatory: function() {
-      if (this.state.mandatory) {
-        this.setState({mandatory: false});  
+      var currentEventInput = this.props.eventStoreState.currentEventInput;
+      if (currentEventInput.mandatory) {
+        this.props.flux.actions.eventActions.setMandatory(false);
       }
     },
     handleForWhichDays: function(event) {
@@ -79,7 +80,7 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
     },
     handleLocationChoice: function(event) {
       var loc = event.target.innerHTML;
-      this.setState({location: loc});
+      this.props.flux.actions.eventActions.setLocation(loc);
       this.refs.locationInput.getDOMNode().value = loc;
       this.props.onLocationChoice();
     },
@@ -165,7 +166,7 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
       );
       var timeRangeSection;
       var timeRangeSectionText;
-      if (this.state.mandatory) {
+      if (this.getCurrentEventInput().mandatory) {
         timeRangeSectionText = "Fixed Time Range"
         timeRangeSection = mandatorySection;
       } else {
@@ -175,7 +176,7 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
 
       var mandButtonClass = "generic-field-container";
       var notMandButtonClass = "generic-field-container";
-      if (this.state.mandatory) {
+      if (this.getCurrentEventInput().mandatory) {
         mandButtonClass += " pressed";
       } else {
         notMandButtonClass += " pressed";

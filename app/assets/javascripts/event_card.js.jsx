@@ -1,9 +1,5 @@
 define(['react', 'constants'], function(React, Constants){
   var EventCard = React.createClass({
-    getInitialState: function() {
-      return {
-      };
-    },
     render : function() {
 
       var momentStrFormat = "Do, h:mm a";
@@ -16,7 +12,7 @@ define(['react', 'constants'], function(React, Constants){
       } else {
         bannerText = "Flexible";
       }
-
+      
       return (
         <div className="event-card">
           <div className="banner"><div className="copy">{bannerText}</div></div>
@@ -28,7 +24,7 @@ define(['react', 'constants'], function(React, Constants){
           </div>
           <div className="col-sm-6 event-card-right-container vert-ctr">
             {source.mandatory ? (
-              <div className="event-time-container">{source.from.format(momentStrFormat) + " - " + source.to.format(momentStrFormat)}</div>
+              <div className="event-time-container">{source.start.format(momentStrFormat) + " - " + source.end.format(momentStrFormat)}</div>
             ) : (
               <div>
                 <div className="event-time-container">{"> " + source.after.format(momentStrFormat)}</div>

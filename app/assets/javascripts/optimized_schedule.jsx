@@ -1,9 +1,5 @@
 define(['react', 'react_calendar'], function(React, ReactCalendar){
   var OptimizedSchedule = React.createClass({
-    getInitialState: function() {
-      return {
-      };
-    },
     render: function() {
       var tableHeadDateFormat = "LL";
       return (

@@ -6,7 +6,7 @@
 .full-calendar {
   background-color: white;
   padding: 15px;
-  height: 856px;
+  height: 885px;
   overflow: scroll;
   .control-panel {
     font-weight: 500;
@@ -21,6 +21,17 @@
   .row {
     margin-left: 0 !important;
     margin-right: 0 !important;
-  }  
+  }
+  .more-calendar-toggle {
+    @include generic-toggle;
+    top: 50%;
+    left: 19px;
+    cursor: pointer;
+    @include transform(translateY(-50%) rotate(45deg));
+  } 
+  .more-calendar-toggle-inverted {
+    @include transform(translateY(-50%) rotate(225deg));
+    left: 11px !important;
+  }
 }
 

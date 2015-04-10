@@ -124,9 +124,9 @@ define(['react', 'constants'], function(React, Constants){
       return (
         <div className="steps-bar">
           <div className="row">
-            <div onMouseOver={this.handleMouseOverBars} onMouseOut={this.handleMouseOutBars} className="col-sm-4 steps-bar-inner-container" style={barLeftStyle}><p>Step1:</p><p>Enter Events</p></div>
-            <div onMouseOver={this.handleMouseOverBars} onMouseOut={this.handleMouseOutBars} className="col-sm-4 steps-bar-inner-container" style={barMiddleStyle}><p>Step2:</p><p>Optimize Events</p></div>
-            <div onMouseOver={this.handleMouseOverBars} onMouseOut={this.handleMouseOutBars} className="col-sm-4 steps-bar-inner-container" style={barRightStyle}><p>Step3:</p><p>Confirm Schedule</p></div>
+            <div onMouseEnter={this.handleMouseOverBars} onMouseLeave={this.handleMouseOutBars} className="col-sm-4 steps-bar-inner-container" style={barLeftStyle}>Step1:<br/>Enter Events</div>
+            <div onMouseEnter={this.handleMouseOverBars} onMouseLeave={this.handleMouseOutBars} className="col-sm-4 steps-bar-inner-container" style={barMiddleStyle}>Step2:<br/>Optimize Events</div>
+            <div onMouseEnter={this.handleMouseOverBars} onMouseLeave={this.handleMouseOutBars} className="col-sm-4 steps-bar-inner-container" style={barRightStyle}>Step3:<br/>Confirm Schedule</div>
           </div>
           <div style={isVisible}>
             {stepExplanation}

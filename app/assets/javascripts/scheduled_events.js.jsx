@@ -8,7 +8,7 @@ define(['react', 'event_card'], function(React, EventCard){
     render: function() {
       var context = this;
       var selectedDay = this.props.selectedDay;
-      var eventSources = this.props.data;
+      var eventSources = this.props.events;
       var events;
       if (eventSources.length == 0) {
         var introEvent1 = {
@@ -16,8 +16,8 @@ define(['react', 'event_card'], function(React, EventCard){
           category: "dining",
           mandatory: true,
           example: true,
-          from: moment().startOf('day').add(12, "hours"),
-          to: moment().startOf('day').add(13, "hours"),
+          start: moment().startOf('day').add(12, "hours"),
+          end: moment().startOf('day').add(13, "hours"),
           location: "Great China 2190 Bancroft Way, Berkeley, CA 94704",
           description: "Can't wait for Peking Duck : )"
         };
@@ -36,9 +36,11 @@ define(['react', 'event_card'], function(React, EventCard){
         events.push((<div className="row event-card-container"><EventCard eventSource={introEvent2}/></div>));
       } else {
         events = eventSources.map(function(e) {
-          <div className="row event-card-container">
-            <EventCard eventSource={e} />        
-          </div>
+          return (
+            <div className="row event-card-container">
+              <EventCard eventSource={e} />        
+            </div>
+          );
         });
       }
 

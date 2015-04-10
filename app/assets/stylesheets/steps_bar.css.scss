@@ -18,6 +18,7 @@
     font-size: 12px;
   }
   .steps-bar-inner-container {
+    cursor: pointer;
     padding: 0;
   }
   .step-explanation-container {
@@ -52,12 +53,8 @@
   }
 }
 .step-explanation-toggle {
-  height: 15px;
-  width: 15px;
-  border-left: 4px solid $green;
-  border-bottom: 4px solid $green;
-  position: absolute;
-  z-index: 20;
+  @include generic-toggle;
+  cursor: pointer;
   bottom: -9%;
   right: 2%;
   @include transform(rotate(135deg));

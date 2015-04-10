@@ -1,9 +1,5 @@
 define(['react'], function(React){
   var NavigationPanel = React.createClass({
-    getInitialState: function() {
-      return {
-      };
-    },
     render : function() {
       sessionComponent = this.props.isSignedIn ? (<div className="col-sm-3 col-5-gutter">
                     <div id="sign-out-button" onClick={this.props.onSignOut}> Log Out </div>
