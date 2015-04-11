@@ -6,8 +6,7 @@ define(['react', 'constants'], function(React, Constants){
     getInitialState: function() {
       return {
         stepLabel: "Step1",
-        hover: false,
-        explanationVisible: true
+        hover: false
       };
     },
     handleMouseOverBars: function(e) {
@@ -23,19 +22,18 @@ define(['react', 'constants'], function(React, Constants){
       this.setState({hover: false});
     },
     toggleExplanation: function(e) {
-      if (this.state.explanationVisible) {
-        this.setState({explanationVisible: false});
+      if (this.props.applicationStoreState.explanationVisible) {
+        this.props.flux.actions.applicationActions.stepExplanationCollapse();
       } else {
-        this.setState({explanationVisible: true});
+        this.props.flux.actions.applicationActions.stepExplanationExpand();
       }
-      this.props.onToggleExplanation();
     },
     render: function() {
       var barLeftSytle;
       var barMiddleStyle;
       var barRightStyle;
       var stepExplanation;
-      var stepCount = this.props.stepCount;
+      var stepCount = this.props.applicationStoreState.stepCount;
 
       var stepExplanation1 = (
         <div className="step-explanation-container">
@@ -119,7 +117,7 @@ define(['react', 'constants'], function(React, Constants){
         }
       }
 
-      var isVisible = this.state.explanationVisible ? {display: ""} : {display: "none"};
+      var isVisible = this.props.applicationStoreState.explanationVisible ? {display: ""} : {display: "none"};
 
       return (
         <div className="steps-bar">
@@ -131,7 +129,7 @@ define(['react', 'constants'], function(React, Constants){
           <div style={isVisible}>
             {stepExplanation}
           </div>
-          <div onClick={this.toggleExplanation} className={this.state.explanationVisible ? "step-explanation-toggle" : "step-explanation-toggle step-explanation-toggle-inverted"}/>
+          <div onClick={this.toggleExplanation} className={this.props.applicationStoreState.explanationVisible ? "step-explanation-toggle" : "step-explanation-toggle step-explanation-toggle-inverted"}/>
         </div>
       );
     }

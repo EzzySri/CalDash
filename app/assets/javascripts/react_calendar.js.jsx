@@ -1,4 +1,4 @@
-define(['react', 'jquery'], function(React, $){
+define(['react', 'jquery', 'moment'], function(React, $, moment){
   var ReactCalendar = React.createClass({
     getInitialState: function() {
       var green = "#1abc9c";

@@ -13,8 +13,9 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
       var currentEventInput = this.getCurrentEventInput();
       var eventSource, momentFrom, momentTo, momentBefore, momentAfter, eventDescription;
       var title = this.refs.eventName.getDOMNode().value.trim();
-      if (!title) {
-        this.props.didError("Event Name should not be empty.");
+      var category = this.refs.categorySelect.getDOMNode().value.trim();
+      if (!(title && category != "placeholder")) {
+        this.props.flux.actions.flashMessageActions.displayFlashMessage("Event Name and Category should not be empty.", "error", Math.random());
         return
       }
       eventDescription = this.refs.eventDescription.getDOMNode().value.trim(); 
@@ -22,33 +23,30 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
         momentFrom = moment(parseInt(this.refs.fromTime.getDOMNode().value));
         momentTo = moment(parseInt(this.refs.toTime.getDOMNode().value));
         if (momentFrom >= momentTo) {
-          this.props.didError("Starting time should not be after or equal to ending time.");
+          this.props.flux.actions.flashMessageActions.displayFlashMessage("Starting time should not be after or equal to ending time.", "error", Math.random());
           return   
         }
         eventSource = {
-          title: title,
           start: momentFrom, 
-          end: momentTo,
-          location: currentEventInput.location
+          end: momentTo
         }
       } else {
         momentBefore = moment(parseInt(this.refs.beforeTime.getDOMNode().value));
         momentAfter = moment(parseInt(this.refs.afterTime.getDOMNode().value));
         if (momentBefore <= momentAfter) {
-          this.props.didError("Before Estimate should not be less than or equal to After Estimate.");
+          this.props.flux.actions.flashMessageActions.displayFlashMessage("Before Estimate should not be less than or equal to After Estimate.", "error", Math.random());
           return   
         }
         eventSource = {
-          title: title,
           duration: moment.duration(parseInt(this.refs.duration.getDOMNode().value)),
           before: momentBefore, 
-          after: momentAfter,
-          location: currentEventInput.location
+          after: momentAfter
         }
       }
-      eventSource["mandatory"] = currentEventInput.mandatory;
       eventSource["eventDescription"] = eventDescription;
-      this.props.onAddEvent(eventSource);
+      eventSource["title"] = title;
+      eventSource["category"] = category;
+      this.props.flux.actions.eventActions.addEvent(eventSource);
     },
     isMandatory: function() {
       var currentEventInput = this.props.eventStoreState.currentEventInput;
@@ -74,15 +72,14 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
       }
     },
     handleLocationInputChange: function() {
-      this.props.onLocationInputChange(
-        this.refs.locationInput.getDOMNode().value
-      );
+      var loc = this.refs.locationInput.getDOMNode().value;
+      this.props.flux.actions.googleServiceActions.retrieveMapPredictions(loc);
     },
     handleLocationChoice: function(event) {
       var loc = event.target.innerHTML;
       this.props.flux.actions.eventActions.setLocation(loc);
       this.refs.locationInput.getDOMNode().value = loc;
-      this.props.onLocationChoice();
+      this.props.flux.actions.predictionActions.clearPredictions();
     },
     render: function() {
       var startOfDay = this.props.selectedDay.startOf('day');
@@ -199,7 +196,7 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
                   <input className="generic-field-container" type="text" ref="eventName" />
                 </div>
                 <div className="col-sm-6 category-select-container">
-                  <select value="placeholder" ref="categorySelect" className="generic-field-container">
+                  <select defaultValue="placeholder" ref="categorySelect" className="generic-field-container">
                     <option value="placeholder" disabled>Select a category</option>
                     {categoryOptions}
                   </select>

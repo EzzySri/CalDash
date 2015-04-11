@@ -14,7 +14,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
         end: null,
         after: null,
         before: null,
-        description: ""
+        eventDescription: ""
       },
 
       this.bindActions(
@@ -45,6 +45,8 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
     onAddEvent: function(payload) {
       // TO-DO: add unique id to store objects
       var clone = $.extend({}, payload.event);
+      clone["location"] = this.currentEventInput.location;
+      clone["mandatory"] = this.currentEventInput.mandatory;
       this.events.push(clone);
       this.emit("change");
     },
@@ -61,7 +63,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
       this.emit("change");
     },
 
-    onGetOptimizedSchedules: function(date) {
+    onGetOptimizedSchedules: function() {
       var json = this.events.map(function(item){
         var clone = $.extend({}, item);
         if (item.mandatory) {
@@ -91,7 +93,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
             this.optimizedResults.push(item);
             start += 1;
           }
-          this.emit(Constants.GET_OPTIMIZED_SCHEDULES_EVENT, Constants.SUCCESS);
+          this.flux.store("ApplicationStore").onSetStepCount({stepCount: 1});
         }.bind(this),
         error: function(xhr, status, err) {
 

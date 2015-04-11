@@ -32,7 +32,7 @@ define(['react', 'constants'], function(React, Constants){
               </div>
             )}
             <div className="event-location-container">{source.location}</div>
-            <div className="event-description-container">{source.description}</div>
+            <div className="event-description-container">{source.eventDescription}</div>
           </div>
         </div>
       );

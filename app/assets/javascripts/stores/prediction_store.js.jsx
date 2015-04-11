@@ -3,6 +3,8 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
     initialize: function() {
       this.predictions = [];
 
+      this.cache = {};
+
       var ActionTypes = Constants.ActionTypes;
 
       this.bindActions(
@@ -12,9 +14,9 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
     },
 
     onSetPredictions: function(payload) {
-      // TO-DO: add unique id to store objects
       this.predictions.splice(0, this.predictions.length);
       payload.predictions.forEach(function(v) {this.push(v)}, this.predictions);
+      this.cache[payload.locationInput] = $.extend([], this.predictions);
       this.emit("change");
     },
 

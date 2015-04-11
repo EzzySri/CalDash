@@ -12,7 +12,8 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
         ActionTypes.SET_GEOCODER_SERVICE, this.onSetGeocoderService,
         ActionTypes.SET_LOCATION_SERVICE, this.onSetLocationService,
         ActionTypes.RETRIEVE_GEO_LOCATION, this.onRetrieveGeoLocation,
-        ActionTypes.SET_MAP, this.onSetMap
+        ActionTypes.SET_MAP, this.onSetMap,
+        ActionTypes.RETRIEVE_MAP_PREDICTIONS, this.onRetrieveMapPredictions
       );
     },
 
@@ -100,6 +101,38 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
           }
         });
       }
+      this.emit("change");
+    },
+
+    onRetrieveMapPredictions: function(payload) {
+      var service = this.locationService;
+      var loc = payload.locationInput;
+      
+      if (!service) {
+        service = new google.maps.places.AutocompleteService();
+        this.locationService = service;
+      }
+
+      if (loc != "") {
+        if (loc in this.flux.store("PredictionStore").cache) {
+          var cached = this.flux.store("PredictionStore").cache[loc];
+          this.flux.store("PredictionStore").onSetPredictions({locationInput: loc, predictions: cached});
+          this.emit("change");
+        } else {
+          var context = this;
+          service.getQueryPredictions({input: loc}, function(predictions, status) {
+              if (status != google.maps.places.PlacesServiceStatus.OK) {
+                return;
+              }
+              context.flux.actions.predictionActions.setPredictions(loc, predictions);
+              context.emit("change");
+            }
+          );
+        }
+      } else {
+        this.flux.store("PredictionStore").onClearPredictions();
+      }
+
       this.emit("change");
     },
 

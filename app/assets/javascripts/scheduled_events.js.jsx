@@ -1,9 +1,9 @@
-define(['react', 'event_card'], function(React, EventCard){
+define(['react', 'event_card', 'moment'], function(React, EventCard, moment){
   var ScheduledEvents = React.createClass({
     deleteCurrentEvent: function(e) {
       titleNode = e.target.parentNode.parentNode.children[0];
       titleText = titleNode.innerText;
-      this.props.onDeleteEvent(titleText);
+      this.props.flux.actions.eventActions.removeEvent(titleText);
     },
     render: function() {
       var context = this;
@@ -19,7 +19,7 @@ define(['react', 'event_card'], function(React, EventCard){
           start: moment().startOf('day').add(12, "hours"),
           end: moment().startOf('day').add(13, "hours"),
           location: "Great China 2190 Bancroft Way, Berkeley, CA 94704",
-          description: "Can't wait for Peking Duck : )"
+          eventDescription: "Can't wait for Peking Duck : )"
         };
         var introEvent2 = {
           title: "Study for Midterm",
@@ -29,7 +29,7 @@ define(['react', 'event_card'], function(React, EventCard){
           before: moment().startOf('day').add(12, "hours"),
           after: moment().startOf('day').add(8, "hours"),
           location: "UC Doe Library, Berkeley, CA 94704",
-          description: "No more procrastination!"
+          eventDescription: "No more procrastination!"
         };
         events = [];
         events.push((<div className="row event-card-container"><EventCard eventSource={introEvent1}/></div>));
@@ -44,13 +44,13 @@ define(['react', 'event_card'], function(React, EventCard){
         });
       }
 
-      var sectionHeight = this.props.stepExplanationCollapsed ? {height: "865px"} : {};
+      var sectionHeight = this.props.stepExplanationCollapsed ? {height: "852px"} : {};
       return (
         <div className="scheduled-events" style={sectionHeight}>
           <div className="row">
             <div className="col-sm-1"></div>
             <div className="col-sm-10">
-              <div id="optimize-button" onClick={this.props.onGetOptimizedSchedules}> Optimize Schedule </div>
+              <div id="optimize-button" onClick={this.props.flux.actions.eventActions.getOptimizedSchedules}> Optimize Schedule </div>
             </div>
             <div className="col-sm-1"></div>
           </div>

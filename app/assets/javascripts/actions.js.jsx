@@ -1,6 +1,26 @@
 define(['constants'], function(Constants){
 
   var actions = {
+    applicationActions: {
+      setSelectedDay: function(day) {
+        this.dispatch(Constants.ActionTypes.SET_SELECTED_DAY, {selectedDay: day});
+      },
+      calendarExpand: function() {
+        this.dispatch(Constants.ActionTypes.CALENDAR_EXPAND, {});
+      },
+      calendarCollapse: function() {
+        this.dispatch(Constants.ActionTypes.CALENDAR_COLLAPSE, {});
+      },
+      stepExplanationExpand: function() {
+        this.dispatch(Constants.ActionTypes.STEP_EXPLANATION_EXPAND, {});
+      },
+      stepExplanationCollapse: function() {
+        this.dispatch(Constants.ActionTypes.STEP_EXPLANATION_COLLAPSE, {});
+      },
+      setStepCount: function(count) {
+        this.dispatch(Constants.ActionTypes.SET_STEP_COUNT, {stepCount: count});
+      }
+    },
     eventActions: {
       addEvent: function(eventSource) {
         this.dispatch(Constants.ADD_EVENT, {event: eventSource});
@@ -8,8 +28,8 @@ define(['constants'], function(Constants){
       removeEvent: function(eventName) {
         this.dispatch(Constants.REMOVE_EVENT, eventName);
       },
-      getOptimizedSchedules: function(date) {
-        this.dispatch(Constants.GET_OPTIMIZED_SCHEDULES, date);
+      getOptimizedSchedules: function() {
+        this.dispatch(Constants.GET_OPTIMIZED_SCHEDULES, {});
       },
       mergeResultsToCalendar: function() {
         this.dispatch(Constants.MERGE_RESULTS_TO_CALENDAR, {});
@@ -37,8 +57,8 @@ define(['constants'], function(Constants){
       }
     },
     predictionActions: {
-      setPredictions: function(predictions) {
-        this.dispatch(Constants.ActionTypes.SET_PREDICTIONS, {predictions: predictions});
+      setPredictions: function(locationInput, predictions) {
+        this.dispatch(Constants.ActionTypes.SET_PREDICTIONS, {locationInput: locationInput, predictions: predictions});
       },
       clearPredictions: function() {
         this.dispatch(Constants.ActionTypes.CLEAR_PREDICTIONS, {});
@@ -56,6 +76,17 @@ define(['constants'], function(Constants){
       },
       setMap: function(){
         this.dispatch(Constants.ActionTypes.SET_MAP, {});
+      },
+      retrieveMapPredictions: function(loc) {
+        this.dispatch(Constants.ActionTypes.RETRIEVE_MAP_PREDICTIONS, {locationInput: loc});
+      }
+    },
+    flashMessageActions: {
+      displayFlashMessage: function(message, type, random) {
+        this.dispatch(Constants.ActionTypes.DISPLAY_FLASH_MESSAGE, {flashMessage: message, flashMessageType: type, random: random});
+      },
+      clearFlashMessage: function() {
+        this.dispatch(Constants.ActionTypes.CLEAR_FLASH_MESSAGE, {});
       }
     }
   };

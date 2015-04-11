@@ -8,7 +8,7 @@ define(['react'], function(React){
     },
     render : function() {
       var errorMessageComponent = (
-        <div key={this.props.errorMessageRandom} className="error-message-container"><div className="vert-ctr">{this.props.errorMessage}</div></div>
+        <div key={this.props.flashMessageStoreState.flashMessageRandom} className="error-message-container"><div className="vert-ctr">{this.props.flashMessageStoreState.flashMessage}</div></div>
       );
 
       return (
