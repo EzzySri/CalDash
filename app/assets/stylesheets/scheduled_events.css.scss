@@ -4,6 +4,9 @@
 @import "custom_mixins";
 
 .scheduled-events {
+  * {
+    @include common-font;
+  }
   height: 650px;
   overflow: scroll;
   background-color: white;

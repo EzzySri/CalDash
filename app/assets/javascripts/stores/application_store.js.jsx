@@ -8,6 +8,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
       this.explanationVisible = true;
       this.stepCount = 0;
       this.mode = "events-mode";
+      this.eventHistoryListCollapsed = false;
 
       var ActionTypes = Constants.ActionTypes;
 
@@ -19,8 +20,20 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
         ActionTypes.STEP_EXPLANATION_EXPAND, this.onStepExplanationExpand,
         ActionTypes.STEP_EXPLANATION_COLLAPSE, this.onStepExplanationCollapse,
         ActionTypes.SET_STEP_COUNT, this.onSetStepCount,
-        ActionTypes.SET_MODE, this.onSetMode
+        ActionTypes.SET_MODE, this.onSetMode,
+        ActionTypes.EVENT_HISTORY_LIST_EXPAND, this.onEventHistoryListExpand,
+        ActionTypes.EVENT_HISTORY_LIST_COLLAPSE, this.onEventHistoryListCollapse
       );
+    },
+
+    onEventHistoryListCollapse: function() {
+      this.eventHistoryListCollapsed = true;
+      this.emit("change");
+    },
+
+    onEventHistoryListExpand: function() {
+      this.eventHistoryListCollapsed = false;
+      this.emit("change");
     },
 
     onSetCalendarMode: function(payload) {
@@ -75,7 +88,8 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
         explanationVisible: this.explanationVisible,
         stepCount: this.stepCount,
         mode: this.mode,
-        calendarMode: this.calendarMode
+        calendarMode: this.calendarMode,
+        eventHistoryListCollapsed: this.eventHistoryListCollapsed
       };
     }
   });

@@ -1,5 +1,5 @@
-define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'event_store', 'session_store', 'fluxxor', 'react', 'moment', 'full_calendar', 'navigation_panel', 'error_message', 'add_new_event_section', 'google_map_section'],
-  function(StepsBar, Constants, OptimizedSchedule, ScheduledEvents, _, _, Fluxxor, React, moment, FullCalendar, NavigationPanel, ErrorMessage, AddNewEventSection, GoogleMapSection) {
+define(['event_history_list', 'steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'event_store', 'session_store', 'fluxxor', 'react', 'moment', 'full_calendar', 'navigation_panel', 'error_message', 'add_new_event_section', 'google_map_section'],
+  function(EventHistoryList, StepsBar, Constants, OptimizedSchedule, ScheduledEvents, _, _, Fluxxor, React, moment, FullCalendar, NavigationPanel, ErrorMessage, AddNewEventSection, GoogleMapSection) {
   
   var FluxMixin = Fluxxor.FluxMixin(React);
   var StoreWatchMixin = Fluxxor.StoreWatchMixin;
@@ -201,6 +201,12 @@ define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'eve
       }
       return (
         <div className="container">
+          <div className="event-history-list-container">
+            <EventHistoryList
+              flux={this.getFlux()}
+              applicationStoreState={this.getStateFromFlux().applicationStoreState}
+              eventStoreState={this.getStateFromFlux().eventStoreState} />
+          </div>
           <div className="row full-extend-white-background">
             <NavigationPanel isSignedIn={this.getFlux().store('SessionStore').isLoggedIn()} onViewProfile={this.handleViewProfile} onSignUp={this.handleSignUp} onSignIn={this.handleSignIn} onSignOut={this.handleSignOut}/>
           </div>

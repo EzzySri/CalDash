@@ -41,25 +41,6 @@
       overflow: hidden;
     }
   }
-
-  .scheduled-events {
-    * {
-      @include common-font;
-    }
-    .event-field {
-      text-align: center;
-    }
-    .event-title {
-      span {
-        font-weight: bold;
-      }
-    }
-    .extra-info {
-      left: -22%;
-      position: absolute;
-    }
-  }
-
   .google-map-section {
     height: 380px;
   }

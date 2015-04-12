@@ -1,0 +1,50 @@
+@import "compass/css3";
+@import "common";
+@import "custom_variables";
+@import "custom_mixins";
+
+
+.small-event-card {
+  position: relative;
+  overflow: hidden;
+  height: 115px;
+  background-color: $event-form-light-grey;
+  .event-icon-container {
+    text-align: center;
+  }
+  .event-icon {
+    height: 55px;
+  }
+  .event-title-container {
+    text-align: center;
+    font-size: 10px;
+    font-weight: bold;
+  }
+  [class*='container'] {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .banner {
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: 1;
+    right: -19px;
+    top: -4px;
+    @include transform(rotate(45deg));
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 30px solid #c0c2c4;
+    .copy {
+      position: absolute;
+      left: -39px;
+      bottom: -29px;
+      width: 78px;
+      text-transform: uppercase;
+      color: #fff;
+      font-size: 8px;
+      text-align: center;
+      font-weight: 700;
+    }
+  }
+}

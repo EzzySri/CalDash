@@ -38,10 +38,6 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
       this.emit("change");
     },
 
-    mergeWithCurrentEvent: function(partialEventSource) {
-
-    },
-
     onAddEvent: function(payload) {
       // TO-DO: add unique id to store objects
       var clone = $.extend({}, payload.event);

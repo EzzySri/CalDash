@@ -25,6 +25,12 @@ define(['constants'], function(Constants){
       },
       setMode: function(mode) {
         this.dispatch(Constants.ActionTypes.SET_MODE, {mode: mode});
+      },
+      eventHistoryListExpand: function() {
+        this.dispatch(Constants.ActionTypes.EVENT_HISTORY_LIST_EXPAND, {});
+      },
+      eventHistoryListCollapse: function() {
+        this.dispatch(Constants.ActionTypes.EVENT_HISTORY_LIST_COLLAPSE, {});
       }
     },
     eventActions: {

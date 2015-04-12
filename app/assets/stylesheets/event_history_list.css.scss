@@ -1,0 +1,47 @@
+@import "compass/css3";
+@import "common";
+@import "custom_variables";
+@import "custom_mixins";
+
+.event-history-list {
+  font-size: 10px;
+  overflow: hidden;
+  .event-history-list-text {
+    color: white;
+    padding-bottom: 5px;
+  }
+  .history-event-card-container {
+    padding: 1%;
+  }
+  #expand-button {
+    @include nav-button($green);
+    line-height: 10px !important;
+    font-size: 10px !important;
+
+  }
+}
+
+.event-history-list-container {
+  position: fixed;
+  bottom: 1%;
+  left: 1%;
+  z-index: 30;
+}
+
+.event-history-list-expand-enter {
+  height: 0px;
+  @include transition(all 1s ease); 
+}
+
+.event-history-list-expand-enter-active {
+  height: 115px;
+}
+
+.event-history-list-expand-leave {
+  height: 115px;
+  @include transition(all 1s ease); 
+}
+
+.event-history-list-expand-leave-active {
+  height: 0px;
+}
