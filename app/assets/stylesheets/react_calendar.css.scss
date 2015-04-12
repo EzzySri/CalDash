@@ -3,7 +3,7 @@
 @import "custom_variables";
 @import "custom_mixins";
 
-.react-calendar {
+.react-calendar-day {
   .data-row-header, .header-row-header {
     width: 15%;
     text-align: center;
@@ -38,5 +38,51 @@
   .event-title-text {
     color: white;
     padding-left: 5px;
+  }
+  .borderless {
+    td, th, .data-row-minor {
+      border: none;
+    }
+    .data-row-header {
+      border-right: 2px solid #ddd;
+      color: $green;
+      font-weight: normal;
+    }
+    .header-row-data {
+      color: $green; 
+      font-weight: normal;
+    }
+    .data-row-data {
+      background-color: white;
+    }
+  }
+  .succinct-inner {
+    .data-row-data-inner {
+      background-color: white !important;
+      border-left: 4px solid $blue;
+      margin-left: -2px;
+    }
+    .event-title-text {
+      color: black !important;
+    }
+  }
+}
+.react-calendar-month {
+  .data-row-data {
+    background-color: $calendar-light-grey;
+    text-align: center;
+    font-weight: normal;
+    position: relative;
+  }
+  .data-row-data-inner {
+    margin-bottom: 10px;
+  }
+  .dot {
+    position: absolute;
+    height: 5px;
+    width: 5px;
+    bottom: 20%;
+    border-radius: 50%;
+    background-color: $blue;
   }
 }

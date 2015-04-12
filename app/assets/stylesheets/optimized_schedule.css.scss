@@ -5,9 +5,7 @@
 
 .optimized-schedule {
   background-color: white;
-  padding: 15px;
-  height: 856px;
-  overflow: scroll;
+  padding: 4%;
   .control-panel {
     font-weight: 500;
     .control-panel-middle {
@@ -21,5 +19,13 @@
   .row {
     margin-left: 0 !important;
     margin-right: 0 !important;
+  }
+  #restart-button {
+    @include nav-button($green);
+    margin-bottom: 20px;
+  }
+  .optimized-schedule-main {
+    height: 566px;
+    overflow: scroll;
   }
 }

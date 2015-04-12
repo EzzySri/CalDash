@@ -38,10 +38,18 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
           navigator.geolocation.getCurrentPosition(function(position) {
             var pos = new google.maps.LatLng(position.coords.latitude,
                                              position.coords.longitude);
-            var infowindow = new google.maps.InfoWindow({
+            var image = new google.maps.MarkerImage(
+              Constants.Images.MAP_MARKER,
+              null,
+              null,
+              null,
+              new google.maps.Size(40, 40)
+            );
+            var marker = new google.maps.Marker({
               map: map,
               position: pos,
-              content: 'You are here.'
+              title: 'You are here.',
+              icon: image
             });
             map.setCenter(pos);
           }, function() {
@@ -58,10 +66,22 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
       if (this.newGeoLocationResult) {
         var result = this.newGeoLocationResult;
         this.map.setCenter(result.geometry.location);
+        var image = {
+          url: Constants.Images.MAP_MARKER,
+          size: new google.maps.Size(20, 32)
+        };
+        var image = new google.maps.MarkerImage(
+          Constants.Images.MAP_MARKER,
+          null,
+          null,
+          null,
+          new google.maps.Size(40, 40)
+        );
         var marker = new google.maps.Marker({
           map: this.map,
           position: result.geometry.location,
-          title: result.formatted_address
+          title: result.formatted_address,
+          icon: image
         });
       }
     },

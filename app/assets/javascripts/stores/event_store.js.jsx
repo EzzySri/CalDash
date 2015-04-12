@@ -64,6 +64,10 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
     },
 
     onGetOptimizedSchedules: function() {
+      if (this.events.length == 0) {
+        this.flux.store("FlashMessageStore").onDisplayFlashMessage({flashMessage: Constants.FlashMessages.NO_EVENTS_TO_OPTIMIZE, flashMessageType: "error", flashMessageRandom: Math.random()})
+        return;
+      }
       var json = this.events.map(function(item){
         var clone = $.extend({}, item);
         if (item.mandatory) {
@@ -94,6 +98,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
             start += 1;
           }
           this.flux.store("ApplicationStore").onSetStepCount({stepCount: 1});
+          this.flux.store("ApplicationStore").onSetMode({mode: "results-mode"});
         }.bind(this),
         error: function(xhr, status, err) {
 

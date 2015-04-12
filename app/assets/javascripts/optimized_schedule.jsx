@@ -1,24 +1,42 @@
-define(['react', 'react_calendar'], function(React, ReactCalendar){
+define(['react', 'react_calendar_day'], function(React, ReactCalendarDay){
   var OptimizedSchedule = React.createClass({
+    restartScheduling: function() {
+      this.props.flux.actions.applicationActions.setStepCount(0);
+    },
     render: function() {
       var tableHeadDateFormat = "LL";
+      var sectionHeight = this.props.stepExplanationCollapsed ? {height: "766px"} : {};
       return (
         <div className="optimized-schedule">
-          <div className="control-panel row show-grid">
-            <div className="col-sm-1 col-0-gutter">
-              <div className="control-button"> Previous </div>
-            </div>
-            <div className="col-sm-1 col-0-gutter">
-              <div className="control-button"> Next </div>
-            </div>
-            <div className="col-sm-9 control-panel-middle"> {this.props.selectedDay.format(tableHeadDateFormat)} </div>
-            <div className="col-sm-1 col-0-gutter">
-              <div className="control-button" onClick={this.props.onConfirmSchedule}> Confirm </div>
-            </div>
+          {
+            this.props.applicationStoreState.stepCount != 2 ? (
+              <div className="control-panel row show-grid">
+                <div className="col-sm-4 col-0-gutter">
+                  <div className="control-button"> Previous Result</div>
+                </div>
+                <div className="col-sm-4 col-0-gutter">
+                  <div className="control-button"> Next Result</div>
+                </div>
+                <div className="col-sm-4 col-0-gutter">
+                  <div className="control-button" onClick={this.props.onConfirmSchedule}> Confirm </div>
+                </div>
+              </div>
+            ) : (
+              <div className="control-panel row">
+                <div className="col-sm-1"></div>
+                <div className="col-sm-10">
+                  <div id="restart-button" onClick={this.restartScheduling}> Start on a new day </div>
+                </div>
+                <div className="col-sm-1"></div>
+              </div>
+            )
+          }
+          <div className="optimized-schedule-main" style={sectionHeight}>
+            <ReactCalendarDay
+              tableStyle=" borderless succinct-inner"
+              events={this.props.results}
+              applicationStoreState={this.props.applicationStoreState} />
           </div>
-          <ReactCalendar
-            events={this.props.results}
-            selectedDay = {this.props.selectedDay} />
         </div>
       );
     }

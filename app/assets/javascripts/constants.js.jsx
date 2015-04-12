@@ -47,21 +47,31 @@ define([], function(){
       SET_MAP: "SET_MAP",
       RETRIEVE_MAP_PREDICTIONS: "RETRIEVE_MAP_PREDICTIONS",
 
+      SET_CALENDAR_MODE: "SET_CALENDAR_MODE",
       SET_SELECTED_DAY: "SET_SELECTED_DAY",
       CALENDAR_EXPAND: "CALENDAR_EXPAND",
       CALENDAR_COLLAPSE: "CALENDAR_COLLAPSE",
       STEP_EXPLANATION_EXPAND: "STEP_EXPLANATION_EXPAND",
       STEP_EXPLANATION_COLLAPSE: "STEP_EXPLANATION_COLLAPSE",
       SET_STEP_COUNT: "SET_STEP_COUNT",
+      SET_MODE: "SET_MODE",
 
       DISPLAY_FLASH_MESSAGE: "DISPLAY_FLASH_MESSAGE",
       CLEAR_FLASH_MESSAGE: "CLEAR_FLASH_MESSAGE"
+    },
+
+    FlashMessages: {
+      NO_EVENTS_TO_OPTIMIZE: "You have no events to optimize."
     },
 
     Colors: {
       GREEN: "#1abc9c",
       BLUE: "#3498db",
       DARK_RED: "#eb843d"
+    },
+
+    Images: {
+      MAP_MARKER: "assets/icon_map_marker.png"
     },
 
     CategoryImagePairs: {

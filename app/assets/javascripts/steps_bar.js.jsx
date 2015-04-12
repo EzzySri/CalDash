@@ -46,14 +46,14 @@ define(['react', 'constants'], function(React, Constants){
         <div className="step-explanation-container">
           <img src="assets/icon_arrow_down.png" className="arrow-down-icon hori-ctr" />
           <img src="assets/icon_step2.png" className="step2-icon" />
-          <div className="step-explanation-text">Press the button to optmize them.</div> 
+          <div className="step-explanation-text">Press the button to optmize and choose your schedule.</div> 
         </div>
       );
       var stepExplanation3 = (
         <div className="step-explanation-container">
           <img src="assets/icon_arrow_right.png" className="arrow-right-icon vert-ctr" />
           <img src="assets/icon_step3.png" className="step3-icon" />
-          <div className="step-explanation-text">Confirm your choice of schedule and it will appear in the calendar.</div> 
+          <div className="step-explanation-text">Your confirmed schedule will appear in the calendar.</div> 
         </div>
       );
 
@@ -124,7 +124,7 @@ define(['react', 'constants'], function(React, Constants){
           <div className="row">
             <div onMouseEnter={this.handleMouseOverBars} onMouseLeave={this.handleMouseOutBars} className="col-sm-4 steps-bar-inner-container" style={barLeftStyle}>Step1:<br/>Enter Events</div>
             <div onMouseEnter={this.handleMouseOverBars} onMouseLeave={this.handleMouseOutBars} className="col-sm-4 steps-bar-inner-container" style={barMiddleStyle}>Step2:<br/>Optimize Events</div>
-            <div onMouseEnter={this.handleMouseOverBars} onMouseLeave={this.handleMouseOutBars} className="col-sm-4 steps-bar-inner-container" style={barRightStyle}>Step3:<br/>Confirm Schedule</div>
+            <div onMouseEnter={this.handleMouseOverBars} onMouseLeave={this.handleMouseOutBars} className="col-sm-4 steps-bar-inner-container" style={barRightStyle}>Step3:<br/>Schedule Confirmed</div>
           </div>
           <div style={isVisible}>
             {stepExplanation}

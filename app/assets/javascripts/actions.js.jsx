@@ -2,6 +2,9 @@ define(['constants'], function(Constants){
 
   var actions = {
     applicationActions: {
+      setCalendarMode: function(mode) {
+        this.dispatch(Constants.ActionTypes.SET_CALENDAR_MODE, {calendarMode: mode});
+      },
       setSelectedDay: function(day) {
         this.dispatch(Constants.ActionTypes.SET_SELECTED_DAY, {selectedDay: day});
       },
@@ -19,6 +22,9 @@ define(['constants'], function(Constants){
       },
       setStepCount: function(count) {
         this.dispatch(Constants.ActionTypes.SET_STEP_COUNT, {stepCount: count});
+      },
+      setMode: function(mode) {
+        this.dispatch(Constants.ActionTypes.SET_MODE, {mode: mode});
       }
     },
     eventActions: {

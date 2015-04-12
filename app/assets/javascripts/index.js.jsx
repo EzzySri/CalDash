@@ -12,7 +12,6 @@ define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'eve
 
     getInitialState: function() {
       return {
-        mode: "events-mode",
         logisticsPageLabel: ""
       };
     },
@@ -31,7 +30,7 @@ define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'eve
       return this.getStateFromFlux().applicationStoreState.selectedDay;
     },
     switchMode: function(event) {
-      this.setState({mode: event.target.id});
+      this.getFlux().actions.applicationActions.setMode(event.target.id);
     },
     submitSignUpForm: function() {
       var fullName = this.refs.newName.getDOMNode().value;
@@ -119,7 +118,7 @@ define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'eve
       var viewScheduleButtonClass = "task-button";
       var manageEventsButtonClass = "task-button";
       var resultsButtonClass = "task-button";
-      switch (this.state.mode) {
+      switch (this.getStateFromFlux().applicationStoreState.mode) {
         case "events-mode":
           manageEventsButtonClass += " task-button-pressed";
           rightComponent =
@@ -133,6 +132,9 @@ define(['steps_bar', 'constants', 'optimized_schedule', 'scheduled_events', 'eve
           resultsButtonClass += " task-button-pressed";
           rightComponent =
             (<OptimizedSchedule
+              flux={this.getFlux()}
+              applicationStoreState={this.getStateFromFlux().applicationStoreState}
+              stepExplanationCollapsed={this.getStateFromFlux().applicationStoreState.stepExplanationCollapsed}
               onConfirmSchedule={this.handleConfirmSchedule}
               results = {this.getStateFromFlux().eventStoreState.optimizedResults}
               selectedDay={this.getSelectedDay()} />);

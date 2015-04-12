@@ -6,8 +6,6 @@
 .full-calendar {
   background-color: white;
   padding: 15px;
-  height: 885px;
-  overflow: scroll;
   .control-panel {
     font-weight: 500;
     .control-panel-middle {
@@ -32,6 +30,10 @@
   .more-calendar-toggle-inverted {
     @include transform(translateY(-50%) rotate(225deg));
     left: 11px !important;
+  }
+  .full-calendar-main {
+    height: 798px;
+    overflow: scroll;
   }
 }
 

@@ -2,21 +2,35 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
   var ApplicationStore = Fluxxor.createStore({
     initialize: function() {
       this.selectedDay = moment();
+      this.calendarMode = "day-mode";
       this.moreCalendar = false;
       this.stepExplanationCollapsed = false;
       this.explanationVisible = true;
       this.stepCount = 0;
+      this.mode = "events-mode";
 
       var ActionTypes = Constants.ActionTypes;
 
       this.bindActions(
+        ActionTypes.SET_CALENDAR_MODE, this.onSetCalendarMode,
         ActionTypes.SET_SELECTED_DAY, this.onSetSelectedDay,
         ActionTypes.CALENDAR_EXPAND, this.onCalendarExpand,
         ActionTypes.CALENDAR_COLLAPSE, this.onCalendarCollapse,
         ActionTypes.STEP_EXPLANATION_EXPAND, this.onStepExplanationExpand,
         ActionTypes.STEP_EXPLANATION_COLLAPSE, this.onStepExplanationCollapse,
-        ActionTypes.SET_STEP_COUNT, this.onSetStepCount
+        ActionTypes.SET_STEP_COUNT, this.onSetStepCount,
+        ActionTypes.SET_MODE, this.onSetMode
       );
+    },
+
+    onSetCalendarMode: function(payload) {
+      this.calendarMode = payload.calendarMode;
+      this.emit("change");
+    },
+
+    onSetMode: function(payload) {
+      this.mode = payload.mode;
+      this.emit("change");
     },
 
     onSetSelectedDay: function(payload) {
@@ -59,7 +73,9 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
         moreCalendar: this.moreCalendar,
         stepExplanationCollapsed: this.stepExplanationCollapsed,
         explanationVisible: this.explanationVisible,
-        stepCount: this.stepCount
+        stepCount: this.stepCount,
+        mode: this.mode,
+        calendarMode: this.calendarMode
       };
     }
   });
