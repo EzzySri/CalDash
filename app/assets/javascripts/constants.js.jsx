@@ -35,6 +35,9 @@ define([], function(){
       // Routes
       REDIRECT: "REDIRECT",
 
+      SET_TITLE: "SET_TITLE",
+      SET_CATEGORY: "SET_CATEGORY",
+
       SET_PREDICTIONS: "SET_PREDICTIONS",
       CLEAR_PREDICTIONS: "CLEAR_PREDICTIONS",
 

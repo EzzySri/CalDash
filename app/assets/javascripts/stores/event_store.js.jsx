@@ -24,12 +24,24 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
         Constants.CLEAR_OPTIMIZED_RESULTS, this.onClearOptimizedResults,
         Constants.MERGE_RESULTS_TO_CALENDAR, this.onMergeResultsToCalendar,
         Constants.ActionTypes.SET_LOCATION, this.onSetLocation,
-        Constants.ActionTypes.SET_MANDATORY, this.onSetMandatory
+        Constants.ActionTypes.SET_MANDATORY, this.onSetMandatory,
+        Constants.ActionTypes.SET_TITLE, this.onSetTitle,
+        Constants.ActionTypes.SET_CATEGORY, this.onSetCategory
       );
     },
 
     onSetLocation: function(payload) {
       this.currentEventInput.location = payload.location;
+      this.emit("change");
+    },
+
+    onSetTitle: function(payload) {
+      this.currentEventInput.title = payload.title;
+      this.emit("change");
+    },
+
+    onSetCategory: function(payload) {
+      this.currentEventInput.category = payload.category;
       this.emit("change");
     },
 
@@ -42,7 +54,9 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
       // TO-DO: add unique id to store objects
       var clone = $.extend({}, payload.event);
       clone["location"] = this.currentEventInput.location;
+      clone["category"] = this.currentEventInput.category;
       clone["mandatory"] = this.currentEventInput.mandatory;
+      clone["title"] = this.currentEventInput.title;
       this.events.push(clone);
       this.emit("change");
     },
@@ -135,7 +149,9 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
       return {
         optimizedResults: this.optimizedResults,
         events: this.events,
-        currentEventInput: this.currentEventInput
+        currentEventInput: this.currentEventInput,
+        title: this.title,
+        category: this.category
       };
     }
   });

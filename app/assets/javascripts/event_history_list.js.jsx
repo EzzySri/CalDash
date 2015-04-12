@@ -1,4 +1,4 @@
-define(['react', 'constants', 'small_event_card'], function(React, Constants, SmallEventCard){
+define(['utils', 'react', 'constants', 'small_event_card', 'event_card'], function(Utils, React, Constants, SmallEventCard, EventCard){
   
   var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -6,7 +6,8 @@ define(['react', 'constants', 'small_event_card'], function(React, Constants, Sm
 
     getInitialState: function() {
       return ({
-        events: this.props.eventStoreState.events
+        events: this.props.eventStoreState.events,
+        eventCardOnDisplay: []
       });
     },
 
@@ -61,6 +62,22 @@ define(['react', 'constants', 'small_event_card'], function(React, Constants, Sm
       this.setState({events: events});
     },
 
+    handleMouseOver: function(event) {
+      var e = this.state.eventCardOnDisplay;
+      var targetTitle = event.currentTarget.id;
+      var targetEvent = Utils.customIndexOf(this.state.events, function(item){
+        return item.title == targetTitle;
+      });
+      e.push(targetEvent);
+      this.setState({eventCardOnDisplay: e});
+    },
+
+    handleMouseOut: function() {
+      var e = this.state.eventCardOnDisplay;
+      e.splice(0, e.length);
+      this.setState({eventCardOnDisplay: e});
+    },
+
     componentDidMount: function() {
       var events;
       if (this.state.events.length == 0) {
@@ -73,18 +90,28 @@ define(['react', 'constants', 'small_event_card'], function(React, Constants, Sm
 
       var smallCardsList = this.state.events.map(function(event){
         return (
-          <div key={this.state.events.indexOf(event)} className="history-event-card-container">
+          <div id={event.title} key={this.state.events.indexOf(event)} onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut} className="history-event-card-container">
             <SmallEventCard eventSource={event} />
           </div>
         );
       }, this);
 
+      var bigEventCard = [];
+      if (this.state.eventCardOnDisplay.length != 0) {
+        bigEventCard = (<div className="event-card-outer-container"><EventCard eventSource={this.state.eventCardOnDisplay[0]} /></div>);
+      }
+
       return (
-        <div className="event-history-list">
-          <div id="expand-button" onClick={this.toggleList}>Top 10 most recent events</div>
-          <ReactCSSTransitionGroup transitionName="event-history-list-expand">
-            {smallCardsList}
-          </ReactCSSTransitionGroup>
+        <div>
+          <div className="event-history-list">
+            <div id="expand-button" onClick={this.toggleList}>Top 10 most recent events</div>
+            <ReactCSSTransitionGroup transitionName="event-history-list-expand">
+              {smallCardsList}
+            </ReactCSSTransitionGroup>
+          </div>
+          <div className="event-card-on-display">
+            {bigEventCard}
+          </div>
         </div>
       );
     }

@@ -44,8 +44,6 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
         }
       }
       eventSource["eventDescription"] = eventDescription;
-      eventSource["title"] = title;
-      eventSource["category"] = category;
       this.props.flux.actions.eventActions.addEvent(eventSource);
     },
     isMandatory: function() {
@@ -80,6 +78,12 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
       this.props.flux.actions.eventActions.setLocation(loc);
       this.refs.locationInput.getDOMNode().value = loc;
       this.props.flux.actions.predictionActions.clearPredictions();
+    },
+    setTitle: function(event){
+      this.props.flux.actions.eventActions.setTitle(event.target.value);
+    },
+    setCategory: function(event){
+      this.props.flux.actions.eventActions.setCategory(event.target.value);
     },
     render: function() {
       var startOfDay = this.props.selectedDay.startOf('day');
@@ -193,10 +197,10 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
               <div>
                 <div className="event-name-text"> Event Name & Category </div>
                 <div className="col-sm-6 event-name-container">
-                  <input className="generic-field-container" type="text" ref="eventName" />
+                  <input className="generic-field-container" type="text" value={this.props.eventStoreState.title} onChange={this.setTitle} ref="eventName" />
                 </div>
                 <div className="col-sm-6 category-select-container">
-                  <select defaultValue="placeholder" ref="categorySelect" className="generic-field-container">
+                  <select defaultValue="placeholder" ref="categorySelect" value={this.props.eventStoreState.category} onChange={this.setCategory} className="generic-field-container">
                     <option value="placeholder" disabled>Select a category</option>
                     {categoryOptions}
                   </select>
