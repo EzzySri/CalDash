@@ -31,11 +31,14 @@ define(['constants'], function(Constants){
       },
       eventHistoryListCollapse: function() {
         this.dispatch(Constants.ActionTypes.EVENT_HISTORY_LIST_COLLAPSE, {});
+      },
+      setLogisticsPageLabel: function(label) {
+        this.dispatch(Constants.ActionTypes.SET_LOGISTICS_PAGE_LABEL, {label: label});
       }
     },
     eventActions: {
-      addEvent: function(eventSource) {
-        this.dispatch(Constants.ADD_EVENT, {event: eventSource});
+      addEvent: function() {
+        this.dispatch(Constants.ADD_EVENT, {});
       },
       removeEvent: function(eventName) {
         this.dispatch(Constants.REMOVE_EVENT, eventName);
@@ -60,6 +63,24 @@ define(['constants'], function(Constants){
       },
       setCategory: function(cat) {
         this.dispatch(Constants.ActionTypes.SET_CATEGORY, {category: cat});
+      },
+      setBeforeTime: function(before) {
+        this.dispatch(Constants.ActionTypes.SET_BEFORE_TIME, {before: before});
+      },
+      setAfterTime: function(after) {
+        this.dispatch(Constants.ActionTypes.SET_AFTER_TIME, {after: after});
+      },
+      setStartTime: function(start) {
+        this.dispatch(Constants.ActionTypes.SET_START_TIME, {start: start});
+      },
+      setEndTime: function(end) {
+        this.dispatch(Constants.ActionTypes.SET_END_TIME, {end: end});
+      },
+      setDuration: function(duration) {
+        this.dispatch(Constants.ActionTypes.SET_DURATION, {duration: duration});
+      },
+      setEventDescription: function(des) {
+        this.dispatch(Constants.ActionTypes.SET_EVENT_DESCRIPTION, {eventDescription: des});
       }
     },
     sessionActions: {

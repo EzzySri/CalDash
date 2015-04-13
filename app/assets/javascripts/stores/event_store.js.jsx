@@ -1,15 +1,15 @@
 define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Constants, moment){
   var EventStore = Fluxxor.createStore({
     initialize: function() {
-      this.events = [];
-      // stored temporarily; cleared after user confirmation his choice
+      this.allEvents = {};
+      // stored temporarily; cleared after user confirms his choice
       this.optimizedResults = [];
 
       this.currentEventInput = {
         location: "",
         mandatory: false,
         title: "",
-        category: "",
+        category: "placeholder",
         start: null,
         end: null,
         after: null,
@@ -26,8 +26,42 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
         Constants.ActionTypes.SET_LOCATION, this.onSetLocation,
         Constants.ActionTypes.SET_MANDATORY, this.onSetMandatory,
         Constants.ActionTypes.SET_TITLE, this.onSetTitle,
-        Constants.ActionTypes.SET_CATEGORY, this.onSetCategory
+        Constants.ActionTypes.SET_CATEGORY, this.onSetCategory,
+        Constants.ActionTypes.SET_AFTER_TIME, this.onSetAfterTime,
+        Constants.ActionTypes.SET_BEFORE_TIME, this.onSetBeforeTime,
+        Constants.ActionTypes.SET_START_TIME, this.onSetStartTime,
+        Constants.ActionTypes.SET_END_TIME, this.onSetEndTime,
+        Constants.ActionTypes.SET_DURATION, this.onSetDuration,
+        Constants.ActionTypes.SET_EVENT_DESCRIPTION, this.onSetEventDescription
       );
+    },
+
+    setDependentValues: function() {
+      var timeOptions = this.flux.store("EventFormStore").getState().timeOptions;
+      var changed = false;
+      if (this.currentEventInput.after == null) {
+        changed = true;
+        this.currentEventInput.after = this.flux.store("EventFormStore").timeOptions[0];
+      }
+      if (this.currentEventInput.before == null) {
+        changed = true;
+        this.currentEventInput.before = this.flux.store("EventFormStore").timeOptions[timeOptions.length - 1];
+      }
+      if (this.currentEventInput.duration == null) {
+        changed = true;
+        this.currentEventInput.duration = this.flux.store("EventFormStore").durationOptions[0];
+      }
+      if (this.currentEventInput.start == null) {
+        changed = true;
+        this.currentEventInput.start = this.flux.store("EventFormStore").timeOptions[0];
+      }
+      if (this.currentEventInput.end == null) {
+        changed = true;
+        this.currentEventInput.end = this.flux.store("EventFormStore").timeOptions[0];
+      }
+      if (changed) {
+        this.emit("change");
+      }
     },
 
     onSetLocation: function(payload) {
@@ -35,8 +69,38 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
       this.emit("change");
     },
 
+    onSetAfterTime: function(payload) {
+      this.currentEventInput.after = moment(payload.after);
+      this.emit("change");
+    },
+
+    onSetBeforeTime: function(payload) {
+      this.currentEventInput.before = moment(payload.before);
+      this.emit("change");
+    },
+
+    onSetStartTime: function(payload) {
+      this.currentEventInput.start = moment(payload.start);
+      this.emit("change");
+    },
+
+    onSetEndTime: function(payload) {
+      this.currentEventInput.end = moment(payload.end);
+      this.emit("change");
+    },
+
+    onSetDuration: function(payload) {
+      this.currentEventInput.duration = moment.duration(payload.duration);
+      this.emit("change");
+    },    
+
     onSetTitle: function(payload) {
       this.currentEventInput.title = payload.title;
+      this.emit("change");
+    },
+
+    onSetEventDescription: function(payload) {
+      this.currentEventInput.eventDescription = payload.eventDescription;
       this.emit("change");
     },
 
@@ -50,23 +114,96 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
       this.emit("change");
     },
 
-    onAddEvent: function(payload) {
+    getEvents: function() {
+      var selectedDayUnix = this.flux.store("ApplicationStore").getState().selectedDay.valueOf();
+      if (!(selectedDayUnix in this.allEvents)) {
+        this.allEvents[selectedDayUnix] = []; 
+      }
+      return this.allEvents[selectedDayUnix];
+    },
+
+    onAddEvent: function() {
       // TO-DO: add unique id to store objects
-      var clone = $.extend({}, payload.event);
+      var clone = {};
+      var title = this.currentEventInput.title;
+      var category = this.currentEventInput.category;
+      if (!(title && category != "placeholder")) {
+        this.flux.store("FlashMessageStore").onDisplayFlashMessage({flashMessage: "Event Name and Category should not be empty.", flashMessageType: "error", random: Math.random()});
+        return;
+      }
       clone["location"] = this.currentEventInput.location;
-      clone["category"] = this.currentEventInput.category;
+      clone["category"] = category;
       clone["mandatory"] = this.currentEventInput.mandatory;
-      clone["title"] = this.currentEventInput.title;
-      this.events.push(clone);
+      clone["title"] = title;
+      clone["duration"] = this.currentEventInput.duration;
+      clone["eventDescription"] = this.currentEventInput.eventDescription;
+      if (!this.currentEventInput.mandatory) {
+        momentBefore = this.currentEventInput.before;
+        momentAfter = this.currentEventInput.after;
+        if (momentBefore <= momentAfter) {
+          this.flux.store("FlashMessageStore").onDisplayFlashMessage({flashMessage: "Before Estimate should not be less than or equal to After Estimate.", flashMessageType: "error", random: Math.random()});
+          return;   
+        }
+        clone["before"] = momentBefore;
+        clone["after"] = momentAfter;
+      } else {
+        momentFrom = this.currentEventInput.start;
+        momentTo = this.currentEventInput.end;
+        if (momentFrom >= momentTo) {
+          this.flux.store("FlashMessageStore").onDisplayFlashMessage({flashMessage: "Starting time should not be after or equal to ending time.", flashMessageType: "error", random: Math.random()});
+          return;  
+        }
+        var l = this.getEvents().length;
+        var events = this.getEvents();
+        for (var i = 0; i < l; i += 1) {
+          var item = events[i];
+          if (item.mandatory && ((momentFrom <= item.end && momentFrom >= item.start) || (momentTo <= item.end && momentTo >= item.start))) {
+            this.flux.store("FlashMessageStore").onDisplayFlashMessage({flashMessage: "You have a conflict in your fixed events.", flashMessageType: "error", random: Math.random()});
+            return;
+          }
+        }
+        clone["start"] = momentFrom;
+        clone["end"] = momentTo;
+      }
+      this.getEvents().push(clone);
+    
+      // events are sorted based on start time for mandatory event and after time for non-mondatory event
+      this.getEvents().sort(function(a, b) {
+        var attrA = a.mandatory ? a.start : a.after;
+        var attrB = b.mandatory ? b.start : b.after;
+        if (attrA > attrB) {
+          return 1;
+        } else if (attrA < attrB) {
+          return -1;
+        } else {
+          return 0;
+        }
+      })
+      this.restoreForm();
       this.emit("change");
     },
 
+    restoreForm: function() {
+      this.currentEventInput = {
+        location: "",
+        title: "",
+        category: "placeholder",
+        start: null,
+        mandatory: this.currentEventInput.mandatory,
+        end: null,
+        after: null,
+        before: null,
+        eventDescription: ""
+      }
+    },  
+
     onRemoveEvent: function(titleText) {
       // TO-DO: delete from id instead of names
-      for (i = 0; i < this.events.length; i += 1) {
-        e = this.events[i];
+      var events = this.getEvents();
+      for (i = 0; i < l; i += 1) {
+        e = events[i];
         if (e.title == titleText) {
-          this.events.splice(i, 1);
+          events.splice(i, 1);
           break
         }
       }
@@ -74,11 +211,12 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
     },
 
     onGetOptimizedSchedules: function() {
-      if (this.events.length == 0) {
-        this.flux.store("FlashMessageStore").onDisplayFlashMessage({flashMessage: Constants.FlashMessages.NO_EVENTS_TO_OPTIMIZE, flashMessageType: "error", flashMessageRandom: Math.random()})
+      var events = this.getEvents();
+      if (events.length == 0) {
+        this.flux.store("FlashMessageStore").onDisplayFlashMessage({flashMessage: Constants.FlashMessages.NO_EVENTS_TO_OPTIMIZE, flashMessageType: "error", random: Math.random()});
         return;
       }
-      var json = this.events.map(function(item){
+      var json = events.map(function(item){
         var clone = $.extend({}, item);
         if (item.mandatory) {
           clone.start = clone.start.toJSON();
@@ -119,14 +257,14 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
 
     // assume optimzedResults are not yet cleared
     onMergeResultsToCalendar: function() {
-      var events = this.events;
+      var events = this.getEvents();
       this.optimizedResults.forEach(function(item) {
         if (!(events.some(function(original){
           return original.mandatory && (original.start - item.start == 0);}))) {
           events.push(item);
         }
       });
-      this.events.filter(function(item){
+      events.filter(function(item){
         return !item.mandatory;
       });
       this.emit("change");
@@ -138,7 +276,8 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
     },
 
     getMandatoryEvents: function() {
-      return this.events.filter(function(item){
+      var events = this.getEvents();
+      return events.filter(function(item){
         return item.mandatory;
       }).sort(function(a, b){
         return a.start.valueOf() - b.start.valueOf();
@@ -146,12 +285,11 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
     },
 
     getState: function() {
+      this.setDependentValues();
       return {
         optimizedResults: this.optimizedResults,
-        events: this.events,
-        currentEventInput: this.currentEventInput,
-        title: this.title,
-        category: this.category
+        events: this.getEvents(),
+        currentEventInput: this.currentEventInput
       };
     }
   });

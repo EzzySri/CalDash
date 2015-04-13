@@ -6,56 +6,12 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
         forWhichDays: new Set()
       };
     },
-    getCurrentEventInput: function() {
-      return this.props.eventStoreState.currentEventInput;
-    },
-    handleAdd: function() {
-      var currentEventInput = this.getCurrentEventInput();
-      var eventSource, momentFrom, momentTo, momentBefore, momentAfter, eventDescription;
-      var title = this.refs.eventName.getDOMNode().value.trim();
-      var category = this.refs.categorySelect.getDOMNode().value.trim();
-      if (!(title && category != "placeholder")) {
-        this.props.flux.actions.flashMessageActions.displayFlashMessage("Event Name and Category should not be empty.", "error", Math.random());
-        return
-      }
-      eventDescription = this.refs.eventDescription.getDOMNode().value.trim(); 
-      if (currentEventInput.mandatory) {
-        momentFrom = moment(parseInt(this.refs.fromTime.getDOMNode().value));
-        momentTo = moment(parseInt(this.refs.toTime.getDOMNode().value));
-        if (momentFrom >= momentTo) {
-          this.props.flux.actions.flashMessageActions.displayFlashMessage("Starting time should not be after or equal to ending time.", "error", Math.random());
-          return   
-        }
-        eventSource = {
-          start: momentFrom, 
-          end: momentTo
-        }
-      } else {
-        momentBefore = moment(parseInt(this.refs.beforeTime.getDOMNode().value));
-        momentAfter = moment(parseInt(this.refs.afterTime.getDOMNode().value));
-        if (momentBefore <= momentAfter) {
-          this.props.flux.actions.flashMessageActions.displayFlashMessage("Before Estimate should not be less than or equal to After Estimate.", "error", Math.random());
-          return   
-        }
-        eventSource = {
-          duration: moment.duration(parseInt(this.refs.duration.getDOMNode().value)),
-          before: momentBefore, 
-          after: momentAfter
-        }
-      }
-      eventSource["eventDescription"] = eventDescription;
-      this.props.flux.actions.eventActions.addEvent(eventSource);
-    },
-    isMandatory: function() {
-      var currentEventInput = this.props.eventStoreState.currentEventInput;
-      if (!currentEventInput.mandatory) {
-        this.props.flux.actions.eventActions.setMandatory(true);
-      }
-    },
-    isNotMandatory: function() {
+    toggleMandatory: function() {
       var currentEventInput = this.props.eventStoreState.currentEventInput;
       if (currentEventInput.mandatory) {
         this.props.flux.actions.eventActions.setMandatory(false);
+      } else {
+        this.props.flux.actions.eventActions.setMandatory(true);
       }
     },
     handleForWhichDays: function(event) {
@@ -78,23 +34,13 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
       this.props.flux.actions.eventActions.setLocation(loc);
       this.refs.locationInput.getDOMNode().value = loc;
       this.props.flux.actions.predictionActions.clearPredictions();
-    },
-    setTitle: function(event){
-      this.props.flux.actions.eventActions.setTitle(event.target.value);
-    },
-    setCategory: function(event){
-      this.props.flux.actions.eventActions.setCategory(event.target.value);
+      if (this.props.eventStoreState.currentEventInput.location) {
+        this.props.flux.actions.googleServiceActions.retrieveGeoLocation();
+      }
     },
     render: function() {
-      var startOfDay = this.props.selectedDay.startOf('day');
-      var startOf
-      var times = [startOfDay.clone()];
+      var times = this.props.eventFormStoreState.timeOptions;
       var momentStrFormat = "Do, h:mm a";
-      // TO-DO: add user chosen date
-      for (i = 1; i < 48; i += 1) {
-        times.push(startOfDay.add(30, "m").clone());
-      }
-      times.push(startOfDay.add(29, "m").clone());
       var timeOptions = times.map(function(momentObj) {
         return (
           <option value={momentObj.valueOf()}>{momentObj.format(momentStrFormat)}</option>
@@ -111,11 +57,7 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
         );
       });
 
-      var startDuration = moment.duration(15, "m");
-      var durations = [moment.duration(startDuration)];
-      for (i = 1; i < 48; i += 1) {
-        durations.push(moment.duration(startDuration.add(15, "m")));
-      }
+      var durations = this.props.eventFormStoreState.durationOptions;
       var durationOptions = durations.map(function(durationObj) {
         return (
           <option value={durationObj.valueOf()}>{durationObj.humanize()}</option>
@@ -124,17 +66,26 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
       var notMandatorySection = (
         <div className="not-mandatory-section">
           <div className="col-sm-6 after-time-container">
-            <select ref="afterTime" value={times[0].valueOf()} className="generic-field-container">
+            <select
+              onChange={this.setAfterTime}
+              value={this.props.eventStoreState.currentEventInput.after.valueOf()}
+              className="generic-field-container">
               {afterTimeOptions}
             </select>
           </div>
           <div className="col-sm-6 before-time-container">
-            <select ref="beforeTime" value={times[times.length - 1].valueOf()} className="generic-field-container">
+            <select
+              onChange={this.setBeforeTime}
+              value={this.props.eventStoreState.currentEventInput.before.valueOf()}
+              className="generic-field-container">
               {beforeTimeOptions}
             </select>
           </div>
           <div className="col-sm-6 duration-container">
-            <select ref="duration" className="generic-field-container">
+            <select
+              onChange={this.setDuration}
+              value={this.props.eventStoreState.currentEventInput.duration.valueOf()}
+              className="generic-field-container">
               {durationOptions}
             </select>
           </div>
@@ -143,12 +94,18 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
       var mandatorySection = (
         <div className="not-mandatory-section">
           <div className="col-sm-6 from-time-container">
-            <select ref="fromTime" className="generic-field-container">
+            <select
+              onChange={this.setStartTime}
+              value={this.props.eventStoreState.currentEventInput.start.valueOf()}
+              className="generic-field-container">
               {timeOptions}
             </select>
           </div>
           <div className="col-sm-6 to-time-container">
-            <select ref="toTime" className="generic-field-container">
+            <select
+              onChange={this.setEndTime}
+              value={this.props.eventStoreState.currentEventInput.end.valueOf()}
+              className="generic-field-container">
               {timeOptions}
             </select>
           </div>
@@ -167,7 +124,7 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
       );
       var timeRangeSection;
       var timeRangeSectionText;
-      if (this.getCurrentEventInput().mandatory) {
+      if (this.props.eventStoreState.currentEventInput.mandatory) {
         timeRangeSectionText = "Fixed Time Range"
         timeRangeSection = mandatorySection;
       } else {
@@ -177,7 +134,7 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
 
       var mandButtonClass = "generic-field-container";
       var notMandButtonClass = "generic-field-container";
-      if (this.getCurrentEventInput().mandatory) {
+      if (this.props.eventStoreState.currentEventInput.mandatory) {
         mandButtonClass += " pressed";
       } else {
         notMandButtonClass += " pressed";
@@ -197,10 +154,10 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
               <div>
                 <div className="event-name-text"> Event Name & Category </div>
                 <div className="col-sm-6 event-name-container">
-                  <input className="generic-field-container" type="text" value={this.props.eventStoreState.title} onChange={this.setTitle} ref="eventName" />
+                  <input className="generic-field-container" type="text" value={this.props.eventStoreState.currentEventInput.title} onChange={this.setTitle} />
                 </div>
                 <div className="col-sm-6 category-select-container">
-                  <select defaultValue="placeholder" ref="categorySelect" value={this.props.eventStoreState.category} onChange={this.setCategory} className="generic-field-container">
+                  <select value={this.props.eventStoreState.currentEventInput.category} onChange={this.setCategory} className="generic-field-container">
                     <option value="placeholder" disabled>Select a category</option>
                     {categoryOptions}
                   </select>
@@ -209,10 +166,10 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
               <div>
                 <div className="is-mandatory-text" onClick={this.toggleTimeInputMenus}> Mandatory Event </div>
                 <div className="col-sm-6 mandatory-button">
-                  <button className={mandButtonClass} type="button" onClick={this.isMandatory}>Yes</button>
+                  <button className={mandButtonClass} type="button" onClick={this.toggleMandatory}>Yes</button>
                 </div>
                 <div className="col-sm-6 not-mandatory-button">
-                  <button className={notMandButtonClass} type="button" onClick={this.isNotMandatory}>No</button>
+                  <button className={notMandButtonClass} type="button" onClick={this.toggleMandatory}>No</button>
                 </div>
               </div>
               <div>
@@ -230,15 +187,43 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
                 newPredictions={this.props.newPredictions} />
               <div>
                 <div className="evnet-description-text"> Description </div>
-                <input className="generic-field-container" type="text" ref="eventDescription" />
+                <input
+                  value={this.props.eventStoreState.currentEventInput.eventDescription}
+                  onChange={this.setEventDescription}
+                  className="generic-field-container"
+                  type="text" />
               </div>
             </div>
             <div>
-              <button className="new-event-submit-button" type="button" onClick={this.handleAdd}>Add</button>
+              <button className="new-event-submit-button" type="button" onClick={this.props.flux.actions.eventActions.addEvent}>Add</button>
             </div>
           </form>
         </div>
       );
+    },
+    setTitle: function(event){
+      this.props.flux.actions.eventActions.setTitle(event.target.value);
+    },
+    setCategory: function(event){
+      this.props.flux.actions.eventActions.setCategory(event.target.value);
+    },
+    setAfterTime: function(event) {
+      this.props.flux.actions.eventActions.setAfterTime(moment(parseInt(event.target.value)));
+    },
+    setBeforeTime: function(event) {
+      this.props.flux.actions.eventActions.setBeforeTime(moment(parseInt(event.target.value)));
+    },
+    setStartTime: function(event) {
+      this.props.flux.actions.eventActions.setStartTime(moment(parseInt(event.target.value)));
+    },
+    setEndTime: function(event) {
+      this.props.flux.actions.eventActions.setEndTime(moment(parseInt(event.target.value)));
+    },
+    setDuration: function(event) {
+      this.props.flux.actions.eventActions.setDuration(moment.duration(parseInt(event.target.value)));
+    },
+    setEventDescription: function(event) {
+      this.props.flux.actions.eventActions.setEventDescription(event.target.value);
     }
   });
   return AddNewEventSection;

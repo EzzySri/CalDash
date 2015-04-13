@@ -8,13 +8,8 @@ define(['event_history_list', 'steps_bar', 'constants', 'optimized_schedule', 's
 
   var CalDashApp = React.createClass({
 
-    mixins: [FluxMixin, StoreWatchMixin("EventStore", "SessionStore", "PredictionStore", "ApplicationStore", "FlashMessageStore", "GoogleServiceStore")],
+    mixins: [FluxMixin, StoreWatchMixin("EventFormStore", "EventStore", "SessionStore", "PredictionStore", "ApplicationStore", "FlashMessageStore", "GoogleServiceStore")],
 
-    getInitialState: function() {
-      return {
-        logisticsPageLabel: ""
-      };
-    },
     getStateFromFlux: function() {
       var flux = this.getFlux();
       return {
@@ -23,7 +18,8 @@ define(['event_history_list', 'steps_bar', 'constants', 'optimized_schedule', 's
         predictionStoreState: flux.store('PredictionStore').getState(),
         googleServiceStoreState: flux.store('GoogleServiceStore').getState(),
         applicationStoreState: flux.store("ApplicationStore").getState(),
-        flashMessageStoreState: flux.store("FlashMessageStore").getState()
+        flashMessageStoreState: flux.store("FlashMessageStore").getState(),
+        eventFormStoreState: flux.store("EventFormStore").getState()
       };
     },
     getSelectedDay: function() {
@@ -55,23 +51,23 @@ define(['event_history_list', 'steps_bar', 'constants', 'optimized_schedule', 's
       this.getFlux().actions.sessionActions.login(email, password);
     },
     handleSignIn: function() {
-      if (this.state.logisticsPageLabel == "signIn") {
-        this.setState({logisticsPageLabel: ""});
+      if (this.getStateFromFlux().applicationStoreState.logisticsPageLabel == "signIn") {
+        this.getFlux().actions.applicationActions.setLogisticsPageLabel("");
       } else {
-        this.setState({logisticsPageLabel: "signIn"});
+        this.getFlux().actions.applicationActions.setLogisticsPageLabel("signIn");
       }
     },
     handleViewProfile: function() {
-      if (this.state.logisticsPageLabel == "myProfile") {
-        this.setState({logisticsPageLabel: ""});
+      if (this.getStateFromFlux().applicationStoreState.logisticsPageLabel == "myProfile") {
+        this.getFlux().actions.applicationActions.setLogisticsPageLabel("");
       } else {
-        this.setState({logisticsPageLabel: "myProfile"});
+        this.getFlux().actions.applicationActions.setLogisticsPageLabel("myProfile");
       }
     },
     afterSignIn: function(status) {
       if (status == Constants.SUCCESS) {
         this.refs.email.getDOMNode().value = "";
-        this.setState({logisticsPageLabel: ""});
+        this.getFlux().actions.applicationActions.setLogisticsPageLabel("");
       }
       this.refs.password.getDOMNode().value = "";
     },
@@ -79,16 +75,16 @@ define(['event_history_list', 'steps_bar', 'constants', 'optimized_schedule', 's
       if (status == Constants.SUCCESS) {
         this.refs.newName.getDOMNode().value = "";
         this.refs.newEmail.getDOMNode().value = "";
-        this.setState({logisticsPageLabel: ""});
+        this.getFlux().actions.applicationActions.setLogisticsPageLabel("");
       }
       this.refs.newPassword.getDOMNode().value = "";
       this.refs.newPasswordConfirmation.getDOMNode().value = "";
     },
     handleSignUp: function() {
-      if (this.state.logisticsPageLabel == "signUp") {
-        this.setState({logisticsPageLabel: ""});
+      if (this.getStateFromFlux().applicationStoreState.logisticsPageLabel == "signUp") {
+        this.getFlux().actions.applicationActions.setLogisticsPageLabel("");
       } else {
-        this.setState({logisticsPageLabel: "signUp"});
+        this.getFlux().actions.applicationActions.setLogisticsPageLabel("signUp");
       }
     },
     handleSignOut: function() {
@@ -107,17 +103,11 @@ define(['event_history_list', 'steps_bar', 'constants', 'optimized_schedule', 's
       this.getFlux().actions.eventActions.clearOptimizedResults();
       this.getFlux().actions.applicationActions.setStepCount(2);
     },
-    handleLocationChoice: function() {
-      this.getFlux().actions.predictionActions.clearPredictions();
-      if (this.getStateFromFlux().eventStoreState.currentEventInput.location) {
-        this.getFlux().actions.googleServiceActions.retrieveGeoLocation();
-      }
-    },
     render: function() {
       var rightComponent;
-      var viewScheduleButtonClass = "task-button";
       var manageEventsButtonClass = "task-button";
       var resultsButtonClass = "task-button";
+
       switch (this.getStateFromFlux().applicationStoreState.mode) {
         case "events-mode":
           manageEventsButtonClass += " task-button-pressed";
@@ -139,66 +129,8 @@ define(['event_history_list', 'steps_bar', 'constants', 'optimized_schedule', 's
               results = {this.getStateFromFlux().eventStoreState.optimizedResults}
               selectedDay={this.getSelectedDay()} />);
       }
-      var logisticsPage;
-      switch (this.state.logisticsPageLabel) {
-        case "signIn":
-          logisticsPage = (
-            <div key={this.state.logisticsPageLabel} className="full-extend-blue-background sign-in-section">
-              <div className="col-sm-4"></div>
-              <div className="col-sm-4 vert-ctr">
-                <div>
-                  <div className="user-email-text"> Email </div>
-                  <input className="generic-field-container" type="text" ref="email"/>
-                </div>
-                <div>
-                  <div className="user-password-text"> Password </div>
-                  <input className="generic-field-container" type="password" ref="password"/>
-                </div>
-                <div>
-                  <button className="generic-field-container user-sign-in-button submit-text" type="button" onClick={this.submitSignInForm}> Submit </button>
-                </div>
-                <div className="col-sm-4"></div>
-              </div>
-            </div>
-          );
-          break;
-        case "signUp":
-          logisticsPage = (
-            <div key={this.state.logisticsPageLabel} className="sign-up-section full-extend-green-background">
-              <div className="col-sm-4"></div>
-              <div className="col-sm-4 vert-ctr">
-                <div>
-                  <div className="user-name-text"> Name </div>
-                  <input className="generic-field-container user-name-input" ref="newName" placeholder="e.g Liam Lin" type="text" />
-                </div>
-                <div>
-                  <div className="user-email-text"> Email </div>
-                  <input className="generic-field-container" ref="newEmail" type="text" />
-                </div>
-                <div>
-                  <div className="user-password-text"> Password </div>
-                  <input className="generic-field-container" ref="newPassword" type="password" />
-                </div>
-                <div>
-                  <div className="user-password-text"> Password Confirmation </div>
-                  <input className="generic-field-container" ref="newPasswordConfirmation" type="password" />
-                </div>
-                <div>
-                  <button className="generic-field-container new-user-submit-button submit-text" type="button" onClick={this.submitSignUpForm}> Submit </button>
-                </div>
-              </div>
-              <div className="col-sm-4"></div>
-            </div>
-          );
-          break;
-        case "myProfile":
-          logisticsPage = (
-            <div key={this.state.logisticsPageLabel} className="my-profile-section full-extend-dark-red-background">
-            </div>
-          );
-          break;
-        default:
-      }
+
+      var logisticsPageLabel = this.getStateFromFlux().applicationStoreState.logisticsPageLabel;
       return (
         <div className="container">
           <div className="event-history-list-container">
@@ -208,11 +140,14 @@ define(['event_history_list', 'steps_bar', 'constants', 'optimized_schedule', 's
               eventStoreState={this.getStateFromFlux().eventStoreState} />
           </div>
           <div className="row full-extend-white-background">
-            <NavigationPanel isSignedIn={this.getFlux().store('SessionStore').isLoggedIn()} onViewProfile={this.handleViewProfile} onSignUp={this.handleSignUp} onSignIn={this.handleSignIn} onSignOut={this.handleSignOut}/>
+            <NavigationPanel
+              isSignedIn={this.getFlux().store('SessionStore').isLoggedIn()}
+              onViewProfile={this.handleViewProfile} onSignUp={this.handleSignUp}
+              onSignIn={this.handleSignIn} onSignOut={this.handleSignOut}/>
           </div>
           <div className="logistics-section row" ref="logisticsSection">
             <ReactCSSTransitionGroup transitionName="logistics-page">
-              {logisticsPage}
+              {this.fetchLogisticsPage(logisticsPageLabel)}
             </ReactCSSTransitionGroup>
           </div>
           <div className="row show-grid">
@@ -240,6 +175,7 @@ define(['event_history_list', 'steps_bar', 'constants', 'optimized_schedule', 's
               <div className="show-grid">
                 <AddNewEventSection
                   flux = {this.getFlux()}
+                  eventFormStoreState={this.getStateFromFlux().eventFormStoreState}
                   eventStoreState={this.getStateFromFlux().eventStoreState}
                   newPredictions={this.getStateFromFlux().predictionStoreState.predictions}
                   selectedDay={this.getSelectedDay()} />
@@ -277,7 +213,70 @@ define(['event_history_list', 'steps_bar', 'constants', 'optimized_schedule', 's
           </div>
         </div>
       );
-    }
+    },
+    fetchLogisticsPage: function(logisticsPageLabel) {
+      var logisticsPage;
+      switch (logisticsPageLabel) {
+        case "signIn":
+          logisticsPage = (
+            <div key={logisticsPageLabel} className="full-extend-blue-background sign-in-section">
+              <div className="col-sm-4"></div>
+              <div className="col-sm-4 vert-ctr">
+                <div>
+                  <div className="user-email-text"> Email </div>
+                  <input className="generic-field-container" type="text" ref="email"/>
+                </div>
+                <div>
+                  <div className="user-password-text"> Password </div>
+                  <input className="generic-field-container" type="password" ref="password"/>
+                </div>
+                <div>
+                  <button className="generic-field-container user-sign-in-button submit-text" type="button" onClick={this.submitSignInForm}> Submit </button>
+                </div>
+                <div className="col-sm-4"></div>
+              </div>
+            </div>
+          );
+          break;
+        case "signUp":
+          logisticsPage = (
+            <div key={logisticsPageLabel} className="sign-up-section full-extend-green-background">
+              <div className="col-sm-4"></div>
+              <div className="col-sm-4 vert-ctr">
+                <div>
+                  <div className="user-name-text"> Name </div>
+                  <input className="generic-field-container user-name-input" ref="newName" placeholder="e.g Liam Lin" type="text" />
+                </div>
+                <div>
+                  <div className="user-email-text"> Email </div>
+                  <input className="generic-field-container" ref="newEmail" type="text" />
+                </div>
+                <div>
+                  <div className="user-password-text"> Password </div>
+                  <input className="generic-field-container" ref="newPassword" type="password" />
+                </div>
+                <div>
+                  <div className="user-password-text"> Password Confirmation </div>
+                  <input className="generic-field-container" ref="newPasswordConfirmation" type="password" />
+                </div>
+                <div>
+                  <button className="generic-field-container new-user-submit-button submit-text" type="button" onClick={this.submitSignUpForm}> Submit </button>
+                </div>
+              </div>
+              <div className="col-sm-4"></div>
+            </div>
+          );
+          break;
+        case "myProfile":
+          logisticsPage = (
+            <div key={logisticsPageLabel} className="my-profile-section full-extend-dark-red-background">
+            </div>
+          );
+          break;
+        default:
+      }
+      return logisticsPage;
+    },
   });
   return CalDashApp;
 });

@@ -8,6 +8,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
       this.explanationVisible = true;
       this.stepCount = 0;
       this.mode = "events-mode";
+      this.logisticsPageLabel = "";
       this.eventHistoryListCollapsed = false;
 
       var ActionTypes = Constants.ActionTypes;
@@ -22,12 +23,18 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
         ActionTypes.SET_STEP_COUNT, this.onSetStepCount,
         ActionTypes.SET_MODE, this.onSetMode,
         ActionTypes.EVENT_HISTORY_LIST_EXPAND, this.onEventHistoryListExpand,
-        ActionTypes.EVENT_HISTORY_LIST_COLLAPSE, this.onEventHistoryListCollapse
+        ActionTypes.EVENT_HISTORY_LIST_COLLAPSE, this.onEventHistoryListCollapse,
+        ActionTypes.SET_LOGISTICS_PAGE_LABEL, this.onSetLogisticsPageLabel
       );
     },
 
     onEventHistoryListCollapse: function() {
       this.eventHistoryListCollapsed = true;
+      this.emit("change");
+    },
+
+    onSetLogisticsPageLabel: function(payload) {
+      this.logisticsPageLabel = payload.label;
       this.emit("change");
     },
 
@@ -89,7 +96,8 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
         stepCount: this.stepCount,
         mode: this.mode,
         calendarMode: this.calendarMode,
-        eventHistoryListCollapsed: this.eventHistoryListCollapsed
+        eventHistoryListCollapsed: this.eventHistoryListCollapsed,
+        logisticsPageLabel: this.logisticsPageLabel
       };
     }
   });
