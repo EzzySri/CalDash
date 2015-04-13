@@ -37,6 +37,17 @@ class EventAssignmentsController < ApplicationController
     end
   end
 
+  def batch_create
+    @events = params[:events]
+    @events.each do |event_params|
+      @event_assignment = EventAssignment.new(event_params)
+      unless @event_assignment.save
+        render json: {}, status: 400
+      end
+    end
+    render json: {}, status: 200
+  end
+
   # PATCH/PUT /event_assignments/1
   # PATCH/PUT /event_assignments/1.json
   def update

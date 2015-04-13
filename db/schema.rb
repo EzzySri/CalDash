@@ -11,28 +11,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150314044949) do
+ActiveRecord::Schema.define(version: 20150413210311) do
 
   create_table "event_assignments", force: :cascade do |t|
-    t.integer  "event_id"
-    t.integer  "user_id"
-    t.datetime "event_start_time"
-    t.datetime "event_end_time"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.string   "name",                        null: false
+    t.string   "location"
+    t.string   "category"
+    t.decimal  "start_unix",                  null: false
+    t.decimal  "end_unix",                    null: false
+    t.decimal  "lat"
+    t.decimal  "lng"
+    t.string   "description"
+    t.boolean  "is_private",  default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
+  add_index "event_assignments", ["end_unix"], name: "index_event_assignments_on_end_unix"
+  add_index "event_assignments", ["start_unix"], name: "index_event_assignments_on_start_unix"
+
   create_table "events", force: :cascade do |t|
-    t.string   "event_name"
-    t.integer  "event_type"
-    t.string   "event_location"
-    t.decimal  "event_lat",      precision: 10, scale: 6
-    t.float    "event_long"
-    t.integer  "event_length"
-    t.integer  "event_privacy"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.string   "name",                                    null: false
+    t.string   "mandatory",                               null: false
+    t.string   "location"
+    t.string   "category"
+    t.decimal  "start_unix",                              null: false
+    t.decimal  "end_unix",                                null: false
+    t.decimal  "after_unix",                              null: false
+    t.decimal  "before_unix",                             null: false
+    t.decimal  "lat"
+    t.decimal  "lng"
+    t.string   "description"
+    t.boolean  "is_private",              default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.decimal  "duration_in_miliseconds"
   end
+
+  add_index "events", ["after_unix"], name: "index_events_on_after_unix"
+  add_index "events", ["before_unix"], name: "index_events_on_before_unix"
+  add_index "events", ["end_unix"], name: "index_events_on_end_unix"
+  add_index "events", ["start_unix"], name: "index_events_on_start_unix"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

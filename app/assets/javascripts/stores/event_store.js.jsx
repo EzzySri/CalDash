@@ -1,4 +1,4 @@
-define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Constants, moment){
+define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Fluxxor, Constants, moment, Adapters){
   var EventStore = Fluxxor.createStore({
     initialize: function() {
       this.allEvents = {};
@@ -14,7 +14,9 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
         end: null,
         after: null,
         before: null,
-        eventDescription: ""
+        eventDescription: "",
+        lat: null,
+        lng: null
       },
 
       this.bindActions(
@@ -32,7 +34,8 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
         Constants.ActionTypes.SET_START_TIME, this.onSetStartTime,
         Constants.ActionTypes.SET_END_TIME, this.onSetEndTime,
         Constants.ActionTypes.SET_DURATION, this.onSetDuration,
-        Constants.ActionTypes.SET_EVENT_DESCRIPTION, this.onSetEventDescription
+        Constants.ActionTypes.SET_EVENT_DESCRIPTION, this.onSetEventDescription,
+        Constants.ActionTypes.SYNC_SCHEDULE_CHOICE, this.onSyncScheduleChoice
       );
     },
 
@@ -122,6 +125,27 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
       return this.allEvents[selectedDayUnix];
     },
 
+    onSyncScheduleChoice: function () {
+      var eventAssignments = this.optimizedResults.map(function(item){
+        return Adapters.eventAssignmentAdapter(item);
+      });
+      $.ajax({
+        url: Constants.APIEndpoints.EVENT_ASSIGNMENTS_BATCH_CREATE,
+        method: "POST",
+        dataType: "json",
+        data: {
+          event_assignments: eventAssignments
+        }, 
+        success: function(data) {
+          this.onClearOptimizedResults();
+        }.bind(this),
+        error: function(xhr, status, err) {
+          // TO-DO
+        }.bind(this)
+      });
+      this.emit("change");
+    },
+
     onAddEvent: function() {
       // TO-DO: add unique id to store objects
       var clone = {};
@@ -137,6 +161,8 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
       clone["title"] = title;
       clone["duration"] = this.currentEventInput.duration;
       clone["eventDescription"] = this.currentEventInput.eventDescription;
+      clone["lat"] = this.currentEventInput.lat;
+      clone["lng"] = this.currentEventInput.lng;
       if (!this.currentEventInput.mandatory) {
         momentBefore = this.currentEventInput.before;
         momentAfter = this.currentEventInput.after;
@@ -217,16 +243,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
         return;
       }
       var json = events.map(function(item){
-        var clone = $.extend({}, item);
-        if (item.mandatory) {
-          clone.start = clone.start.toJSON();
-          clone.end = clone.end.toJSON();
-        } else {
-          clone.before = clone.before.toJSON();
-          clone.after = clone.after.toJSON();
-          clone.duration = clone.duration.toJSON();
-        }
-        return clone;
+        return Adapters.eventAdapter(item);
       });
       $.ajax({
         url: Constants.APIEndpoints.OPTIMIZE,
@@ -256,6 +273,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
     },
 
     // assume optimzedResults are not yet cleared
+    // TO-DO: support multiple results; user need to choose one
     onMergeResultsToCalendar: function() {
       var events = this.getEvents();
       this.optimizedResults.forEach(function(item) {

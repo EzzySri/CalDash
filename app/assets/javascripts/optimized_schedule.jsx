@@ -3,6 +3,11 @@ define(['react', 'react_calendar_day'], function(React, ReactCalendarDay){
     restartScheduling: function() {
       this.props.flux.actions.applicationActions.setStepCount(0);
     },
+    handleConfirmSchedule: function() {
+      this.props.flux.actions.eventActions.mergeResultsToCalendar();
+      this.props.flux.actions.eventActions.syncScheduleChoice();
+      this.props.flux.actions.applicationActions.setStepCount(2);
+    },
     render: function() {
       var tableHeadDateFormat = "LL";
       var sectionHeight = this.props.stepExplanationCollapsed ? {height: "766px"} : {};
@@ -18,7 +23,7 @@ define(['react', 'react_calendar_day'], function(React, ReactCalendarDay){
                   <div className="control-button"> Next Result</div>
                 </div>
                 <div className="col-sm-4 col-0-gutter">
-                  <div className="control-button" onClick={this.props.onConfirmSchedule}> Confirm </div>
+                  <div className="control-button" onClick={this.handleConfirmSchedule}> Confirm </div>
                 </div>
               </div>
             ) : (

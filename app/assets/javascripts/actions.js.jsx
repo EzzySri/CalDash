@@ -81,6 +81,9 @@ define(['constants'], function(Constants){
       },
       setEventDescription: function(des) {
         this.dispatch(Constants.ActionTypes.SET_EVENT_DESCRIPTION, {eventDescription: des});
+      },
+      syncScheduleChoice: function() {
+        this.dispatch(Constants.ActionTypes.SYNC_SCHEDULE_CHOICE, {});
       }
     },
     sessionActions: {

@@ -98,11 +98,6 @@ define(['event_history_list', 'steps_bar', 'constants', 'optimized_schedule', 's
       newDate = this.getSelectedDay().add(diffInDays, 'days');
       this.getFlux().actions.applicationActions.setSelectedDay(newDate);
     },
-    handleConfirmSchedule: function() {
-      this.getFlux().actions.eventActions.mergeResultsToCalendar();
-      this.getFlux().actions.eventActions.clearOptimizedResults();
-      this.getFlux().actions.applicationActions.setStepCount(2);
-    },
     render: function() {
       var rightComponent;
       var manageEventsButtonClass = "task-button";
@@ -125,7 +120,6 @@ define(['event_history_list', 'steps_bar', 'constants', 'optimized_schedule', 's
               flux={this.getFlux()}
               applicationStoreState={this.getStateFromFlux().applicationStoreState}
               stepExplanationCollapsed={this.getStateFromFlux().applicationStoreState.stepExplanationCollapsed}
-              onConfirmSchedule={this.handleConfirmSchedule}
               results = {this.getStateFromFlux().eventStoreState.optimizedResults}
               selectedDay={this.getSelectedDay()} />);
       }

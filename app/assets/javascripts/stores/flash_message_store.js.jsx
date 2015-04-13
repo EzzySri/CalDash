@@ -26,7 +26,6 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
     },
 
     onDisplayFlashMessage: function(payload) {
-      // somehow it only displays the first error after refreshing the page
       if ($(".error-message-container").css("height") == "0px") {
         this.setFlashMessage(payload.flashMessage, payload.flashMessageType, payload.random);
         this.emit("change");

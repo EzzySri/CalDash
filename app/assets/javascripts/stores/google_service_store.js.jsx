@@ -3,7 +3,6 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
     initialize: function() {
       this.geocoderService = null;
       this.locationService = null;
-      this.newGeoLocationResult = null;
       this.map = null;
 
       var ActionTypes = Constants.ActionTypes;
@@ -63,9 +62,13 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
     },
 
     displayNewGeoLocationResult: function() {
-      if (this.newGeoLocationResult) {
-        var result = this.newGeoLocationResult;
-        this.map.setCenter(result.geometry.location);
+      var lat = this.flux.store("EventStore").currentEventInput.lat;
+      var lng = this.flux.store("EventStore").currentEventInput.lng;
+      var location = this.flux.store("EventStore").currentEventInput.location;
+      var geolocation;
+      if (lat && lng) {
+        geolocation = new google.maps.LatLng(lat, lng)
+        this.map.setCenter(geolocation);
         var image = {
           url: Constants.Images.MAP_MARKER,
           size: new google.maps.Size(20, 32)
@@ -77,10 +80,19 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
           null,
           new google.maps.Size(40, 40)
         );
+        // TO-DO: get bounds on map
+        var bounds = new google.maps.LatLngBounds();
+        bounds.extend(geolocation);
+        this.flux.store("EventStore").getEvents().map(function(item){
+          if (item.lat && item.lng) {
+            bounds.extend(new google.maps.LatLng(item.lat, item.lng));
+          }
+        });
+        this.map.fitBounds(bounds);
         var marker = new google.maps.Marker({
           map: this.map,
-          position: result.geometry.location,
-          title: result.formatted_address,
+          position: geolocation,
+          title: location,
           icon: image
         });
       }
@@ -113,7 +125,8 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
       if (currentEventInput.location) {
         service.geocode({'address': currentEventInput.location}, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
-            context.newGeoLocationResult = results[0];
+            context.flux.store("EventStore").currentEventInput.lat = results[0].geometry.location.lat();
+            context.flux.store("EventStore").currentEventInput.lng = results[0].geometry.location.lng();
             context.displayNewGeoLocationResult();
             context.emit("change");
           } else {
@@ -160,7 +173,6 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
       return {
         geocoderService: this.geocoderService,
         locationService: this.locationService,
-        newGeoLocationResult: this.newGeoLocationResult,
         map: this.map
       };
     }

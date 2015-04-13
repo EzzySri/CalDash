@@ -6,6 +6,12 @@ Rails.application.routes.draw do
       post "optimize" => "events#optimize", as: :optimize
     end
   end
+
+  resources :event_assignments do 
+    collection do
+      post "batch_create" => "event_assignments#batch_create", as: :batch_create
+    end
+  end  
   
   devise_for :users, :controllers => { registrations: 'registrations', sessions: 'sessions'}  
   root to: 'home#index'

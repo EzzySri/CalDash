@@ -20,6 +20,7 @@ define([], function(){
       REGISTRATION:   APIRoot + "/users/",
       LOGOUT:        APIRoot + "/users/sign_out",
       OPTIMIZE:      APIRoot + "/events/optimize",
+      EVENT_ASSIGNMENTS_BATCH_CREATE: APIRoot + "/event_assignments/batch_create",
     },
 
     PayloadSources: {
@@ -44,6 +45,7 @@ define([], function(){
       SET_DURATION: "SET_DURATION",
       SET_EVENT_DESCRIPTION: "SET_EVENT_DESCRIPTION",
       SET_LOGISTICS_PAGE_LABEL: "SET_LOGISTICS_PAGE_LABEL",
+      SYNC_SCHEDULE_CHOICE: "SYNC_SCHEDULE_CHOICE",
 
       SET_PREDICTIONS: "SET_PREDICTIONS",
       CLEAR_PREDICTIONS: "CLEAR_PREDICTIONS",
