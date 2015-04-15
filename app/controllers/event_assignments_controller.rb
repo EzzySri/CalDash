@@ -38,7 +38,7 @@ class EventAssignmentsController < ApplicationController
   end
 
   def batch_create
-    @events = params[:events]
+    @events = params[:event_assignments]
     @events.each do |event_params|
       @event_assignment = EventAssignment.new(event_params)
       unless @event_assignment.save

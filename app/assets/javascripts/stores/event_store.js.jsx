@@ -133,9 +133,10 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
         url: Constants.APIEndpoints.EVENT_ASSIGNMENTS_BATCH_CREATE,
         method: "POST",
         dataType: "json",
-        data: {
+        contentType: 'application/json',
+        data: JSON.stringify({
           event_assignments: eventAssignments
-        }, 
+        }),
         success: function(data) {
           this.onClearOptimizedResults();
         }.bind(this),
@@ -250,23 +251,19 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
         method: "POST",
         dataType: "json",
         data: {
-          events: json
+          events: JSON.stringify(json)
         }, 
         success: function(data) {
-          results = data.events;
-          var start = 0;
-          while (results[start]) {
-            item = results[start]
-            item.start = moment(item.start);
-            item.end = moment(item.end);
-            this.optimizedResults.push(item);
-            start += 1;
-          }
+          data.schedules.forEach(function(schedule){
+            schedule.forEach(function(event){
+              // TO-DO: no multiple results display yet; all add to this single array
+              this.optimizedResults.push(Adapters.reverseEventAdapter(event));
+            }, this);
+          }, this);
           this.flux.store("ApplicationStore").onSetStepCount({stepCount: 1});
           this.flux.store("ApplicationStore").onSetMode({mode: "results-mode"});
         }.bind(this),
         error: function(xhr, status, err) {
-
         }.bind(this)
       });
       this.emit("change");

@@ -62,7 +62,11 @@ class EventsController < ApplicationController
 
   # dummy function for testing front-test
   def optimize
-    render json: params
+    input_schedule = JSON.parse(params[:events])
+    output_schedule = input_schedule.map do |event_params|
+      Event.new(event_params)
+    end
+    render json: {schedules: [output_schedule]}
   end
 
   private

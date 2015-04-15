@@ -28,6 +28,8 @@ gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
 gem 'showdown-rails'
 gem 'gon'
 
+gem "active_model_serializers", "~> 0.8.0"
+
 gem 'bootstrap-sass'
 gem 'bootstrap_form', '2.3.0'
 
