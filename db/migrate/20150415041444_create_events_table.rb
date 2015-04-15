@@ -5,10 +5,11 @@ class CreateEventsTable < ActiveRecord::Migration
       t.string :mandatory, null: false
       t.string :location
       t.string :category
-      t.decimal :start_unix, null: false
-      t.decimal :end_unix, null: false
-      t.decimal :after_unix, null: false
-      t.decimal :before_unix, null: false
+      t.decimal :start_unix
+      t.decimal :end_unix
+      t.decimal :after_unix
+      t.decimal :before_unix
+      t.decimal :duration_in_miliseconds
       t.decimal :lat
       t.decimal :lng
       t.string :description

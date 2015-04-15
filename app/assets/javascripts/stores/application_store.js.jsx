@@ -2,6 +2,11 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
   var ApplicationStore = Fluxxor.createStore({
     initialize: function() {
       this.selectedDay = moment();
+      
+      this.selectedWeekDays = null;
+      // this method prepares the two variables above
+      this.prepareMultiSelectInWeek();
+
       this.calendarMode = "day-mode";
       this.moreCalendar = false;
       this.stepExplanationCollapsed = false;
@@ -24,8 +29,23 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
         ActionTypes.SET_MODE, this.onSetMode,
         ActionTypes.EVENT_HISTORY_LIST_EXPAND, this.onEventHistoryListExpand,
         ActionTypes.EVENT_HISTORY_LIST_COLLAPSE, this.onEventHistoryListCollapse,
-        ActionTypes.SET_LOGISTICS_PAGE_LABEL, this.onSetLogisticsPageLabel
+        ActionTypes.SET_LOGISTICS_PAGE_LABEL, this.onSetLogisticsPageLabel,
+        ActionTypes.TOGGLE_DAY_IN_WEEK, this.onToggleDayInWeek
       );
+    },
+
+    prepareMultiSelectInWeek: function() {
+      var startOfWeek = moment(this.selectedDay).startOf("week");
+      this.selectedWeekDays = new Array(7);
+      for (var i = 0; i < 7; i += 1) {
+        var newDay = moment(startOfWeek).add(i, "day");
+        this.selectedWeekDays[i] = newDay - (this.selectedDay).startOf("day") == 0;
+      }
+    },
+
+    onToggleDayInWeek: function(payload) {
+      this.selectedWeekDays[payload.dayIndex] = !this.selectedWeekDays[payload.dayIndex];
+      this.emit("change");
     },
 
     onEventHistoryListCollapse: function() {
@@ -55,6 +75,8 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
 
     onSetSelectedDay: function(payload) {
       this.selectedDay = payload.selectedDay;
+      this.selectedWeekDays = this.setSelectedDaysInWeek();
+      this.daysInWeek = Object.keys(this.selectedWeekDays).sort();
       this.emit("change");
     },
 
@@ -97,7 +119,8 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
         mode: this.mode,
         calendarMode: this.calendarMode,
         eventHistoryListCollapsed: this.eventHistoryListCollapsed,
-        logisticsPageLabel: this.logisticsPageLabel
+        logisticsPageLabel: this.logisticsPageLabel,
+        selectedWeekDays: this.selectedWeekDays
       };
     }
   });

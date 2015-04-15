@@ -1,11 +1,6 @@
 define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, React, moment, PredictionList) {
   
   var AddNewEventSection = React.createClass({
-    getInitialState: function() {
-      return {
-        forWhichDays: new Set()
-      };
-    },
     toggleMandatory: function() {
       var currentEventInput = this.props.eventStoreState.currentEventInput;
       if (currentEventInput.mandatory) {
@@ -15,15 +10,7 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
       }
     },
     handleForWhichDays: function(event) {
-      var inner = event.target;
-      // TO-DO: decide what to do with multiple days add
-      if (inner.style.backgroundColor == 'red') {
-        inner.style.backgroundColor = '';
-        this.state.forWhichDays.add(inner.innerHTML());
-      } else {
-        event.target.style.backgroundColor = 'red';
-        this.state.forWhichDays.delete(inner.innerHTML());
-      }
+      this.props.flux.actions.applicationActions.toggleDayInWeek(parseInt(event.target.id));
     },
     handleLocationInputChange: function() {
       var loc = this.refs.locationInput.getDOMNode().value;
@@ -63,6 +50,13 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
           <option value={durationObj.valueOf()}>{durationObj.humanize()}</option>
         );
       });
+      var selectedDay = this.props.applicationStoreState.selectedDay;
+      var multiDaySelect = this.props.applicationStoreState.selectedWeekDays.map(function(selected, index){
+        var color = selected ? Constants.Colors.BLUE : ""; 
+        return (
+          <li id={index} style={{backgroundColor:color}} onClick={this.handleForWhichDays}>{selectedDay.day(index).format("ddd") + "."}</li>
+        );
+      }, this);
       var notMandatorySection = (
         <div className="not-mandatory-section">
           <div className="col-sm-6 after-time-container">
@@ -90,7 +84,8 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
             </select>
           </div>
         </div>
-      ); 
+      );
+      var firstDayWeek = this.props.applicationStoreState.selectedDay.startOf("week");
       var mandatorySection = (
         <div className="not-mandatory-section">
           <div className="col-sm-6 from-time-container">
@@ -109,15 +104,9 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
               {timeOptions}
             </select>
           </div>
-          <div className="event-day-list" onClick={this.handleForWhichDays}>
+          <div className="event-day-list">
             <div className="row">
-              <li>Sun.</li>
-              <li >Mon.</li>
-              <li>Tue.</li>
-              <li>Wed.</li>
-              <li>Thu.</li>
-              <li>Fri.</li>
-              <li>Sat.</li>
+              {multiDaySelect}
             </div>
           </div>
         </div>

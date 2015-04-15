@@ -250,9 +250,8 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
         url: Constants.APIEndpoints.OPTIMIZE,
         method: "POST",
         dataType: "json",
-        data: {
-          events: JSON.stringify(json)
-        }, 
+        contentType: "application/json",
+        data: JSON.stringify({events: json}), 
         success: function(data) {
           data.schedules.forEach(function(schedule){
             schedule.forEach(function(event){

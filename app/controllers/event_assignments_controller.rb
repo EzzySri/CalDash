@@ -38,14 +38,17 @@ class EventAssignmentsController < ApplicationController
   end
 
   def batch_create
-    @events = params[:event_assignments]
-    @events.each do |event_params|
-      @event_assignment = EventAssignment.new(event_params)
-      unless @event_assignment.save
+    events_params = event_assignments_params[:event_assignments]
+    @events =  events_params.map do |event_params|
+      event_assignment = EventAssignment.new(event_params)
+    end
+    ActiveRecord::Base.transaction do
+      if (validates = @events.map(&:save)).all?
+        render json: {}, status: 200
+      else
         render json: {}, status: 400
       end
     end
-    render json: {}, status: 200
   end
 
   # PATCH/PUT /event_assignments/1
@@ -82,4 +85,9 @@ class EventAssignmentsController < ApplicationController
     def event_assignment_params
       params.require(:event_assignment).permit(:event_id, :user_id, :event_start_time, :event_end_time)
     end
+
+    def event_assignments_params
+      params.permit(:event_assignment => {}, :event_assignments => [:name, :category, :description, :lat, :lng, :location, :start_unix, :end_unix, :is_privacy])
+    end
+
 end
