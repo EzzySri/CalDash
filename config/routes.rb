@@ -1,14 +1,7 @@
 Rails.application.routes.draw do
-  resources :event_assignments
-  
-  resources :events do 
-    collection do
-      post "optimize" => "events#optimize", as: :optimize
-    end
-  end
-
   resources :event_assignments do 
     collection do
+      post "optimize" => "event_assignments#optimize", as: :optimize
       post "batch_create" => "event_assignments#batch_create", as: :batch_create
     end
   end  

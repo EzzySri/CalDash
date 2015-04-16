@@ -83,6 +83,11 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
 
     onSetStepCount: function(payload) {
       this.stepCount = payload.stepCount;
+      if (this.stepCount == 0) {
+        this.onSetMode({mode: "events-mode"});
+      } else if (this.stepCount == 1) {
+        this.onSetMode({mode: "results-mode"});
+      }
       this.emit("change");
     },
 

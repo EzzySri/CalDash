@@ -60,15 +60,6 @@ class EventsController < ApplicationController
     end
   end
 
-  # dummy function for testing front-test
-  def optimize
-    input_schedule = batch_event_params[:events]
-    output_schedule = input_schedule.map do |event|
-      Event.new(event)
-    end
-    render json: {schedules: [output_schedule]}
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event

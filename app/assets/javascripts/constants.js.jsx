@@ -19,7 +19,7 @@ define([], function(){
       LOGIN:          APIRoot + "/users/sign_in",
       REGISTRATION:   APIRoot + "/users/",
       LOGOUT:        APIRoot + "/users/sign_out",
-      OPTIMIZE:      APIRoot + "/events/optimize",
+      OPTIMIZE:      APIRoot + "/event_assignments/optimize",
       EVENT_ASSIGNMENTS_BATCH_CREATE: APIRoot + "/event_assignments/batch_create",
     },
 
