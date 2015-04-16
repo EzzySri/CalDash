@@ -12,14 +12,14 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
     handleForWhichDays: function(event) {
       this.props.flux.actions.applicationActions.toggleDayInWeek(parseInt(event.target.id));
     },
-    handleLocationInputChange: function() {
-      var loc = this.refs.locationInput.getDOMNode().value;
+    handleLocationInputChange: function(event) {
+      var loc = event.target.value;
+      this.props.flux.actions.eventActions.setLocation(loc);
       this.props.flux.actions.googleServiceActions.retrieveMapPredictions(loc);
     },
     handleLocationChoice: function(event) {
       var loc = event.target.innerHTML;
       this.props.flux.actions.eventActions.setLocation(loc);
-      this.refs.locationInput.getDOMNode().value = loc;
       this.props.flux.actions.predictionActions.clearPredictions();
       if (this.props.eventStoreState.currentEventInput.location) {
         this.props.flux.actions.googleServiceActions.retrieveGeoLocation();
@@ -169,7 +169,12 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
             <div className="new-event-form-lower">
               <div>
                 <div className="location-text"> Location </div>
-                <input className="generic-field-container" type="text" ref="locationInput" onChange={this.handleLocationInputChange} />
+                <input
+                  placeholder="Alternatively, click on the map to auto-generate the address"
+                  value={this.props.eventStoreState.currentEventInput.location}
+                  className="generic-field-container location-input"
+                  type="text" ref="locationInput"
+                  onChange={this.handleLocationInputChange} />
               </div>
               <PredictionList
                 onLocationChoice={this.handleLocationChoice}

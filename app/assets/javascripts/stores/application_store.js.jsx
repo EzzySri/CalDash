@@ -3,7 +3,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
     initialize: function() {
       this.selectedDay = moment();
       
-      this.selectedWeekDays = null;
+      this.selectedWeekDays = [];
       // this method prepares the two variables above
       this.prepareMultiSelectInWeek();
 
@@ -75,8 +75,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
 
     onSetSelectedDay: function(payload) {
       this.selectedDay = payload.selectedDay;
-      this.selectedWeekDays = this.setSelectedDaysInWeek();
-      this.daysInWeek = Object.keys(this.selectedWeekDays).sort();
+      this.selectedWeekDays = this.prepareMultiSelectInWeek();
       this.emit("change");
     },
 

@@ -5,6 +5,8 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
       this.locationService = null;
       this.map = null;
 
+      this.curDraggableMarker = null;
+
       var ActionTypes = Constants.ActionTypes;
 
       this.bindActions(
@@ -54,6 +56,10 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
           }, function() {
             this.handleNoGeolocation(map, true);
           }.bind(this));
+
+          google.maps.event.addListener(this.map, 'click', this.clickEventListener, this);
+
+
         } else {
           // Browser doesn't support Geolocation
           this.handleNoGeolocation(map, false);
@@ -96,6 +102,57 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
           icon: image
         });
       }
+    },
+
+    clickEventListener: function(event) {
+      if (!this.curDraggableMarker) {
+        this.placeCurDraggableMarker(event.latLng, "Drag me!", true);
+        var service = this.geocoderService;
+        if (!service) {
+          service = new google.maps.Geocoder();
+          this.geocoderService = service;
+        }
+        service.geocode({'latLng': event.latLng}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            this.flux.store("EventStore").onSetLocation({location: results[0].formatted_address})
+          } else {
+            this.flux.store("FlashMessageStore").onDisplayFlashMessage({
+              flashMessage: "Geocoder service error.",
+              flashMessageType: "error",
+              random: Math.random()});          
+          }
+        }, this);
+      } else {
+        this.flux.store("FlashMessageStore").onDisplayFlashMessage({
+          flashMessage: "Please drag or double-click to cancel the existing selection icon.",
+          flashMessageType: "error",
+          random: Math.random()});
+      }
+      google.maps.event.addListener(this.curDraggableMarker, 'dblclick', this.dblClickMarkerListener, this);
+      this.emit("change");
+    },
+
+    dblClickMarkerListener: function() {
+      this.curDraggableMarker.setMap(null);
+      this.curDraggableMarker = null;
+      this.emit("change");
+    },
+
+    placeCurDraggableMarker: function(geolocation, locationText, isDraggable) {
+      var image = new google.maps.MarkerImage(
+        Constants.Images.MAP_BLACK_MARKER,
+        null,
+        null,
+        null,
+        new google.maps.Size(40, 40)
+      );
+      this.curDraggableMarker = new google.maps.Marker({
+        map: this.map,
+        position: geolocation,
+        title: locationText,
+        draggable: isDraggable,
+        icon: image        
+      });
     },
 
     handleNoGeolocation: function(map, errorFlag) {

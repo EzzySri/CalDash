@@ -86,7 +86,8 @@ define([], function(){
     },
 
     Images: {
-      MAP_MARKER: "assets/icon_map_marker.png"
+      MAP_MARKER: "assets/icon_map_marker.png",
+      MAP_BLACK_MARKER: "assets/icon_map_black_marker.png"
     },
 
     CategoryImagePairs: {
