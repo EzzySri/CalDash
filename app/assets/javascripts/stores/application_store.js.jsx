@@ -44,8 +44,10 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
     },
 
     onToggleDayInWeek: function(payload) {
-      this.selectedWeekDays[payload.dayIndex] = !this.selectedWeekDays[payload.dayIndex];
-      this.emit("change");
+      if (this.selectedDay.isoWeekday() != payload.dayIndex) {
+        this.selectedWeekDays[payload.dayIndex] = !this.selectedWeekDays[payload.dayIndex];
+        this.emit("change");
+      }
     },
 
     onEventHistoryListCollapse: function() {
@@ -75,7 +77,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
 
     onSetSelectedDay: function(payload) {
       this.selectedDay = payload.selectedDay;
-      this.selectedWeekDays = this.prepareMultiSelectInWeek();
+      this.prepareMultiSelectInWeek();
       this.emit("change");
     },
 

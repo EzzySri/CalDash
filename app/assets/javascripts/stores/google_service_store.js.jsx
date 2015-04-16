@@ -107,12 +107,29 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
     clickEventListener: function(event) {
       if (!this.curDraggableMarker) {
         this.placeCurDraggableMarker(event.latLng, "Drag me!", true);
-        var service = this.geocoderService;
+        this.retrieveReverseGeoOnMarker(event.latLng);
+      } else {
+        this.flux.store("FlashMessageStore").onDisplayFlashMessage({
+          flashMessage: "Please drag or double-click to cancel the existing selection icon.",
+          flashMessageType: "error",
+          random: Math.random()});
+      }
+      google.maps.event.addListener(this.curDraggableMarker, 'dblclick', this.dblClickMarkerListener, this);
+      google.maps.event.addListener(this.curDraggableMarker,'dragend', this.markerDragendListener, this);
+      this.emit("change");
+    },
+
+    markerDragendListener: function(event) {
+      this.retrieveReverseGeoOnMarker(event.latLng);
+    },
+
+    retrieveReverseGeoOnMarker: function(markerLatLng) {
+      var service = this.geocoderService;
         if (!service) {
           service = new google.maps.Geocoder();
           this.geocoderService = service;
         }
-        service.geocode({'latLng': event.latLng}, function(results, status) {
+        service.geocode({'latLng': markerLatLng}, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
             this.flux.store("EventStore").onSetLocation({location: results[0].formatted_address})
           } else {
@@ -122,14 +139,6 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
               random: Math.random()});          
           }
         }, this);
-      } else {
-        this.flux.store("FlashMessageStore").onDisplayFlashMessage({
-          flashMessage: "Please drag or double-click to cancel the existing selection icon.",
-          flashMessageType: "error",
-          random: Math.random()});
-      }
-      google.maps.event.addListener(this.curDraggableMarker, 'dblclick', this.dblClickMarkerListener, this);
-      this.emit("change");
     },
 
     dblClickMarkerListener: function() {
@@ -187,7 +196,10 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
             context.displayNewGeoLocationResult();
             context.emit("change");
           } else {
-            alert("Geocode was not successful for the following reason: " + status);
+            this.flux.store("FlashMessageStore").onDisplayFlashMessage({
+              flashMessage: "Geocode was not successful for the following reason: " + status,
+              flashMessageType: "error",
+              random: Math.random()});
           }
         });
       }

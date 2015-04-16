@@ -54,7 +54,7 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
       var multiDaySelect = this.props.applicationStoreState.selectedWeekDays.map(function(selected, index){
         var color = selected ? Constants.Colors.BLUE : ""; 
         return (
-          <li id={index} style={{backgroundColor:color}} onClick={this.handleForWhichDays}>{selectedDay.day(index).format("ddd") + "."}</li>
+          <li id={index} style={{backgroundColor:color}} onClick={this.handleForWhichDays}>{moment(selectedDay).day(index).format("ddd") + "."}</li>
         );
       }, this);
       var notMandatorySection = (
@@ -85,7 +85,7 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
           </div>
         </div>
       );
-      var firstDayWeek = this.props.applicationStoreState.selectedDay.startOf("week");
+      var firstDayWeek = moment(this.props.applicationStoreState.selectedDay).startOf("week");
       var mandatorySection = (
         <div className="not-mandatory-section">
           <div className="col-sm-6 from-time-container">
