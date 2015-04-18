@@ -16,7 +16,12 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
         before: null,
         eventDescription: "",
         lat: null,
-        lng: null
+        lng: null,
+        isPrivate: false,
+        repeatType: "once",
+        repeatBegin: null,
+        repeatEnd: null,
+        repeatDays: []
       },
 
       this.bindActions(
@@ -118,7 +123,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
     },
 
     getEvents: function() {
-      var selectedDayUnix = this.flux.store("ApplicationStore").getState().selectedDay.valueOf();
+      var selectedDayUnix = moment(this.flux.store("ApplicationStore").getState().selectedDay).startOf("day").valueOf();
       if (!(selectedDayUnix in this.allEvents)) {
         this.allEvents[selectedDayUnix] = []; 
       }
@@ -149,21 +154,27 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
 
     onAddEvent: function() {
       // TO-DO: add unique id to store objects
-      var clone = {};
       var title = this.currentEventInput.title;
       var category = this.currentEventInput.category;
       if (!(title && category != "placeholder")) {
         this.flux.store("FlashMessageStore").onDisplayFlashMessage({flashMessage: "Event Name and Category should not be empty.", flashMessageType: "error", random: Math.random()});
         return;
       }
-      clone["location"] = this.currentEventInput.location;
-      clone["category"] = category;
-      clone["mandatory"] = this.currentEventInput.mandatory;
-      clone["title"] = title;
-      clone["duration"] = this.currentEventInput.duration;
-      clone["eventDescription"] = this.currentEventInput.eventDescription;
-      clone["lat"] = this.currentEventInput.lat;
-      clone["lng"] = this.currentEventInput.lng;
+      var clone = {
+        location: this.currentEventInput.location,
+        category: category,
+        mandatory: this.currentEventInput.mandatory,
+        title: title,
+        duration: this.currentEventInput.duration,
+        eventDescription: this.currentEventInput.eventDescription,
+        lat: this.currentEventInput.lat,
+        lng: this.currentEventInput.lng,
+        isPrivate: this.currentEventInput.isPrivate,
+        repeatType: this.currentEventInput.repeatType,
+        repeatBegin: this.currentEventInput.repeatBegin,
+        repeatEnd: this.currentEventInput.repeatEnd,
+        repeatDays: this.currentEventInput.repeatDays
+      };
       if (!this.currentEventInput.mandatory) {
         momentBefore = this.currentEventInput.before;
         momentAfter = this.currentEventInput.after;
@@ -250,9 +261,8 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
         url: Constants.APIEndpoints.OPTIMIZE,
         method: "POST",
         dataType: "json",
-        data: {
-          events: JSON.stringify(json)
-        }, 
+        contentType: "application/json",
+        data: JSON.stringify({events: json}), 
         success: function(data) {
           data.schedules.forEach(function(schedule){
             schedule.forEach(function(event){

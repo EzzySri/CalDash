@@ -16,6 +16,13 @@
   input, select, button, li {
     font-size: 10px;
   }
+  .location-input {
+    @include input-placeholder {
+      color: $green;
+      text-align: left;
+      padding-left: 10px;
+    }
+  }
   .generic-field-container {
     margin-bottom: 15px;
   }

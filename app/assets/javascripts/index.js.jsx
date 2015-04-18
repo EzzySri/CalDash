@@ -169,6 +169,7 @@ define(['event_history_list', 'steps_bar', 'constants', 'optimized_schedule', 's
               <div className="show-grid">
                 <AddNewEventSection
                   flux = {this.getFlux()}
+                  applicationStoreState={this.getStateFromFlux().applicationStoreState}
                   eventFormStoreState={this.getStateFromFlux().eventFormStoreState}
                   eventStoreState={this.getStateFromFlux().eventStoreState}
                   newPredictions={this.getStateFromFlux().predictionStoreState.predictions}

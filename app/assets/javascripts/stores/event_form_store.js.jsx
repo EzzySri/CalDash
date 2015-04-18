@@ -11,22 +11,14 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
     },
 
     setDependentValues: function() {
-      var changed = false;
-      if (this.timeOptions == null) {
-        changed = true;
-        this.timeOptions = this.getTimeOptions();
-      }
+      this.timeOptions = this.getTimeOptions();
       if (this.durationOptions == null) {
-        changed = true;
         this.durationOptions = this.getDurationOptions();
-      }
-      if (changed) {
-        this.emit("change");
       }
     },
 
     getTimeOptions: function() {
-      var startOfDay = this.flux.store("ApplicationStore").selectedDay.startOf('day');
+      var startOfDay = moment(this.flux.store("ApplicationStore").selectedDay).startOf('day');
       var times = [startOfDay.clone()];
       for (i = 1; i < 48; i += 1) {
         times.push(startOfDay.add(30, "m").clone());

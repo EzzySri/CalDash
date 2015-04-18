@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150413210311) do
+ActiveRecord::Schema.define(version: 20150416194554) do
 
   create_table "event_assignments", force: :cascade do |t|
     t.string   "name",                        null: false
@@ -25,6 +25,9 @@ ActiveRecord::Schema.define(version: 20150413210311) do
     t.boolean  "is_private",  default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "schedule"
+    t.string   "repeat_type"
+    t.boolean  "mandatory"
   end
 
   add_index "event_assignments", ["end_unix"], name: "index_event_assignments_on_end_unix"
@@ -32,20 +35,20 @@ ActiveRecord::Schema.define(version: 20150413210311) do
 
   create_table "events", force: :cascade do |t|
     t.string   "name",                                    null: false
-    t.string   "mandatory",                               null: false
+    t.boolean  "mandatory",                               null: false
     t.string   "location"
     t.string   "category"
-    t.decimal  "start_unix",                              null: false
-    t.decimal  "end_unix",                                null: false
-    t.decimal  "after_unix",                              null: false
-    t.decimal  "before_unix",                             null: false
+    t.decimal  "start_unix"
+    t.decimal  "end_unix"
+    t.decimal  "after_unix"
+    t.decimal  "before_unix"
+    t.decimal  "duration_in_miliseconds"
     t.decimal  "lat"
     t.decimal  "lng"
     t.string   "description"
     t.boolean  "is_private",              default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "duration_in_miliseconds"
   end
 
   add_index "events", ["after_unix"], name: "index_events_on_after_unix"

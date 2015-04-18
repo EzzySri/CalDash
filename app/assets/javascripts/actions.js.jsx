@@ -34,6 +34,9 @@ define(['constants'], function(Constants){
       },
       setLogisticsPageLabel: function(label) {
         this.dispatch(Constants.ActionTypes.SET_LOGISTICS_PAGE_LABEL, {label: label});
+      },
+      toggleDayInWeek: function(dayIndex) {
+        this.dispatch(Constants.ActionTypes.TOGGLE_DAY_IN_WEEK, {dayIndex: dayIndex});
       }
     },
     eventActions: {

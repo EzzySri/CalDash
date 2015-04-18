@@ -60,15 +60,6 @@ class EventsController < ApplicationController
     end
   end
 
-  # dummy function for testing front-test
-  def optimize
-    input_schedule = JSON.parse(params[:events])
-    output_schedule = input_schedule.map do |event_params|
-      Event.new(event_params)
-    end
-    render json: {schedules: [output_schedule]}
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
@@ -76,7 +67,7 @@ class EventsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def event_params
-      params.require(:event).permit(:event_name, :event_type, :event_location, :event_lat, :event_long, :event_length, :event_privacy)
+    def batch_event_params
+      params.permit(:event => {}, :events => [:mandatory, :name, :category, :description, :lat, :lng, :location, :start_unix, :end_unix, :is_privacy])
     end
 end

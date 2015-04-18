@@ -112,6 +112,7 @@ GEM
       request_store (>= 1.0.5)
     hike (1.2.3)
     i18n (0.7.0)
+    ice_cube (0.12.1)
     jbuilder (2.2.9)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -227,6 +228,7 @@ DEPENDENCIES
   compass-rails
   devise
   gon
+  ice_cube
   jbuilder (~> 2.0)
   jquery-rails
   rails (= 4.2.1.rc3)

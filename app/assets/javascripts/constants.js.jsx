@@ -19,7 +19,7 @@ define([], function(){
       LOGIN:          APIRoot + "/users/sign_in",
       REGISTRATION:   APIRoot + "/users/",
       LOGOUT:        APIRoot + "/users/sign_out",
-      OPTIMIZE:      APIRoot + "/events/optimize",
+      OPTIMIZE:      APIRoot + "/event_assignments/optimize",
       EVENT_ASSIGNMENTS_BATCH_CREATE: APIRoot + "/event_assignments/batch_create",
     },
 
@@ -69,6 +69,7 @@ define([], function(){
       SET_MODE: "SET_MODE",
       EVENT_HISTORY_LIST_EXPAND: "EVENT_HISTORY_LIST_EXPAND",
       EVENT_HISTORY_LIST_COLLAPSE: "EVENT_HISTORY_LIST_COLLAPSE",
+      TOGGLE_DAY_IN_WEEK: "TOGGLE_DAY_IN_WEEK",
 
       DISPLAY_FLASH_MESSAGE: "DISPLAY_FLASH_MESSAGE",
       CLEAR_FLASH_MESSAGE: "CLEAR_FLASH_MESSAGE"
@@ -85,7 +86,8 @@ define([], function(){
     },
 
     Images: {
-      MAP_MARKER: "assets/icon_map_marker.png"
+      MAP_MARKER: "assets/icon_map_marker.png",
+      MAP_BLACK_MARKER: "assets/icon_map_black_marker.png"
     },
 
     CategoryImagePairs: {
