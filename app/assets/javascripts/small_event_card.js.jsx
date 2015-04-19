@@ -20,7 +20,7 @@ define(['react', 'constants'], function(React, Constants){
             <div className="event-icon-container">
               <img src={"/assets/" + Constants.CategoryImagePairs[source.category]} className="event-icon"></img>
             </div>
-            <div className="event-title-container">{source.title}</div>
+            <div className="event-name-container">{source.name}</div>
           </div>
         </div>
       );

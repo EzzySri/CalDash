@@ -61,8 +61,8 @@ define(['constants'], function(Constants){
       setMandatory: function(isMandatory) {
         this.dispatch(Constants.ActionTypes.SET_MANDATORY, {mandatory: isMandatory});
       },
-      setTitle: function(title) {
-        this.dispatch(Constants.ActionTypes.SET_TITLE, {title: title});
+      setName: function(name) {
+        this.dispatch(Constants.ActionTypes.SET_NAME, {name: name});
       },
       setCategory: function(cat) {
         this.dispatch(Constants.ActionTypes.SET_CATEGORY, {category: cat});

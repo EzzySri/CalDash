@@ -69,9 +69,9 @@
 }
 
 @mixin delete-event-button($background-color) {
-  width: 80%;
+  width: 15%;
   margin: 0 auto;
-  height: 20px;
+  height: 25px;
   border: 1px solid $background-color;
   background-color: $background-color;
   color: white;

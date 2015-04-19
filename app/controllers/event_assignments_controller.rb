@@ -7,15 +7,12 @@ class EventAssignmentsController < ApplicationController
   # GET /event_assignments
   # GET /event_assignments.json
   def index
-    EventAssignment.all
-    # repeat_type = params[:repeat_type]
-    # date_in_unix = params[:date_in_unix]
-    # date_start = Time.at(date_in_unix).beginning_of_day().to_datetime()
-    # date_end = date_start.end_of_day()
-    # if repeat_type == "once"
-    #   @event_assignments = EventAssignment.where(:type => "once", :start_unix => date_start.to_i()..date_end.to_i())
-    #   render json: @event_assignments, status: 200
-    # end
+    if params[:size]
+      @event_assignments = EventAssignment.order(:created_at).limit(params[:size])
+    else
+      @event_assignments = EventAssignment.all
+    end
+    render json: {event_assignments: @event_assignments}, status: 200
   end
 
   # GET /event_assignments/1
@@ -104,11 +101,11 @@ class EventAssignmentsController < ApplicationController
       end
 
       e = EventAssignment.new()
-      e.update_attributes(
+      e.assign_attributes(
         mandatory: true,
         name: event_params[:name],
         category: event_params[:category],
-        description: event_params[:event_description],
+        description: event_params[:description],
         lat: event_params[:lat],
         lng: event_params[:lng],
         location: event_params[:location],
@@ -125,10 +122,14 @@ class EventAssignmentsController < ApplicationController
 
   def batch_create
     events_params = event_assignments_params[:event_assignments]
+    
+    date_start = Time.at(params[:date_in_unix]).beginning_of_day().to_datetime()
+    date_end = date_start.end_of_day()
+    
     @events = events_params.map do |event_params|
       
       event_assignment = EventAssignment.new
-      event_assignment.update_attributes(
+      event_assignment.assign_attributes(
         :name => event_params[:name],
         :location => event_params[:location],
         :category => event_params[:category],
@@ -136,6 +137,7 @@ class EventAssignmentsController < ApplicationController
         :end_unix => event_params[:end_unix],
         :lat => event_params[:lat],
         :lng => event_params[:lng],
+        :mandatory => event_params[:mandatory],
         :description => event_params[:description],
         :is_private => event_params[:is_private],
         :repeat_type => event_params[:repeat_type],
@@ -143,12 +145,16 @@ class EventAssignmentsController < ApplicationController
       )
       event_assignment
     end
-    ActiveRecord::Base.transaction do
-      if (validates = @events.map(&:save)).all?
-        render json: {}, status: 200
-      else
-        render json: {}, status: 400
+    begin
+      # EventAssignment.destroy_all(:repeat_type => "once", :start_unix => date_start.to_i()..date_end.to_i()).to_a()
+      ActiveRecord::Base.transaction do
+        if (validates = @events.map(&:save)).all?
+          render json: {}, status: 200
+        else
+          render json: {}, status: 400
+        end
       end
+    rescue => e
     end
   end
 
@@ -202,7 +208,7 @@ class EventAssignmentsController < ApplicationController
     end
 
     def event_assignments_params
-      params.permit(:event_assignment => {}, :event_assignments => [:mandatory, :name, :category, :description, :lat, :lng, :location, :start_unix, :end_unix, :is_private, :repeat_type, :schedule])
+      params.permit(:date_in_unix, :event_assignment => {}, :event_assignments => [:mandatory, :name, :category, :description, :lat, :lng, :location, :start_unix, :end_unix, :is_private, :repeat_type, :schedule])
     end
 
     def optimize_params
