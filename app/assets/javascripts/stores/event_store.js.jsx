@@ -21,7 +21,8 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
         repeatType: "once",
         repeatBegin: null,
         repeatEnd: null,
-        repeatDays: []
+        repeatDays: [],
+        schedule: ""
       },
 
       this.bindActions(
@@ -40,7 +41,8 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
         Constants.ActionTypes.SET_END_TIME, this.onSetEndTime,
         Constants.ActionTypes.SET_DURATION, this.onSetDuration,
         Constants.ActionTypes.SET_EVENT_DESCRIPTION, this.onSetEventDescription,
-        Constants.ActionTypes.SYNC_SCHEDULE_CHOICE, this.onSyncScheduleChoice
+        Constants.ActionTypes.SYNC_SCHEDULE_CHOICE, this.onSyncScheduleChoice,
+        Constants.ActionTypes.BATCH_FETCH_EVENTS, this.onBatchFetchEvents
       );
     },
 
@@ -125,9 +127,59 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
     getEvents: function() {
       var selectedDayUnix = moment(this.flux.store("ApplicationStore").getState().selectedDay).startOf("day").valueOf();
       if (!(selectedDayUnix in this.allEvents)) {
-        this.allEvents[selectedDayUnix] = []; 
+        this.allEvents[selectedDayUnix] = [];
+        this.fetchDayEvents(selectedDayUnix);
       }
       return this.allEvents[selectedDayUnix];
+    },
+
+    fetchDayEvents: function(dateInUnix) {
+      $.ajax({
+        url: Constants.APIEndpoints.FETCH_DAY_EVENTS,
+        method: "GET",
+        dataType: "json",
+        contentType: 'application/json',
+        data: {date_in_unix: dateInUnix / 1000},
+        success: function(data) {
+          this.allEvents[dateInUnix] = data.event_assignments.map(function(event){
+            return Adapters.reverseEventAssignmentAdapter(event);
+          });
+          this.emit("change");
+        }.bind(this),
+        error: function(xhr, status, err) {
+          // TO-DO
+          this.emit("change");
+        }.bind(this)
+      });
+    },
+
+    onBatchFetchEvents: function(payload) {
+      $.ajax({
+        url: Constants.APIEndpoints.BATCH_FETCH_EVENTS,
+        method: "GET",
+        dataType: "json",
+        contentType: 'application/json',
+        data: {
+          date_start: payload.dateStart / 1000,
+          date_end: payload.dateEnd / 1000
+        },
+        success: function(data) {
+          Object.keys(data.event_assignments).map(function(key){
+            // this is already time at start of day
+            var dateInUnix = parseInt(key) * 1000;
+            if (!this.allEvents[dateInUnix]) {
+              this.allEvents[dateInUnix] = data.event_assignments[key].map(function(event){
+                return Adapters.reverseEventAssignmentAdapter(event); 
+              }, this);
+            }
+          }, this);
+          this.emit("change");
+        }.bind(this),
+        error: function(xhr, status, err) {
+          // TO-DO
+          this.emit("change");
+        }.bind(this)
+      });
     },
 
     onSyncScheduleChoice: function () {
@@ -312,6 +364,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
     getState: function() {
       this.setDependentValues();
       return {
+        allEvents: this.allEvents,
         optimizedResults: this.optimizedResults,
         events: this.getEvents(),
         currentEventInput: this.currentEventInput

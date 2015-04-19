@@ -20,6 +20,8 @@ define([], function(){
       REGISTRATION:   APIRoot + "/users/",
       LOGOUT:        APIRoot + "/users/sign_out",
       OPTIMIZE:      APIRoot + "/event_assignments/optimize",
+      FETCH_DAY_EVENTS: APIRoot + "/event_assignments/fetch_day_events",
+      BATCH_FETCH_EVENTS: APIRoot + "/event_assignments/batch_fetch_events",
       EVENT_ASSIGNMENTS_BATCH_CREATE: APIRoot + "/event_assignments/batch_create",
     },
 
@@ -46,6 +48,7 @@ define([], function(){
       SET_EVENT_DESCRIPTION: "SET_EVENT_DESCRIPTION",
       SET_LOGISTICS_PAGE_LABEL: "SET_LOGISTICS_PAGE_LABEL",
       SYNC_SCHEDULE_CHOICE: "SYNC_SCHEDULE_CHOICE",
+      BATCH_FETCH_EVENTS: "BATCH_FETCH_EVENTS",
 
       SET_PREDICTIONS: "SET_PREDICTIONS",
       CLEAR_PREDICTIONS: "CLEAR_PREDICTIONS",

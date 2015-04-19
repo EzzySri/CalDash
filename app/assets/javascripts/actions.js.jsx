@@ -87,6 +87,9 @@ define(['constants'], function(Constants){
       },
       syncScheduleChoice: function() {
         this.dispatch(Constants.ActionTypes.SYNC_SCHEDULE_CHOICE, {});
+      },
+      batchFetchEvents: function(dateStart, dateEnd) {
+        this.dispatch(Constants.ActionTypes.BATCH_FETCH_EVENTS, {dateStart: dateStart, dateEnd: dateEnd});
       }
     },
     sessionActions: {

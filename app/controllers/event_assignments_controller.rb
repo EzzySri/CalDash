@@ -48,6 +48,31 @@ class EventAssignmentsController < ApplicationController
     end
   end
 
+  def fetch_day_events
+    date_in_unix = params[:date_in_unix].to_i
+    @event_assignments = fetch_events(date_in_unix)
+
+    render json: {:event_assignments => @event_assignments}, status: 200
+  end
+
+  def batch_fetch_events
+    date_start = params[:date_start].to_i
+    date_end = params[:date_end].to_i
+    
+    if date_start >= date_end
+      render json: {}, status: 400
+    end
+
+    first_date = Time.at(date_start).beginning_of_day().to_datetime()
+    last_date = Time.at(date_end).beginning_of_day().to_datetime()
+    @event_assignments = {}
+    while first_date <= last_date
+      @event_assignments[first_date.to_i] = fetch_events(first_date.to_i)
+      first_date = first_date + 1.day
+    end
+    render json: {:event_assignments => @event_assignments}, status: 200
+  end
+
   # dummy function for testing front-test
   def optimize
     input_schedule = optimize_params[:events]
@@ -155,6 +180,20 @@ class EventAssignmentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_event_assignment
       @event_assignment = EventAssignment.find(params[:id])
+    end
+
+    def fetch_events(date_in_unix)
+      date_start = Time.at(date_in_unix).beginning_of_day().to_datetime()
+      date_end = date_start.end_of_day()
+      
+      event_assignments = EventAssignment.where(:repeat_type => "once", :start_unix => date_start.to_i()..date_end.to_i())
+      
+      EventAssignment.where(:repeat_type => "weekly").each do |recur_schedule|
+        if Schedule.from_yaml(recur_schedule.schedule).occurs_between(date_start, date_end)
+          event_assignments << recur_schedule
+        end
+      end
+      event_assignments
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

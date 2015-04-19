@@ -64,6 +64,22 @@ define(['constants', 'moment'], function(Constants, moment){
         is_private: eventParams.isPrivate,
         schedule: eventParams.schedule
       };
+    },
+    reverseEventAssignmentAdapter: function(eventParams) {
+      return {
+        mandatory: eventParams.mandatory,
+        title: eventParams.name,
+        category: eventParams.category,
+        eventDescription: eventParams.description,
+        lat: eventParams.lat,
+        lng: eventParams.lng,
+        location: eventParams.location,
+        start: moment(parseInt(eventParams.start_unix.valueOf() * 1000)),
+        end: moment(parseInt(eventParams.end_unix.valueOf() * 1000)),
+        repeatType: eventParams.repeat_type,
+        isPrivate: eventParams.is_private,
+        schedule: eventParams.schedule
+      };
     }
   };
   return Adapters;
