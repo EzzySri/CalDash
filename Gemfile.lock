@@ -231,6 +231,7 @@ DEPENDENCIES
   ice_cube
   jbuilder (~> 2.0)
   jquery-rails
+  json
   rails (= 4.2.1.rc3)
   react-rails (~> 1.0.0.pre)!
   react-router-rails

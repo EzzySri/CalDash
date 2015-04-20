@@ -39,6 +39,7 @@ gem 'react-router-rails'
 
 gem "ice_cube"
 
+gem "json"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

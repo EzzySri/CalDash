@@ -30,6 +30,12 @@ require(['jquery', 'react', 'index', 'fluxxor', 'event_form_store', 'flash_messa
     }
   });
 
+  $.ajaxSetup({
+      headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
+
   var stores = {
     SessionStore: new SessionStore(),
     PredictionStore: new PredictionStore(),

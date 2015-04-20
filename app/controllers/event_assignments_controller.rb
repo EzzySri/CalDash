@@ -48,16 +48,60 @@ class EventAssignmentsController < ApplicationController
     end
   end
 
+
+  def check_valid
+    input_schedule = optimize_params_without_repeats[:events]
+    mandatory = input_schedule.select {|e| e[:mandatory]}
+    mandatory = mandatory.map {|e| Event.new(e)}
+    flexible = input_schedule.select {|e| not e[:mandatory]}
+    flexible = flexible.map {|e| Event.new(e)}
+
+    tentative_schedule, buckets = is_valid_schedule(mandatory, flexible)
+
+    def convert(tup)
+      "#{tup[0]},#{tup[1]}"
+    end
+
+    final_schedule = []
+
+    if tentative_schedule
+      key = "AIzaSyDjnrRIi5yQf28IQT5VDc2li0DZMfpC0xQ"
+      tentative_schedule.each_with_index do |piece, i|
+        bucket = buckets[i]
+        request = { 
+          origin: convert(piece[:start]),
+          destination: convert(piece[:end]),
+          waypoints: piece[:waypoints].map {|x| convert(x)}.join("|"),
+          optimizeWaypoints: true,
+          travelMode: "walking",
+          key: key
+        }
+
+        url = "https://maps.googleapis.com/maps/api/directions/json?" + request.to_query
+        parsed_url = URI.parse(url)
+        http = Net::HTTP.new(parsed_url.host, parsed_url.port)
+        http.use_ssl = true
+        request = Net::HTTP::Get.new(parsed_url.request_uri)
+        response = http.request(request)
+        response_obj = JSON.parse(response.body)
+        order = response_obj["routes"][0]["waypoint_order"]
+        ordered_assignments = bucket.schedule_with_order(order)
+        final_schedule += ordered_assignments
+      end
+    end
+
+    render json: {schedules: [final_schedule]}
+  end
+
+
   # dummy function for testing front-test
-  def optimize
-    input_schedule = optimize_params[:events]
-    
-    # optmization magic here
+  def save_schedule
+
+    #input_schedule = optimize_params[:events]
 
     output_schedule = input_schedule.map do |event_params|
 
-      if event_params[:repeat_type] != "once"
-
+      if not event_params[:repeat_type].blank? and event_params[:repeat_type] != "once"
         date_start = Time.at(event_params[:repeat_begin]).beginning_of_day()
         date_end = Time.at(event_params[:repeat_end]).end_of_day()
         s = Schedule.new(date_start)
@@ -167,10 +211,218 @@ class EventAssignmentsController < ApplicationController
     end
 
     def optimize_params
-      params.permit(:event_assignment => {}, :events => [:mandatory, :name, :category, :description, :lat, :lng, :location, :start_unix, :end_unix, :before_unix, :after_unix, :is_private, :repeat_type, :repeat_days, {:repeat_days => []}, :repeat_begin, :repeat_end])
+      params.permit(:event_assignment => {}, :events => [:mandatory, :name, :category, :description, :lat, :lng, :location, :start_unix, :end_unix, :before_unix, :after_unix, :is_private, :repeat_type, :repeat_days, :duration_in_miliseconds, {:repeat_days => []}, :repeat_begin, :repeat_end])
     end
+
+    def optimize_params_without_repeats
+      params.permit(:event_assignment => {}, :events => [:mandatory, :name, :category, :description, :lat, :lng, :location, :start_unix, :end_unix, :before_unix, :after_unix, :is_private, :duration_in_miliseconds])
+    end
+
 
     def weekdays
       [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday]
     end
+
+    class Bucket
+      # ALL TIME IS IN SECONDS
+      def initialize(start, end_, start_event, end_event)
+        @start_event = start_event
+        @end_event = end_event
+        @holding = []
+        @start = start
+        @end = end_
+        @availabilites = {} # time to val. val is false if free. otherwise event at that time
+        @GAP = 30 * 60
+
+        # FIXME hack to deal with the last bucket
+        if @end.nil?
+          date = Time.at(start)
+          date += (24 - date.hour).hours
+          @end = date.to_i
+        end
+      end
+
+      def in?(event) 
+        return @start <= event.before_unix && @end >= event.after_unix
+      end
+
+      def can_place(event, start)
+        length = event.duration_in_miliseconds
+        while length > 0 
+          if @availabilites[start] 
+            return false
+          end
+          start += @GAP
+          length -= @GAP
+        end
+        return true
+      end
+
+      def place_event(event, start)
+        length = event.duration_in_miliseconds 
+        while length > 0
+          @availabilites[start] = event
+          start += @GAP
+          length -= @GAP
+        end
+      end
+
+      def unfix_event(event, start)
+        length = event.duration_in_miliseconds
+        while length > 0
+          @availabilites[start] = false
+          start += @GAP
+        end
+      end
+
+      def init_work
+        time = @start
+        @availabilites = {}
+        while time < @end
+          @availabilites[time] = false
+          time += @GAP
+        end
+      end
+      
+      def create_assignmnet(event)
+        e = EventAssignment.new()
+        e.update_attributes(
+          mandatory: true,
+          name: event.name,
+          category: event.category,
+          description: event.description,
+          lat: event.lat,
+          lng: event.lng,
+          location: event.location,
+          is_private: event.is_private,
+          #repeat_type: event.repeat_type,
+          start_unix: event.start_unix,
+          end_unix: event.end_unix
+        )
+        if not e.save
+          byebug
+        end
+        return e
+      end
+
+
+      def schedule
+        init_work()
+        return schedule_helper(@holding)
+      end
+
+      def schedule_with_order(order)
+        init_work()
+        new_holding = []
+        for i in order
+          new_holding.push(@holding[i])
+        end
+        @holding = new_holding
+        schedule_helper(@holding)
+
+        current_event_index = 0
+        seen_start = false
+        prev = false
+        final = [create_assignmnet(@start_event)]
+        for time in @availabilites.keys.sort
+          curr = @availabilites[time]
+          if curr != prev 
+            if seen_start
+              event = @holding[current_event_index]
+              event.start_unix = seen_start
+              event.end_unix = time
+              assignment = create_assignmnet(event)
+              final.push(assignment)
+              seen_start = false
+              current_event_index += 1
+            else
+              seen_start = time
+            end
+          end
+          prev = curr
+        end
+        byebug
+        return final
+      end
+
+
+      def schedule_helper(events)
+        if events.length == 0 
+          return true
+        end
+        event = events[0]
+        start = event.after_unix
+        end_time = event.before_unix
+        has_placed = false
+        valid = false
+        while (not valid) && start < end_time
+          if can_place(event, start)
+            place_event(event, start)
+            valid = schedule_helper(events.drop(1))
+            if not valid
+              unfix_event(events, start)
+            end
+          end
+          start += @GAP
+        end
+        return valid
+      end
+
+      def holding
+        @holding
+      end
+
+    end
+
+    def is_valid_schedule(mandatory, flexible)
+      mandatory.sort_by {|e| e.start_unix}
+
+      for e in mandatory
+        for j in mandatory
+          if e != j and e.overlaps?(j)
+            return false
+          end
+        end
+      end
+
+      buckets = []
+      mandatory.each_with_index do |event, i|
+        if i + 1 < mandatory.length
+          buckets.push(Bucket.new(event.end_unix, mandatory[i + 1].start_unix, event, mandatory[i + 1]))
+        else
+          buckets.push(Bucket.new(event.end_unix, nil, event, nil))
+        end
+      end
+
+      # Fill in buckets
+      flexible.each do |event|
+        for bucket in buckets
+          if bucket.in?(event)
+            bucket.holding.push(event)
+          end
+        end
+      end
+
+      buckets.each do |b|
+        if not b.schedule
+          return false 
+        end
+      end
+
+      final = []
+      mandatory.each_with_index do |start, i|
+        tmp = {}
+        tmp[:start] = [start.lat, start.lng]
+        tmp[:waypoints] = buckets[i].holding.map {|e| [e.lat, e.lng]}
+        if i + 1 < mandatory.length
+          tmp[:end] = [mandatory[i + 1].lat, mandatory[i + 1].lng]
+        else
+          # FIXME
+          tmp[:end] = [mandatory[0].lat, mandatory[1].lng]
+        end
+        final.push(tmp)
+      end
+      return [final, buckets]
+    end
+
 end
