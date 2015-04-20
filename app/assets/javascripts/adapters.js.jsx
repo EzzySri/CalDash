@@ -5,7 +5,7 @@ define(['constants', 'moment'], function(Constants, moment){
     eventAdapter: function(eventParams) {
       var event = {
         mandatory: eventParams.mandatory,
-        name: eventParams.title,
+        name: eventParams.name,
         category: eventParams.category,
         description: eventParams.eventDescription,
         lat: eventParams.lat,
@@ -30,13 +30,14 @@ define(['constants', 'moment'], function(Constants, moment){
     reverseEventAdapter: function(eventParams) {
       var event = {
         mandatory: eventParams.mandatory,
-        title: eventParams.name,
+        name: eventParams.name,
         category: eventParams.category,
         eventDescription: eventParams.description,
         lat: eventParams.lat,
         lng: eventParams.lng,
         location: eventParams.location,
         isPrivate: eventParams.is_private,
+        repeatType: eventParams.repeat_type,
         schedule: eventParams.schedule
       };
       if (event.mandatory) {
@@ -53,7 +54,7 @@ define(['constants', 'moment'], function(Constants, moment){
       if (!(eventParams.mandatory && eventParams.start && eventParams.end)) throw "ValueError";
       return {
         mandatory: eventParams.mandatory,
-        name: eventParams.title,
+        name: eventParams.name,
         category: eventParams.category,
         description: eventParams.eventDescription,
         lat: eventParams.lat,
@@ -62,6 +63,23 @@ define(['constants', 'moment'], function(Constants, moment){
         start_unix: eventParams.start.valueOf() / 1000,
         end_unix: eventParams.end.valueOf() / 1000,
         is_private: eventParams.isPrivate,
+        repeat_type: eventParams.repeatType,
+        schedule: eventParams.schedule
+      };
+    },
+    reverseEventAssignmentAdapter: function(eventParams) {
+      return {
+        mandatory: eventParams.mandatory,
+        name: eventParams.name,
+        category: eventParams.category,
+        eventDescription: eventParams.description,
+        lat: eventParams.lat,
+        lng: eventParams.lng,
+        location: eventParams.location,
+        start: moment(parseInt(eventParams.start_unix.valueOf() * 1000)),
+        end: moment(parseInt(eventParams.end_unix.valueOf() * 1000)),
+        repeatType: eventParams.repeat_type,
+        isPrivate: eventParams.is_private,
         schedule: eventParams.schedule
       };
     }

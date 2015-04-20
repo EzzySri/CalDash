@@ -1,10 +1,14 @@
 define(['react', 'jquery', 'moment'], function(React, $, moment){
   var ReactCalendarMonth = React.createClass({
-    getInitialState: function() {
-      return {
-      };
+    componentDidMount: function() {
+      var monthStartDate = moment().startOf("year").add(this.props.nthMonth, "month");
+      var monthEndDate = moment(monthStartDate).endOf("month").startOf("day");
+      this.props.flux.actions.eventActions.batchFetchEvents(monthStartDate.valueOf(), monthEndDate.valueOf());
     },
-
+    selectDayView: function(event) {
+      this.props.flux.actions.applicationActions.setSelectedDay(moment(parseInt(event.currentTarget.id)));
+      this.props.flux.actions.applicationActions.setCalendarMode("day-mode");
+    },
     render: function() {
       var nthMonth = this.props.nthMonth;
       var monthStartDate = moment().startOf("year").add(nthMonth, "month");
@@ -26,15 +30,18 @@ define(['react', 'jquery', 'moment'], function(React, $, moment){
 
       var tableContent = dates.map(function(week) {
           var datesInWeek = week.map(function(day) {
+            var dateInUnix = moment(day).startOf("day").valueOf();
+            var dotClass =  this.props.eventStoreState.allEvents[dateInUnix] && this.props.eventStoreState.allEvents[dateInUnix].length > 0 ? "dot hori-ctr" : "";
             return (
-              <th className="data-row-data"><div className="data-row-data-inner">{day.format("D")}<div className="dot hori-ctr"></div></div></th>
+              <th className="data-row-data" id={dateInUnix} onClick={this.selectDayView}><div className="data-row-data-inner">{day.format("D")}<div className={dotClass}></div></div></th>
             );
-          });
+          }, this);
           return (<tr className="data-row">{datesInWeek}</tr>);
-        });
+        }, this);
 
       return (
         <div className="react-calendar-month">
+          <div className="month-label">{monthStartDate.format("MMMM, YYYY")}</div>
           <table className={"table"}>
             {
               this.props.tableHeaderDisabled ? (

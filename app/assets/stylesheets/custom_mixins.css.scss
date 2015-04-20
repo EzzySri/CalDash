@@ -1,0 +1,82 @@
+@import "compass/css3";
+@import "custom_variables";
+
+@mixin arrow-down {
+  border-top: 1px solid black;
+  border-right: 1px solid black; 
+  @include transform(rotate(133deg));
+  width: 10px;
+  height: 10px;
+}
+
+@mixin generic-field-container {
+  @include input-placeholder {
+    color: black;
+    text-align: center;
+  }
+  width: 100%;
+  height: 25px;
+  margin: 5px 0px;
+  padding: 0px;
+  background-color: white;
+  color: black;
+  border: 2px solid $green;
+  border-radius: 3px;
+}
+
+@mixin generic-field-container-transform {
+  @include transition(all 1s ease);
+  @include input-placeholder {
+    color: white;
+  }
+  background-color: $green;
+  color: white;
+}
+
+@mixin nav-button($background-color) {
+    @include generic-field-container;
+    border-color: $background-color;
+    background-color: $background-color;
+    color: white;
+    font-size: 14px;
+    border-radius: 7px;
+    text-align: center;
+    font-weight: 800;
+    height: auto;
+    line-height: 22px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+@mixin task-button($background-color, $border-color, $text-color) {
+  width: 100%;
+  height: 35px;
+  border: 1px solid $border-color;
+  background-color: $background-color;
+  color: $text-color;
+  font-size: 12px;
+  text-align: center;
+  padding: 10px 0 10px 0;
+  margin-right: -2px;
+  cursor: pointer;
+}
+
+@mixin task-button-transform {
+  @include transition(all 0.5s ease);
+  color: white;
+  background-color: $task-button-hover-grey; 
+}
+
+@mixin delete-event-button($background-color) {
+  width: 15%;
+  margin: 0 auto;
+  height: 25px;
+  border: 1px solid $background-color;
+  background-color: $background-color;
+  color: white;
+  font-size: 10px;
+  text-align: center;
+  padding: 4px 0 4px 0;
+  cursor: pointer;
+}

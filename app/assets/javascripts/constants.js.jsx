@@ -15,12 +15,17 @@ define([], function(){
     SUCCESS: "success",
     ERROR: "error",
 
+    RECENT_EVENT_COUNT: 5,
+
     APIEndpoints: {
       LOGIN:          APIRoot + "/users/sign_in",
       REGISTRATION:   APIRoot + "/users/",
       LOGOUT:        APIRoot + "/users/sign_out",
       OPTIMIZE:      APIRoot + "/event_assignments/optimize",
+      FETCH_DAY_EVENTS: APIRoot + "/event_assignments/fetch_day_events",
+      BATCH_FETCH_EVENTS: APIRoot + "/event_assignments/batch_fetch_events",
       EVENT_ASSIGNMENTS_BATCH_CREATE: APIRoot + "/event_assignments/batch_create",
+      FETCH_RECENT_EVENTS: APIRoot + "/event_assignments/"
     },
 
     PayloadSources: {
@@ -36,7 +41,7 @@ define([], function(){
       // Routes
       REDIRECT: "REDIRECT",
 
-      SET_TITLE: "SET_TITLE",
+      SET_NAME: "SET_NAME",
       SET_CATEGORY: "SET_CATEGORY",
       SET_AFTER_TIME: "SET_AFTER_TIME",
       SET_BEFORE_TIME: "SET_BEFORE_TIME",
@@ -46,6 +51,7 @@ define([], function(){
       SET_EVENT_DESCRIPTION: "SET_EVENT_DESCRIPTION",
       SET_LOGISTICS_PAGE_LABEL: "SET_LOGISTICS_PAGE_LABEL",
       SYNC_SCHEDULE_CHOICE: "SYNC_SCHEDULE_CHOICE",
+      BATCH_FETCH_EVENTS: "BATCH_FETCH_EVENTS",
 
       SET_PREDICTIONS: "SET_PREDICTIONS",
       CLEAR_PREDICTIONS: "CLEAR_PREDICTIONS",

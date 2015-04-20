@@ -4,11 +4,13 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
       this.allEvents = {};
       // stored temporarily; cleared after user confirms his choice
       this.optimizedResults = [];
+      this.recentEvents = [];
+      this.fetchRecentEvents();
 
       this.currentEventInput = {
         location: "",
         mandatory: false,
-        title: "",
+        name: "",
         category: "placeholder",
         start: null,
         end: null,
@@ -21,7 +23,8 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
         repeatType: "once",
         repeatBegin: null,
         repeatEnd: null,
-        repeatDays: []
+        repeatDays: [],
+        schedule: ""
       },
 
       this.bindActions(
@@ -32,7 +35,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
         Constants.MERGE_RESULTS_TO_CALENDAR, this.onMergeResultsToCalendar,
         Constants.ActionTypes.SET_LOCATION, this.onSetLocation,
         Constants.ActionTypes.SET_MANDATORY, this.onSetMandatory,
-        Constants.ActionTypes.SET_TITLE, this.onSetTitle,
+        Constants.ActionTypes.SET_NAME, this.onSetName,
         Constants.ActionTypes.SET_CATEGORY, this.onSetCategory,
         Constants.ActionTypes.SET_AFTER_TIME, this.onSetAfterTime,
         Constants.ActionTypes.SET_BEFORE_TIME, this.onSetBeforeTime,
@@ -40,7 +43,8 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
         Constants.ActionTypes.SET_END_TIME, this.onSetEndTime,
         Constants.ActionTypes.SET_DURATION, this.onSetDuration,
         Constants.ActionTypes.SET_EVENT_DESCRIPTION, this.onSetEventDescription,
-        Constants.ActionTypes.SYNC_SCHEDULE_CHOICE, this.onSyncScheduleChoice
+        Constants.ActionTypes.SYNC_SCHEDULE_CHOICE, this.onSyncScheduleChoice,
+        Constants.ActionTypes.BATCH_FETCH_EVENTS, this.onBatchFetchEvents
       );
     },
 
@@ -70,6 +74,26 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
       if (changed) {
         this.emit("change");
       }
+    },
+
+    fetchRecentEvents: function() {
+      $.ajax({
+        url: Constants.APIEndpoints.FETCH_RECENT_EVENTS,
+        method: "GET",
+        dataType: "json",
+        contentType: 'application/json',
+        data: {size: Constants.RECENT_EVENT_COUNT},
+        success: function(data) {
+          this.recentEvents = data.event_assignments.map(function(event){
+            return Adapters.reverseEventAssignmentAdapter(event);
+          });
+          this.emit("change");
+        }.bind(this),
+        error: function(xhr, status, err) {
+          // TO-DO
+          this.emit("change");
+        }.bind(this)
+      });
     },
 
     onSetLocation: function(payload) {
@@ -102,8 +126,8 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
       this.emit("change");
     },    
 
-    onSetTitle: function(payload) {
-      this.currentEventInput.title = payload.title;
+    onSetName: function(payload) {
+      this.currentEventInput.name = payload.name;
       this.emit("change");
     },
 
@@ -125,9 +149,59 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
     getEvents: function() {
       var selectedDayUnix = moment(this.flux.store("ApplicationStore").getState().selectedDay).startOf("day").valueOf();
       if (!(selectedDayUnix in this.allEvents)) {
-        this.allEvents[selectedDayUnix] = []; 
+        this.allEvents[selectedDayUnix] = [];
+        this.fetchDayEvents(selectedDayUnix);
       }
       return this.allEvents[selectedDayUnix];
+    },
+
+    fetchDayEvents: function(dateInUnix) {
+      $.ajax({
+        url: Constants.APIEndpoints.FETCH_DAY_EVENTS,
+        method: "GET",
+        dataType: "json",
+        contentType: 'application/json',
+        data: {date_in_unix: dateInUnix / 1000},
+        success: function(data) {
+          this.allEvents[dateInUnix] = data.event_assignments.map(function(event){
+            return Adapters.reverseEventAssignmentAdapter(event);
+          });
+          this.emit("change");
+        }.bind(this),
+        error: function(xhr, status, err) {
+          // TO-DO
+          this.emit("change");
+        }.bind(this)
+      });
+    },
+
+    onBatchFetchEvents: function(payload) {
+      $.ajax({
+        url: Constants.APIEndpoints.BATCH_FETCH_EVENTS,
+        method: "GET",
+        dataType: "json",
+        contentType: 'application/json',
+        data: {
+          date_start: payload.dateStart / 1000,
+          date_end: payload.dateEnd / 1000
+        },
+        success: function(data) {
+          Object.keys(data.event_assignments).map(function(key){
+            // this is already time at start of day
+            var dateInUnix = parseInt(key) * 1000;
+            if (!this.allEvents[dateInUnix]) {
+              this.allEvents[dateInUnix] = data.event_assignments[key].map(function(event){
+                return Adapters.reverseEventAssignmentAdapter(event); 
+              }, this);
+            }
+          }, this);
+          this.emit("change");
+        }.bind(this),
+        error: function(xhr, status, err) {
+          // TO-DO
+          this.emit("change");
+        }.bind(this)
+      });
     },
 
     onSyncScheduleChoice: function () {
@@ -140,6 +214,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
         dataType: "json",
         contentType: 'application/json',
         data: JSON.stringify({
+          date_in_unix: moment(this.flux.store("ApplicationStore").getState().selectedDay).startOf("day").valueOf() / 1000,
           event_assignments: eventAssignments
         }),
         success: function(data) {
@@ -154,9 +229,9 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
 
     onAddEvent: function() {
       // TO-DO: add unique id to store objects
-      var title = this.currentEventInput.title;
+      var name = this.currentEventInput.name;
       var category = this.currentEventInput.category;
-      if (!(title && category != "placeholder")) {
+      if (!(name && category != "placeholder")) {
         this.flux.store("FlashMessageStore").onDisplayFlashMessage({flashMessage: "Event Name and Category should not be empty.", flashMessageType: "error", random: Math.random()});
         return;
       }
@@ -164,7 +239,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
         location: this.currentEventInput.location,
         category: category,
         mandatory: this.currentEventInput.mandatory,
-        title: title,
+        name: name,
         duration: this.currentEventInput.duration,
         eventDescription: this.currentEventInput.eventDescription,
         lat: this.currentEventInput.lat,
@@ -224,23 +299,32 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
     restoreForm: function() {
       this.currentEventInput = {
         location: "",
-        title: "",
+        name: "",
         category: "placeholder",
         start: null,
         mandatory: this.currentEventInput.mandatory,
         end: null,
         after: null,
         before: null,
-        eventDescription: ""
+        eventDescription: "",
+        lat: null,
+        lng: null,
+        isPrivate: false,
+        repeatType: "once",
+        repeatBegin: null,
+        repeatEnd: null,
+        repeatDays: [],
+        schedule: ""
       }
     },  
 
-    onRemoveEvent: function(titleText) {
+    onRemoveEvent: function(nameText) {
       // TO-DO: delete from id instead of names
       var events = this.getEvents();
+      var l = events.length;
       for (i = 0; i < l; i += 1) {
         e = events[i];
-        if (e.title == titleText) {
+        if (e.name == nameText) {
           events.splice(i, 1);
           break
         }
@@ -312,8 +396,10 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
     getState: function() {
       this.setDependentValues();
       return {
+        allEvents: this.allEvents,
         optimizedResults: this.optimizedResults,
         events: this.getEvents(),
+        recentEvents: this.recentEvents,
         currentEventInput: this.currentEventInput
       };
     }

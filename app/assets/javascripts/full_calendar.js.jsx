@@ -44,7 +44,12 @@ define(['react', 'jquery', 'react_calendar'], function(React, $, ReactCalendar){
             </div>
           </div>
           <div className="full-calendar-main">
-            <ReactCalendar tableStyle=" table-bordered" events={this.props.events} applicationStoreState={this.props.applicationStoreState} />
+            <ReactCalendar 
+              tableStyle=" table-bordered"
+              events={this.props.events}
+              flux={this.props.flux}
+              eventStoreState={this.props.eventStoreState}
+              applicationStoreState={this.props.applicationStoreState} />
           </div>
         </div>
       );
