@@ -31,11 +31,16 @@
     margin-top: 20px;
     margin-bottom: 20px;
   }
-  #delete-event-button {
-    @include delete-event-button($background-green);
+  .delete-event-button {
+    position: absolute;
+    top: 0%;
+    right: 4%;
+    z-index: 50;
+    @include delete-event-button($blue);
   }
   .event-card-container {
     margin: 0;
+    position: relative;
     padding: 0 4% 4% 4%;
   }
 }

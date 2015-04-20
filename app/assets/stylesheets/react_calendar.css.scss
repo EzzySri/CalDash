@@ -35,7 +35,7 @@
     color: white;
     padding-left: 5px;
   }
-  .event-title-text {
+  .event-name-text {
     color: white;
     padding-left: 5px;
   }
@@ -62,7 +62,7 @@
       border-left: 4px solid $blue;
       margin-left: -2px;
     }
-    .event-title-text {
+    .event-name-text {
       color: black !important;
     }
   }
@@ -73,6 +73,7 @@
     text-align: center;
     font-weight: normal;
     position: relative;
+    cursor: pointer;
   }
   .data-row-data-inner {
     margin-bottom: 10px;
@@ -84,5 +85,9 @@
     bottom: 20%;
     border-radius: 50%;
     background-color: $blue;
+  }
+  .month-label {
+    text-align: center;
+    font-weight: bold;
   }
 }

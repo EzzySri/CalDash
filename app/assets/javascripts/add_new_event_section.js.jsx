@@ -143,7 +143,7 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
               <div>
                 <div className="event-name-text"> Event Name & Category </div>
                 <div className="col-sm-6 event-name-container">
-                  <input className="generic-field-container" type="text" value={this.props.eventStoreState.currentEventInput.title} onChange={this.setTitle} />
+                  <input className="generic-field-container" type="text" value={this.props.eventStoreState.currentEventInput.name} onChange={this.setName} />
                 </div>
                 <div className="col-sm-6 category-select-container">
                   <select value={this.props.eventStoreState.currentEventInput.category} onChange={this.setCategory} className="generic-field-container">
@@ -195,8 +195,8 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
         </div>
       );
     },
-    setTitle: function(event){
-      this.props.flux.actions.eventActions.setTitle(event.target.value);
+    setName: function(event){
+      this.props.flux.actions.eventActions.setName(event.target.value);
     },
     setCategory: function(event){
       this.props.flux.actions.eventActions.setCategory(event.target.value);

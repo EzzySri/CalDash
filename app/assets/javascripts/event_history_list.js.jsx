@@ -6,7 +6,7 @@ define(['utils', 'react', 'constants', 'small_event_card', 'event_card'], functi
 
     getInitialState: function() {
       return ({
-        events: this.props.eventStoreState.events,
+        events: this.props.eventStoreState.recentEvents,
         eventCardOnDisplay: []
       });
     },
@@ -19,40 +19,12 @@ define(['utils', 'react', 'constants', 'small_event_card', 'event_card'], functi
       }
     },
 
-    getExamples: function() {
-      var introEvent1 = {
-        title: "Lunch with friends",
-        category: "dining",
-        mandatory: true,
-        example: true,
-        start: moment().startOf('day').add(12, "hours"),
-        end: moment().startOf('day').add(13, "hours"),
-        location: "Great China 2190 Bancroft Way, Berkeley, CA 94704",
-        eventDescription: "Can't wait for Peking Duck : )"
-      };
-      var introEvent2 = {
-        title: "Study for Midterm",
-        category: "work",
-        mandatory: false,
-        example: true,
-        before: moment().startOf('day').add(12, "hours"),
-        after: moment().startOf('day').add(8, "hours"),
-        location: "UC Doe Library, Berkeley, CA 94704",
-        eventDescription: "No more procrastination!"
-      };
-      return [introEvent1, introEvent2];
-    },
-
     addToList: function() {
       var events = this.state.events;
-      if (this.props.eventStoreState.events.length == 0) {
-        events = this.getExamples();
-      } else {
-        var l = this.props.eventStoreState.events.length;
-        for (i = 0; i < l; i += 1) {
-          events.push(this.props.eventStoreState.events[i]);
-        }
-      }  
+      var l = this.props.eventStoreState.recentEvents.length;
+      for (i = 0; i < l; i += 1) {
+        events.push(this.props.eventStoreState.recentEvents[i]);
+      }
       this.setState({events: events});
     },
 
@@ -64,9 +36,9 @@ define(['utils', 'react', 'constants', 'small_event_card', 'event_card'], functi
 
     handleMouseOver: function(event) {
       var e = this.state.eventCardOnDisplay;
-      var targetTitle = event.currentTarget.id;
+      var targetName = event.currentTarget.id;
       var targetEvent = Utils.customIndexOf(this.state.events, function(item){
-        return item.title == targetTitle;
+        return item.name == targetName;
       });
       e.push(targetEvent);
       this.setState({eventCardOnDisplay: e});
@@ -78,19 +50,11 @@ define(['utils', 'react', 'constants', 'small_event_card', 'event_card'], functi
       this.setState({eventCardOnDisplay: e});
     },
 
-    componentDidMount: function() {
-      var events;
-      if (this.state.events.length == 0) {
-        events = this.getExamples();
-      }
-      this.setState({events: events});
-    },
-
     render : function() {
 
       var smallCardsList = this.state.events.map(function(event){
         return (
-          <div id={event.title} key={this.state.events.indexOf(event)} onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut} className="history-event-card-container">
+          <div id={event.name} key={this.state.events.indexOf(event)} onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut} className="history-event-card-container">
             <SmallEventCard eventSource={event} />
           </div>
         );

@@ -183,6 +183,7 @@ define(['event_history_list', 'steps_bar', 'constants', 'optimized_schedule', 's
               {this.getStateFromFlux().applicationStoreState.moreCalendar ? (
                   <FullCalendar
                     flux={this.getFlux()}
+                    eventStoreState={this.getStateFromFlux().eventStoreState}
                     applicationStoreState={this.getStateFromFlux().applicationStoreState}
                     events={flux.store('EventStore').getMandatoryEvents()}
                     onChangeDate={this.changeDate} />
@@ -197,6 +198,7 @@ define(['event_history_list', 'steps_bar', 'constants', 'optimized_schedule', 's
                     <div className="col-sm-6">
                       <FullCalendar
                         flux={this.getFlux()}
+                        eventStoreState={this.getStateFromFlux().eventStoreState}
                         applicationStoreState={this.getStateFromFlux().applicationStoreState}
                         events={flux.store('EventStore').getMandatoryEvents()}
                         onChangeDate={this.changeDate} />

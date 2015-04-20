@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     collection do
       post "optimize" => "event_assignments#check_valid", as: :optimize
       post "batch_create" => "event_assignments#batch_create", as: :batch_create
+      get "fetch_day_events" => "event_assignments#fetch_day_events", as: :fetch_day_events
+      get "batch_fetch_events" => "event_assignments#batch_fetch_events", as: :batch_fetch_events
     end
   end  
   
