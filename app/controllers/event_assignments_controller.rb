@@ -65,7 +65,7 @@ class EventAssignmentsController < ApplicationController
       key = "AIzaSyDjnrRIi5yQf28IQT5VDc2li0DZMfpC0xQ"
       tentative_schedule.each_with_index do |piece, i|
         bucket = buckets[i]
-        request = { 
+        request2 = { 
           origin: convert(piece[:start]),
           destination: convert(piece[:end]),
           waypoints: piece[:waypoints].map {|x| convert(x)}.join("|"),
@@ -74,16 +74,19 @@ class EventAssignmentsController < ApplicationController
           key: key
         }
 
-        url = "https://maps.googleapis.com/maps/api/directions/json?" + request.to_query
+        url = "https://maps.googleapis.com/maps/api/directions/json?" + request2.to_query
         parsed_url = URI.parse(url)
         http = Net::HTTP.new(parsed_url.host, parsed_url.port)
         http.use_ssl = true
         request = Net::HTTP::Get.new(parsed_url.request_uri)
         response = http.request(request)
         response_obj = JSON.parse(response.body)
-        order = response_obj["routes"][0]["waypoint_order"]
-        ordered_assignments = bucket.schedule_with_order(order)
-        final_schedule += ordered_assignments
+        byebug
+        if response_obj["status"] != "NOT_FOUND"
+          order = response_obj["routes"][0]["waypoint_order"]
+          ordered_assignments = bucket.schedule_with_order(order)  # saves to database
+          final_schedule += ordered_assignments
+        end
       end
     end
 
@@ -345,7 +348,6 @@ class EventAssignmentsController < ApplicationController
           end_unix: event.end_unix
         )
         if not e.save
-          byebug
         end
         return e
       end
@@ -386,7 +388,6 @@ class EventAssignmentsController < ApplicationController
           end
           prev = curr
         end
-        byebug
         return final
       end
 
