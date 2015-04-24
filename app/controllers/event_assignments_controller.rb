@@ -45,6 +45,22 @@ class EventAssignmentsController < ApplicationController
     end
   end
 
+
+  def check_valid
+    input_schedule = optimize_params_without_repeats[:events]
+    mandatory = input_schedule.select {|e| e[:mandatory]}
+    mandatory = mandatory.map {|e| Event.new(e)}
+    flexible = input_schedule.select {|e| not e[:mandatory]}
+    flexible = flexible.map {|e| Event.new(e)}
+
+    sched = Sched.new(mandatory, flexible)
+    final_schedule = sched.schedule
+    byebug
+
+    render json: {schedules: [final_schedule]}
+  end
+
+
   def fetch_day_events
     date_in_unix = params[:date_in_unix].to_i
     @event_assignments = fetch_events(date_in_unix)
@@ -71,15 +87,13 @@ class EventAssignmentsController < ApplicationController
   end
 
   # dummy function for testing front-test
-  def optimize
-    input_schedule = optimize_params[:events]
-    
-    # optmization magic here
+  def save_schedule
+
+    #input_schedule = optimize_params[:events]
 
     output_schedule = input_schedule.map do |event_params|
 
-      if event_params[:repeat_type] != "once"
-
+      if not event_params[:repeat_type].blank? and event_params[:repeat_type] != "once"
         date_start = Time.at(event_params[:repeat_begin]).beginning_of_day()
         date_end = Time.at(event_params[:repeat_end]).end_of_day()
         s = Schedule.new(date_start)
@@ -212,10 +226,154 @@ class EventAssignmentsController < ApplicationController
     end
 
     def optimize_params
-      params.permit(:event_assignment => {}, :events => [:mandatory, :name, :category, :description, :lat, :lng, :location, :start_unix, :end_unix, :before_unix, :after_unix, :is_private, :repeat_type, :repeat_days, {:repeat_days => []}, :repeat_begin, :repeat_end])
+      params.permit(:event_assignment => {}, :events => [:mandatory, :name, :category, :description, :lat, :lng, :location, :start_unix, :end_unix, :before_unix, :after_unix, :is_private, :repeat_type, :repeat_days, :duration_in_miliseconds, {:repeat_days => []}, :repeat_begin, :repeat_end])
+    end
+
+    def optimize_params_without_repeats
+      params.permit(:event_assignment => {}, :events => [:mandatory, :name, :category, :description, :lat, :lng, :location, :start_unix, :end_unix, :before_unix, :after_unix, :is_private, :duration_in_miliseconds])
     end
 
     def weekdays
       [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday]
     end
+
+
+    class Sched
+      attr_reader :curr_sched, :valids, :GAP, :final_length
+
+      def initialize(mandatory, flexible)
+        @curr_sched = mandatory.sort {|a, b| a.start_unix <=> b.start_unix }
+        @flexible = flexible
+        @GAP = 30 * 60
+        @final_length = mandatory.length + flexible.length
+        @best = [nil, Float::INFINITY]
+        @count = 0
+      end
+
+      def can_place_event(event, start_time)
+        old_start = event.start_unix
+        old_end = event.end_unix
+        event.start_unix = start_time
+        event.end_unix = start_time + event.duration_in_miliseconds
+        for other in curr_sched
+          if event.overlaps?(other)
+            event.start_unix = old_start
+            event.end_unix = old_end
+            return false
+          end
+        end
+        event.start_unix = old_start
+        event.end_unix = old_end
+        return true 
+      end
+
+      def place_event(event, start_time)
+        event.start_unix = start_time
+        event.end_unix = start_time + event.duration_in_miliseconds
+        placed = false
+        @curr_sched.each_with_index do |e, i|
+          if event.start_unix > e.start_unix
+            @curr_sched.insert(i + 1, event)
+            placed = true
+            break
+          end
+        end
+        if not placed
+          @curr_sched.push(event)
+        end
+      end
+
+      def unplace_event(event)
+        @curr_sched.delete(event)
+      end
+
+      def create_assignmnet(event)
+        e = EventAssignment.new(
+          mandatory: true,
+          name: event.name,
+          category: event.category,
+          description: event.description,
+          lat: event.lat,
+          lng: event.lng,
+          location: event.location,
+          is_private: event.is_private,
+          #repeat_type: event.repeat_type,
+          start_unix: event.start_unix,
+          end_unix: event.end_unix
+        )
+        return e
+      end
+
+      def schedule
+        found = schedule_helper(@flexible)
+        return @best[0].map {|x| create_assignmnet(x)}
+      end
+
+      def schedule_helper(events)
+        @count += 1
+        puts @count
+        if events.length == 0 
+          return true
+        end
+
+        event = events[0]
+        start = event.after_unix
+        end_time = event.before_unix
+        has_placed = false
+
+        while start + event.duration_in_miliseconds < end_time
+          if can_place_event(event, start)
+            has_placed = true
+            place_event(event, start)
+            valid = schedule_helper(events.drop(1))
+            if valid and @curr_sched.length == @final_length
+              distance_approx = distance_hueristic
+              if distance_approx < @best[1]
+                puts distance_approx
+                @best = [Marshal.load(Marshal.dump(@curr_sched)), distance_approx]
+              end
+            end
+            unplace_event(event)
+          end
+          start += @GAP
+        end
+
+        return has_placed
+      end
+
+      def toRads(deg)
+        Math::PI / 180 * deg
+      end
+
+      def distance_hueristic
+        sum = 0
+        radius = 6371
+        @curr_sched.each_with_index do |e, i|
+          if (i + 1 < @curr_sched.length)
+            other = @curr_sched[i + 1]
+            lat1 = toRads(e.lat)
+            lat2 = toRads(other.lat)
+            delta_lat = toRads(other.lat - e.lat)
+            delta_long = toRads(other.lng - e.lng)
+
+            a = (Math.sin(delta_lat / 2) ** 2 +
+                 Math.cos(lat1)**2 * Math.cos(lat2) * Math.sin(delta_long / 2)**2)
+            c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+            sum += radius * c
+          end
+        end
+        return sum
+      end
+
+      def gaps_hueristic
+        @curr_sched.each_with_index do |e, i|
+          gaps = 0
+          if (i + 1 < @curr_sched.length)
+            gaps += @curr_sched[i + 1].start_unix + e.end_unix 
+          end
+          return gaps
+        end
+      end
+    end
+
 end
