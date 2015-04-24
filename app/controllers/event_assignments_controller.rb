@@ -255,7 +255,7 @@ class EventAssignmentsController < ApplicationController
         old_end = event.end_unix
         event.start_unix = start_time
         event.end_unix = start_time + event.duration_in_miliseconds
-        for other in curr_sched
+        for other in @curr_sched
           if event.overlaps?(other)
             event.start_unix = old_start
             event.end_unix = old_end
@@ -321,7 +321,8 @@ class EventAssignmentsController < ApplicationController
         end_time = event.before_unix
         has_placed = false
 
-        while start + event.duration_in_miliseconds < end_time
+
+        while start + event.duration_in_miliseconds <= end_time
           if can_place_event(event, start)
             has_placed = true
             place_event(event, start)
