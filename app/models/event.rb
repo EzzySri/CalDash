@@ -3,7 +3,7 @@ class Event < ActiveRecord::Base
 	belongs_to :user, foreign_key: :created_by
 
   def overlaps?(other) 
-    self.start_unix < other.end_unix and self.end_unix > self.start_unix
+    self.start_unix < other.end_unix and self.end_unix > other.start_unix
   end
 
 end
