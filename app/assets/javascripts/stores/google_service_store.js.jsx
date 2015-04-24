@@ -125,20 +125,25 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
 
     retrieveReverseGeoOnMarker: function(markerLatLng) {
       var service = this.geocoderService;
-        if (!service) {
-          service = new google.maps.Geocoder();
-          this.geocoderService = service;
+      if (!service) {
+        service = new google.maps.Geocoder();
+        this.geocoderService = service;
+      }
+      var context = this;
+      service.geocode({'latLng': markerLatLng}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          store = context.flux.store("EventStore");
+          store.onSetLocation({location: results[0].formatted_address});
+          store.currentEventInput.lat = results[0].geometry.location.lat();
+          store.currentEventInput.lng = results[0].geometry.location.lng();
+          context.emit("change");
+        } else {
+          this.flux.store("FlashMessageStore").onDisplayFlashMessage({
+            flashMessage: "Geocoder service error.",
+            flashMessageType: "error",
+            random: Math.random()});          
         }
-        service.geocode({'latLng': markerLatLng}, function(results, status) {
-          if (status == google.maps.GeocoderStatus.OK) {
-            this.flux.store("EventStore").onSetLocation({location: results[0].formatted_address})
-          } else {
-            this.flux.store("FlashMessageStore").onDisplayFlashMessage({
-              flashMessage: "Geocoder service error.",
-              flashMessageType: "error",
-              random: Math.random()});          
-          }
-        }, this);
+      });
     },
 
     dblClickMarkerListener: function() {
