@@ -55,8 +55,6 @@ class EventAssignmentsController < ApplicationController
 
     sched = Sched.new(mandatory, flexible)
     final_schedule = sched.schedule
-    byebug
-
     render json: {schedules: [final_schedule]}
   end
 
@@ -255,7 +253,7 @@ class EventAssignmentsController < ApplicationController
         old_end = event.end_unix
         event.start_unix = start_time
         event.end_unix = start_time + event.duration_in_miliseconds
-        for other in curr_sched
+        for other in @curr_sched
           if event.overlaps?(other)
             event.start_unix = old_start
             event.end_unix = old_end
@@ -267,13 +265,14 @@ class EventAssignmentsController < ApplicationController
         return true 
       end
 
+      # call can_place to make sure this is valid
       def place_event(event, start_time)
         event.start_unix = start_time
         event.end_unix = start_time + event.duration_in_miliseconds
         placed = false
         @curr_sched.each_with_index do |e, i|
-          if event.start_unix > e.start_unix
-            @curr_sched.insert(i + 1, event)
+          if (i + 1 < @curr_sched.length and event.start_unix > e.start_unix and event.start_unix < @curr_sched[i + 1].start_unix)
+            @curr_sched.insert(i + 1 , event)
             placed = true
             break
           end
@@ -305,13 +304,15 @@ class EventAssignmentsController < ApplicationController
       end
 
       def schedule
-        found = schedule_helper(@flexible)
-        return @best[0].map {|x| create_assignmnet(x)}
+        if (@flexible.blank?) 
+          return @curr_sched.map {|x| create_assignmnet(x)}
+        else
+          found = schedule_helper(@flexible)
+          return @best[0].map {|x| create_assignmnet(x)}
+        end
       end
 
       def schedule_helper(events)
-        @count += 1
-        puts @count
         if events.length == 0 
           return true
         end
@@ -321,16 +322,19 @@ class EventAssignmentsController < ApplicationController
         end_time = event.before_unix
         has_placed = false
 
-        while start + event.duration_in_miliseconds < end_time
+        while start + event.duration_in_miliseconds <= end_time
           if can_place_event(event, start)
             has_placed = true
             place_event(event, start)
-            valid = schedule_helper(events.drop(1))
-            if valid and @curr_sched.length == @final_length
-              distance_approx = distance_hueristic
-              if distance_approx < @best[1]
-                puts distance_approx
-                @best = [Marshal.load(Marshal.dump(@curr_sched)), distance_approx]
+            distance = distance_hueristic
+            if distance < @best[1] # if the distance is already too long, prune
+              valid = schedule_helper(events.drop(1))
+              if valid and @curr_sched.length == @final_length
+                distance_approx = distance_hueristic
+                if distance_approx < @best[1]
+                  puts distance_approx
+                  @best = [Marshal.load(Marshal.dump(@curr_sched)), distance_approx]
+                end
               end
             end
             unplace_event(event)
