@@ -40,6 +40,7 @@ gem 'react-router-rails'
 gem "ice_cube"
 
 gem "json"
+gem "geo-distance"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

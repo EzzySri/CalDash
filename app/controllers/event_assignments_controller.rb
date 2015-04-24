@@ -53,42 +53,9 @@ class EventAssignmentsController < ApplicationController
     flexible = input_schedule.select {|e| not e[:mandatory]}
     flexible = flexible.map {|e| Event.new(e)}
 
-    tentative_schedule, buckets = is_valid_schedule(mandatory, flexible)
-
-    def convert(tup)
-      "#{tup[0]},#{tup[1]}"
-    end
-
-    final_schedule = []
-
-    if tentative_schedule
-      key = "AIzaSyDjnrRIi5yQf28IQT5VDc2li0DZMfpC0xQ"
-      tentative_schedule.each_with_index do |piece, i|
-        bucket = buckets[i]
-        request2 = { 
-          origin: convert(piece[:start]),
-          destination: convert(piece[:end]),
-          waypoints: piece[:waypoints].map {|x| convert(x)}.join("|"),
-          optimizeWaypoints: true,
-          travelMode: "walking",
-          key: key
-        }
-
-        url = "https://maps.googleapis.com/maps/api/directions/json?" + request2.to_query
-        parsed_url = URI.parse(url)
-        http = Net::HTTP.new(parsed_url.host, parsed_url.port)
-        http.use_ssl = true
-        request = Net::HTTP::Get.new(parsed_url.request_uri)
-        response = http.request(request)
-        response_obj = JSON.parse(response.body)
-        byebug
-        if response_obj["status"] != "NOT_FOUND"
-          order = response_obj["routes"][0]["waypoint_order"]
-          ordered_assignments = bucket.schedule_with_order(order)  # saves to database
-          final_schedule += ordered_assignments
-        end
-      end
-    end
+    sched = Sched.new(mandatory, flexible)
+    final_schedule = sched.schedule
+    byebug
 
     render json: {schedules: [final_schedule]}
   end
@@ -266,75 +233,62 @@ class EventAssignmentsController < ApplicationController
       params.permit(:event_assignment => {}, :events => [:mandatory, :name, :category, :description, :lat, :lng, :location, :start_unix, :end_unix, :before_unix, :after_unix, :is_private, :duration_in_miliseconds])
     end
 
-
     def weekdays
       [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday]
     end
 
-    class Bucket
-      # ALL TIME IS IN SECONDS
-      def initialize(start, end_, start_event, end_event)
-        @start_event = start_event
-        @end_event = end_event
-        @holding = []
-        @start = start
-        @end = end_
-        @availabilites = {} # time to val. val is false if free. otherwise event at that time
+
+    class Sched
+      attr_reader :curr_sched, :valids, :GAP, :final_length
+
+      def initialize(mandatory, flexible)
+        @curr_sched = mandatory.sort {|a, b| a.start_unix <=> b.start_unix }
+        @flexible = flexible
         @GAP = 30 * 60
-
-        # FIXME hack to deal with the last bucket
-        if @end.nil?
-          date = Time.at(start)
-          date += (24 - date.hour).hours
-          @end = date.to_i
-        end
+        @final_length = mandatory.length + flexible.length
+        @best = [nil, Float::INFINITY]
+        @count = 0
       end
 
-      def in?(event) 
-        return @start <= event.before_unix && @end >= event.after_unix
-      end
-
-      def can_place(event, start)
-        length = event.duration_in_miliseconds
-        while length > 0 
-          if @availabilites[start] 
+      def can_place_event(event, start_time)
+        old_start = event.start_unix
+        old_end = event.end_unix
+        event.start_unix = start_time
+        event.end_unix = start_time + event.duration_in_miliseconds
+        for other in curr_sched
+          if event.overlaps?(other)
+            event.start_unix = old_start
+            event.end_unix = old_end
             return false
           end
-          start += @GAP
-          length -= @GAP
         end
-        return true
+        event.start_unix = old_start
+        event.end_unix = old_end
+        return true 
       end
 
-      def place_event(event, start)
-        length = event.duration_in_miliseconds 
-        while length > 0
-          @availabilites[start] = event
-          start += @GAP
-          length -= @GAP
+      def place_event(event, start_time)
+        event.start_unix = start_time
+        event.end_unix = start_time + event.duration_in_miliseconds
+        placed = false
+        @curr_sched.each_with_index do |e, i|
+          if event.start_unix > e.start_unix
+            @curr_sched.insert(i + 1, event)
+            placed = true
+            break
+          end
+        end
+        if not placed
+          @curr_sched.push(event)
         end
       end
 
-      def unfix_event(event, start)
-        length = event.duration_in_miliseconds
-        while length > 0
-          @availabilites[start] = false
-          start += @GAP
-        end
+      def unplace_event(event)
+        @curr_sched.delete(event)
       end
 
-      def init_work
-        time = @start
-        @availabilites = {}
-        while time < @end
-          @availabilites[time] = false
-          time += @GAP
-        end
-      end
-      
       def create_assignmnet(event)
-        e = EventAssignment.new()
-        e.update_attributes(
+        e = EventAssignment.new(
           mandatory: true,
           name: event.name,
           category: event.category,
@@ -347,128 +301,79 @@ class EventAssignmentsController < ApplicationController
           start_unix: event.start_unix,
           end_unix: event.end_unix
         )
-        if not e.save
-        end
         return e
       end
 
-
       def schedule
-        init_work()
-        return schedule_helper(@holding)
+        found = schedule_helper(@flexible)
+        return @best[0].map {|x| create_assignmnet(x)}
       end
-
-      def schedule_with_order(order)
-        init_work()
-        new_holding = []
-        for i in order
-          new_holding.push(@holding[i])
-        end
-        @holding = new_holding
-        schedule_helper(@holding)
-
-        current_event_index = 0
-        seen_start = false
-        prev = false
-        final = [create_assignmnet(@start_event)]
-        for time in @availabilites.keys.sort
-          curr = @availabilites[time]
-          if curr != prev 
-            if seen_start
-              event = @holding[current_event_index]
-              event.start_unix = seen_start
-              event.end_unix = time
-              assignment = create_assignmnet(event)
-              final.push(assignment)
-              seen_start = false
-              current_event_index += 1
-            else
-              seen_start = time
-            end
-          end
-          prev = curr
-        end
-        return final
-      end
-
 
       def schedule_helper(events)
+        @count += 1
+        puts @count
         if events.length == 0 
           return true
         end
+
         event = events[0]
         start = event.after_unix
         end_time = event.before_unix
         has_placed = false
-        valid = false
-        while (not valid) && start < end_time
-          if can_place(event, start)
+
+        while start + event.duration_in_miliseconds < end_time
+          if can_place_event(event, start)
+            has_placed = true
             place_event(event, start)
             valid = schedule_helper(events.drop(1))
-            if not valid
-              unfix_event(events, start)
+            if valid and @curr_sched.length == @final_length
+              distance_approx = distance_hueristic
+              if distance_approx < @best[1]
+                puts distance_approx
+                @best = [Marshal.load(Marshal.dump(@curr_sched)), distance_approx]
+              end
             end
+            unplace_event(event)
           end
           start += @GAP
         end
-        return valid
+
+        return has_placed
       end
 
-      def holding
-        @holding
+      def toRads(deg)
+        Math::PI / 180 * deg
       end
 
-    end
+      def distance_hueristic
+        sum = 0
+        radius = 6371
+        @curr_sched.each_with_index do |e, i|
+          if (i + 1 < @curr_sched.length)
+            other = @curr_sched[i + 1]
+            lat1 = toRads(e.lat)
+            lat2 = toRads(other.lat)
+            delta_lat = toRads(other.lat - e.lat)
+            delta_long = toRads(other.lng - e.lng)
 
-    def is_valid_schedule(mandatory, flexible)
-      mandatory.sort_by {|e| e.start_unix}
-
-      for e in mandatory
-        for j in mandatory
-          if e != j and e.overlaps?(j)
-            return false
+            a = (Math.sin(delta_lat / 2) ** 2 +
+                 Math.cos(lat1)**2 * Math.cos(lat2) * Math.sin(delta_long / 2)**2)
+            c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+            sum += radius * c
           end
         end
+        return sum
       end
 
-      buckets = []
-      mandatory.each_with_index do |event, i|
-        if i + 1 < mandatory.length
-          buckets.push(Bucket.new(event.end_unix, mandatory[i + 1].start_unix, event, mandatory[i + 1]))
-        else
-          buckets.push(Bucket.new(event.end_unix, nil, event, nil))
-        end
-      end
-
-      # Fill in buckets
-      flexible.each do |event|
-        for bucket in buckets
-          if bucket.in?(event)
-            bucket.holding.push(event)
+      def gaps_hueristic
+        @curr_sched.each_with_index do |e, i|
+          gaps = 0
+          if (i + 1 < @curr_sched.length)
+            gaps += @curr_sched[i + 1].start_unix + e.end_unix 
           end
+          return gaps
         end
       end
-
-      buckets.each do |b|
-        if not b.schedule
-          return false 
-        end
-      end
-
-      final = []
-      mandatory.each_with_index do |start, i|
-        tmp = {}
-        tmp[:start] = [start.lat, start.lng]
-        tmp[:waypoints] = buckets[i].holding.map {|e| [e.lat, e.lng]}
-        if i + 1 < mandatory.length
-          tmp[:end] = [mandatory[i + 1].lat, mandatory[i + 1].lng]
-        else
-          # FIXME
-          tmp[:end] = [mandatory[0].lat, mandatory[1].lng]
-        end
-        final.push(tmp)
-      end
-      return [final, buckets]
     end
 
 end
