@@ -55,7 +55,6 @@ class EventAssignmentsController < ApplicationController
 
     sched = Sched.new(mandatory, flexible)
     final_schedule = sched.schedule
-    byebug
     render json: {schedules: [final_schedule]}
   end
 
@@ -328,7 +327,7 @@ class EventAssignmentsController < ApplicationController
             has_placed = true
             place_event(event, start)
             distance = distance_hueristic
-            if distance < @best[1]
+            if distance < @best[1] # if the distance is already too long, prune
               valid = schedule_helper(events.drop(1))
               if valid and @curr_sched.length == @final_length
                 distance_approx = distance_hueristic
