@@ -33,7 +33,7 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
         zoom: 14
       }, map = this.map;
       if (!map) {
-        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+        map = new google.maps.Map(document.getElementById('interative-map'), mapOptions);
         this.map =  map;
         if(navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
@@ -279,6 +279,25 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
         locationService: this.locationService,
         map: this.map
       };
+    },
+
+    /** utils */
+
+    /** all arguments are LatLng Type */
+    fetchRoutes: function(origin, dest, waypoints, directionsService) {
+
+      var request = {
+          origin: origin,
+          destination: dest,
+          waypoints: waypoints,
+          optimizeWaypoints: true,
+          travelMode: google.maps.TravelMode.DRIVING
+      };
+      directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(response);
+        }
+      });
     }
   });
   return GoogleServiceStore;

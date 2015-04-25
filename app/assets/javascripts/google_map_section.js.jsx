@@ -15,7 +15,7 @@ define(['react'], function(React){
     },
     render: function() {
       return (
-        <div id="map-canvas" className="google-map-section col-6" onClick={this.autoResize}></div>
+        <div id="interactive-map" className="google-map-section col-6" onClick={this.autoResize}></div>
       );
     }
   });
