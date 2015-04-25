@@ -14,7 +14,15 @@ class ApplicationController < ActionController::Base
       date_icon: ActionController::Base.helpers.image_url("icon_man.png"),
       shopping_icon: ActionController::Base.helpers.image_url("icon_package.png"),
       clubbing_icon: ActionController::Base.helpers.image_url("icon_speakers.png"),
-      dining_icon: ActionController::Base.helpers.image_url("icon_wine.png")
+      dining_icon: ActionController::Base.helpers.image_url("icon_wine.png"),
+      arrow_left_icon: ActionController::Base.helpers.image_url("icon_arrow_left.png"),
+      arrow_down_icon: ActionController::Base.helpers.image_url("icon_arrow_down.png"),
+      arrow_right_icon: ActionController::Base.helpers.image_url("icon_arrow_right.png"),
+      step1_icon: ActionController::Base.helpers.image_url("icon_step1.png"),
+      step2_icon: ActionController::Base.helpers.image_url("icon_step2.png"),
+      step3_icon: ActionController::Base.helpers.image_url("icon_step3.png"),
+      map_marker: ActionController::Base.helpers.image_url("icon_map_marker.png"),
+      map_black_marker: ActionController::Base.helpers.image_url("icon_map_black_marker.png")
     }
   end
 end

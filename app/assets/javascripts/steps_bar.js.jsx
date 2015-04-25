@@ -37,22 +37,22 @@ define(['react', 'constants'], function(React, Constants){
 
       var stepExplanation1 = (
         <div className="step-explanation-container">
-          <img src="assets/icon_arrow_left.png" className="arrow-left-icon vert-ctr" />
-          <img src="assets/icon_step1.png" className="step1-icon" />
+          <img src={Constants.Images.ARROW_LEFT} className="arrow-left-icon vert-ctr" />
+          <img src={Constants.Images.STEP_1} className="step1-icon" />
           <div className="step-explanation-text">Add your events to your schedule from the form.</div> 
         </div>
       );
       var stepExplanation2 = (
         <div className="step-explanation-container">
-          <img src="assets/icon_arrow_down.png" className="arrow-down-icon hori-ctr" />
-          <img src="assets/icon_step2.png" className="step2-icon" />
+          <img src={Constants.Images.ARROW_DOWN} className="arrow-down-icon hori-ctr" />
+          <img src={Constants.Images.STEP_2} className="step2-icon" />
           <div className="step-explanation-text">Press the button to optmize and choose your schedule.</div> 
         </div>
       );
       var stepExplanation3 = (
         <div className="step-explanation-container">
-          <img src="assets/icon_arrow_right.png" className="arrow-right-icon vert-ctr" />
-          <img src="assets/icon_step3.png" className="step3-icon" />
+          <img src={Constants.Images.ARROW_RIGHT} className="arrow-right-icon vert-ctr" />
+          <img src={Constants.Images.STEP_3} className="step3-icon" />
           <div className="step-explanation-text">Your confirmed schedule will appear in the calendar.</div> 
         </div>
       );

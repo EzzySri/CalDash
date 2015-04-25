@@ -90,8 +90,14 @@ define([], function(){
     },
 
     Images: {
-      MAP_MARKER: "assets/icon_map_marker.png",
-      MAP_BLACK_MARKER: "assets/icon_map_black_marker.png"
+      MAP_MARKER: gon.image_tags.map_marker,
+      MAP_BLACK_MARKER: gon.image_tags.map_black_marker,
+      ARROW_LEFT: gon.image_tags.arrow_left_icon,
+      ARROW_DOWN: gon.image_tags.arrow_down_icon,
+      ARROW_RIGHT: gon.image_tags.arrow_right_icon,
+      STEP_1: gon.image_tags.step1_icon,
+      STEP_2: gon.image_tags.step2_icon,
+      STEP_3: gon.image_tags.step3_icon
     },
 
     CategoryImagePairs: {
@@ -103,7 +109,7 @@ define([], function(){
       "date": gon.image_tags.date_icon,
       "shopping": gon.image_tags.shopping_icon,
       "clubbing": gon.image_tags.clubbing_icon,
-      "dining": gon.image_tags.dining_icon
+      "dining": gon.image_tags.dining_icon,
     }
   };
 
