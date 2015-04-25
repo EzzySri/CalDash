@@ -1,0 +1,12 @@
+paths:
+    react: "react"
+    routes: "router"
+    react_router: "react_router"
+
+    event_store: "stores/event_store"
+    session_store: "stores/session_store"
+    prediction_store: "stores/prediction_store"
+    google_service_store: "stores/google_service_store"
+    application_store: "stores/application_store"
+    flash_message_store: "stores/flash_message_store"
+    event_form_store: "stores/event_form_store"
