@@ -36,6 +36,8 @@ gem 'requirejs-rails'
 
 gem 'react-router-rails'
 
+gem 'gon'
+
 gem "ice_cube"
 
 gem "json"

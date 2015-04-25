@@ -1,7 +1,5 @@
 define([], function(){
 
-  var APIRoot = "http://localhost:3000";
-
   var Constants = {
     ADD_EVENT: "ADD_EVENT",
     REMOVE_EVENT: "REMOVE_EVENT",
@@ -18,14 +16,14 @@ define([], function(){
     RECENT_EVENT_COUNT: 5,
 
     APIEndpoints: {
-      LOGIN:          APIRoot + "/users/sign_in",
-      REGISTRATION:   APIRoot + "/users/",
-      LOGOUT:        APIRoot + "/users/sign_out",
-      OPTIMIZE:      APIRoot + "/event_assignments/optimize",
-      FETCH_DAY_EVENTS: APIRoot + "/event_assignments/fetch_day_events",
-      BATCH_FETCH_EVENTS: APIRoot + "/event_assignments/batch_fetch_events",
-      EVENT_ASSIGNMENTS_BATCH_CREATE: APIRoot + "/event_assignments/batch_create",
-      FETCH_RECENT_EVENTS: APIRoot + "/event_assignments/"
+      LOGIN:          "/users/sign_in",
+      REGISTRATION:   "/users/",
+      LOGOUT:        "/users/sign_out",
+      OPTIMIZE:      "/event_assignments/optimize",
+      FETCH_DAY_EVENTS: "/event_assignments/fetch_day_events",
+      BATCH_FETCH_EVENTS: "/event_assignments/batch_fetch_events",
+      EVENT_ASSIGNMENTS_BATCH_CREATE: "/event_assignments/batch_create",
+      FETCH_RECENT_EVENTS: "/event_assignments/"
     },
 
     PayloadSources: {
@@ -97,15 +95,15 @@ define([], function(){
     },
 
     CategoryImagePairs: {
-      "meeting": "icon_briefcase.png",
-      "hangout": "icon_bubbles.png",
-      "work": "icon_imac.png",
-      "play": "icon_joypad.png",
-      "grooming": "icon_woman.png",
-      "date": "icon_man.png",
-      "shopping": "icon_package.png",
-      "clubbing": "icon_speakers.png",
-      "dining": "icon_wine.png"
+      "meeting": gon.image_tags.meeting_icon,
+      "hangout": gon.image_tags.hangout_icon,
+      "work": gon.image_tags.work_icon,
+      "play": gon.image_tags.play_icon,
+      "grooming": gon.image_tags.grooming_icon,
+      "date": gon.image_tags.date_icon,
+      "shopping": gon.image_tags.shopping_icon,
+      "clubbing": gon.image_tags.clubbing_icon,
+      "dining": gon.image_tags.dining_icon
     }
   };
 
