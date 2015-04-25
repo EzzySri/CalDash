@@ -158,7 +158,7 @@ class EventAssignmentsController < ApplicationController
       event_assignment
     end
     begin
-      # EventAssignment.destroy_all(:repeat_type => "once", :start_unix => date_start.to_i()..date_end.to_i()).to_a()
+      EventAssignment.destroy_all(:repeat_type => "once", :start_unix => date_start.to_i()..date_end.to_i()).to_a()
       ActiveRecord::Base.transaction do
         if (validates = @events.map(&:save)).all?
           render json: {}, status: 200
