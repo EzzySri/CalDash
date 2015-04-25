@@ -39,7 +39,7 @@ define(['react', 'constants'], function(React, Constants){
         <div className="step-explanation-container">
           <img src="assets/icon_arrow_left.png" className="arrow-left-icon vert-ctr" />
           <img src="assets/icon_step1.png" className="step1-icon" />
-          <div className="step-explanation-text">Add events to your schedule from the form.</div> 
+          <div className="step-explanation-text">Add your events to your schedule from the form.</div> 
         </div>
       );
       var stepExplanation2 = (
