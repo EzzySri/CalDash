@@ -40,7 +40,7 @@ define(['react', 'jquery', 'moment'], function(React, $, moment){
             atIndex += 1;
             beginGap = start - momentObj;
             startDist = rowHeight * beginGap.valueOf() / moment.duration({'hours': 0.5}).valueOf();
-            durationDist = rowHeight * (end.valueOf() - start.valueOf()) / moment.duration({'hours': 0.5}).valueOf() - 4;
+            durationDist = rowHeight * (end.valueOf() - start.valueOf()) / moment.duration({'hours': 0.5}).valueOf();
             var style = {
               top: startDist + "px",
               height: durationDist + "px",

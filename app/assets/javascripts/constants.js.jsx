@@ -23,7 +23,7 @@ define([], function(){
       FETCH_DAY_EVENTS: "/event_assignments/fetch_day_events",
       BATCH_FETCH_EVENTS: "/event_assignments/batch_fetch_events",
       EVENT_ASSIGNMENTS_BATCH_CREATE: "/event_assignments/batch_create",
-      FETCH_RECENT_EVENTS: "/event_assignments/"
+      FETCH_RECENT_EVENTS: "/event_assignments"
     },
 
     PayloadSources: {
