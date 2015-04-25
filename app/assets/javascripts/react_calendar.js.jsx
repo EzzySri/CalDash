@@ -8,6 +8,7 @@ define(['react', 'jquery', 'moment', 'react_calendar_month', 'react_calendar_day
           months[i] = (
             <ReactCalendarMonth
               flux={this.props.flux}
+              applicationStoreState={this.props.applicationStoreState}
               eventStoreState={this.props.eventStoreState}
               nthMonth={i} />);
         }

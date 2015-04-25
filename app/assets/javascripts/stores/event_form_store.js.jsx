@@ -28,10 +28,10 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
     },  
 
     getDurationOptions: function() {
-      var startDuration = moment.duration(15, "m");
+      var startDuration = moment.duration(30, "m");
       var durations = [moment.duration(startDuration)];
-      for (i = 1; i < 48; i += 1) {
-        durations.push(moment.duration(startDuration.add(15, "m")));
+      for (i = 1; i < 24; i += 1) {
+        durations.push(moment.duration(startDuration.add(30, "m")));
       }
       return durations;
     },

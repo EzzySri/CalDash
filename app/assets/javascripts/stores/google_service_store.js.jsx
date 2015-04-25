@@ -59,7 +59,11 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
 
           google.maps.event.addListener(this.map, 'click', this.clickEventListener, this);
 
+          var confirmButtonDiv = document.createElement('div');
+          var confirmButton = new this.ConfirmButton(confirmButtonDiv, map, this);
 
+          confirmButtonDiv.index = 1;
+          map.controls[google.maps.ControlPosition.TOP_RIGHT].push(confirmButtonDiv);
         } else {
           // Browser doesn't support Geolocation
           this.handleNoGeolocation(map, false);
@@ -86,7 +90,6 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
           null,
           new google.maps.Size(40, 40)
         );
-        // TO-DO: get bounds on map
         var bounds = new google.maps.LatLngBounds();
         bounds.extend(geolocation);
         this.flux.store("EventStore").getEvents().map(function(item){
@@ -107,7 +110,6 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
     clickEventListener: function(event) {
       if (!this.curDraggableMarker) {
         this.placeCurDraggableMarker(event.latLng, "Drag me!", true);
-        this.retrieveReverseGeoOnMarker(event.latLng);
       } else {
         this.flux.store("FlashMessageStore").onDisplayFlashMessage({
           flashMessage: "Please drag or double-click to cancel the existing selection icon.",
@@ -136,6 +138,7 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
           store.onSetLocation({location: results[0].formatted_address});
           store.currentEventInput.lat = results[0].geometry.location.lat();
           store.currentEventInput.lng = results[0].geometry.location.lng();
+          context.displayNewGeoLocationResult();
           context.emit("change");
         } else {
           this.flux.store("FlashMessageStore").onDisplayFlashMessage({
@@ -241,6 +244,33 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
       }
 
       this.emit("change");
+    },
+
+    ConfirmButton: function(controlDiv, map, context) {
+      var controlUI = document.createElement('div');
+      controlUI.style.backgroundColor = '#fff';
+      controlUI.style.marginRight = '-5px';
+      controlUI.style.border = '1px solid rgba(0, 0, 0, 0.14902)';
+      controlUI.style.boxShadow = "rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px";
+      controlUI.style.webkitBoxShadow = "rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px";
+      controlUI.style.borderRadius = '1px';
+      controlUI.style.cursor = 'pointer';
+      controlUI.style.marginTop = '5px';
+      controlUI.style.textAlign = 'center';
+      controlUI.title = 'Click to confirm location input';
+      controlDiv.appendChild(controlUI);
+
+      var controlText = document.createElement('div');
+      controlText.style.padding = '1px 6px';
+      controlText.innerHTML = 'Confirm Location';
+      controlUI.appendChild(controlText);
+
+      google.maps.event.addDomListener(controlUI, 'click', function(event) {
+        context.retrieveReverseGeoOnMarker(context.curDraggableMarker.getPosition());
+        context.curDraggableMarker.setMap(null);
+        context.curDraggableMarker = null;
+        context.emit("change");
+      }, context);
     },
 
     getState: function() {

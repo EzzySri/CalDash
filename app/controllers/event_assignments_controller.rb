@@ -296,7 +296,7 @@ class EventAssignmentsController < ApplicationController
           lng: event.lng,
           location: event.location,
           is_private: event.is_private,
-          #repeat_type: event.repeat_type,
+          repeat_type: "once",
           start_unix: event.start_unix,
           end_unix: event.end_unix
         )

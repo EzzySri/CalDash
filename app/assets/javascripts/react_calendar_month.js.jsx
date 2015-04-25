@@ -1,4 +1,4 @@
-define(['react', 'jquery', 'moment'], function(React, $, moment){
+define(['react', 'jquery', 'moment', 'constants'], function(React, $, moment, Constants){
   var ReactCalendarMonth = React.createClass({
     componentDidMount: function() {
       var monthStartDate = moment().startOf("year").add(this.props.nthMonth, "month");
@@ -32,8 +32,9 @@ define(['react', 'jquery', 'moment'], function(React, $, moment){
           var datesInWeek = week.map(function(day) {
             var dateInUnix = moment(day).startOf("day").valueOf();
             var dotClass =  this.props.eventStoreState.allEvents[dateInUnix] && this.props.eventStoreState.allEvents[dateInUnix].length > 0 ? "dot hori-ctr" : "";
+            var selectedDayBackground = this.props.applicationStoreState.selectedDay.isSame(day, "day") ? {backgroundColor: Constants.Colors.GREEN} : {};
             return (
-              <th className="data-row-data" id={dateInUnix} onClick={this.selectDayView}><div className="data-row-data-inner">{day.format("D")}<div className={dotClass}></div></div></th>
+              <th className="data-row-data" id={dateInUnix} onClick={this.selectDayView} style={selectedDayBackground}><div className="data-row-data-inner">{day.format("D")}<div className={dotClass}></div></div></th>
             );
           }, this);
           return (<tr className="data-row">{datesInWeek}</tr>);

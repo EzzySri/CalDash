@@ -15,6 +15,7 @@ define(['react', 'jquery', 'moment'], function(React, $, moment){
       var startOfDay = selectedDay.startOf('day');
       var times = [startOfDay.clone(), startOfDay.clone()];
       var momentStrFormat = "ha";
+      var momentStrFormatInner = "h:mm a";
 
       var events = this.props.events;
 
@@ -48,7 +49,7 @@ define(['react', 'jquery', 'moment'], function(React, $, moment){
             prevColorIndex = (prevColorIndex + 1) % 3;
             dataContent.push(
               <div className="data-row-data-inner" style={style}>
-                <div className="event-time-text">{start.format(momentStrFormat)}</div>
+                <div className="event-time-text">{start.format(momentStrFormatInner)}</div>
                 <div className="event-name-text">{name}</div>
               </div>
             );

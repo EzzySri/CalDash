@@ -47,7 +47,7 @@ define(['constants', 'react', 'moment', 'prediction_list'], function(Constants, 
       var durations = this.props.eventFormStoreState.durationOptions;
       var durationOptions = durations.map(function(durationObj) {
         return (
-          <option value={durationObj.valueOf()}>{durationObj.humanize()}</option>
+          <option value={durationObj.valueOf()}>{durationObj.asHours() + (durationObj.asHours() > 1 ? " hours" : " hour")}</option>
         );
       });
       var selectedDay = this.props.applicationStoreState.selectedDay;

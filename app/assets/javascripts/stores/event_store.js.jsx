@@ -231,12 +231,13 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
       // TO-DO: add unique id to store objects
       var name = this.currentEventInput.name;
       var category = this.currentEventInput.category;
-      if (!(name && category != "placeholder")) {
-        this.flux.store("FlashMessageStore").onDisplayFlashMessage({flashMessage: "Event Name and Category should not be empty.", flashMessageType: "error", random: Math.random()});
+      var location = this.currentEventInput.location;
+      if (!(name && location && category != "placeholder")) {
+        this.flux.store("FlashMessageStore").onDisplayFlashMessage({flashMessage: "Event Name, Category and Location should not be empty.", flashMessageType: "error", random: Math.random()});
         return;
       }
       var clone = {
-        location: this.currentEventInput.location,
+        location: location,
         category: category,
         mandatory: this.currentEventInput.mandatory,
         name: name,
