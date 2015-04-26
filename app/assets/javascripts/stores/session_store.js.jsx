@@ -125,6 +125,7 @@ define(['jquery_ujs', 'jquery', 'fluxxor', 'constants'], function(_, $, Fluxxor,
           }
         }, 
         success: function(data) {
+          location.reload();
           this.onLoginResponse({json: data, errors: null});
           this.flux.store("ApplicationStore").onSetLogisticsPageLabel({label: ""});
           this.flux.store("FlashMessageStore").onDisplayFlashMessage({
