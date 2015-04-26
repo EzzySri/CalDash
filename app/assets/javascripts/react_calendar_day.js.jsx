@@ -27,7 +27,7 @@ define(['react', 'jquery', 'moment'], function(React, $, moment){
       // TO-DO: make this dynamic
       // TO-DO: does not yet support duration shorter than 0.5 hours; both need to sqeeuze
       // into one row
-      var rowHeight = 35;
+      var rowHeight = 38;
       var context = this;
       var prevColorIndex = 0;
       var timeOptions = times.map(function(momentObj, index) {
