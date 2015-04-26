@@ -230,6 +230,11 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
     },
 
     onAddEvent: function() {
+
+      if (!this.flux.store("SessionStore").checkAndRedirect()) {
+        return;
+      }
+
       // TO-DO: add unique id to store objects
       var name = this.currentEventInput.name;
       var category = this.currentEventInput.category;
@@ -336,6 +341,11 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
     },
 
     onGetOptimizedSchedules: function() {
+
+      if (!this.flux.store("SessionStore").checkAndRedirect()) {
+        return;
+      }
+      
       var events = this.getEvents();
       if (events.length == 0) {
         this.flux.store("FlashMessageStore").onDisplayFlashMessage({flashMessage: Constants.FlashMessages.NO_EVENTS_TO_OPTIMIZE, flashMessageType: "error", random: Math.random()});

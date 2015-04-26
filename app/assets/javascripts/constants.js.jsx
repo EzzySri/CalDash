@@ -39,6 +39,8 @@ define([], function(){
       // Routes
       REDIRECT: "REDIRECT",
 
+      CHECK_AND_REDIRECT: "CHECK_AND_REDIRECT",
+
       SET_NAME: "SET_NAME",
       SET_CATEGORY: "SET_CATEGORY",
       SET_AFTER_TIME: "SET_AFTER_TIME",

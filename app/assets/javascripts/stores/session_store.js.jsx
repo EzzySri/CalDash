@@ -31,14 +31,26 @@ define(['jquery_ujs', 'jquery', 'fluxxor', 'constants'], function(_, $, Fluxxor,
       this.bindActions(
         Constants.ActionTypes.LOGIN, this.onLogin,
         Constants.ActionTypes.LOGOUT, this.onLogout,
-        Constants.ActionTypes.SIGNUP, this.onSignup
+        Constants.ActionTypes.SIGNUP, this.onSignup,
+        Constants.ActionTypes.CHECK_AND_REDIRECT, this.onCheckAndRedirect
       );
     },
 
-    onCheckStatusAndredirectToLogIn: function() {
+    checkAndRedirect: function() {
       if (!this.isSignedIn) {
         this.flux.store("ApplicationStore").onSetLogisticsPageLabel({label: "signIn"});
+        this.flux.store("FlashMessageStore").onDisplayFlashMessage({
+            flashMessage: "Please log in to proceed.",
+            flashMessageType: "error",
+            random: Math.random()});
+        return false;
       }
+      return true;
+    },
+
+    onCheckAndRedirect: function() {
+      this.checkAndRedirect();
+      this.emit("change");
     },
 
     emitChange: function() {

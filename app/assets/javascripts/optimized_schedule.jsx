@@ -7,6 +7,10 @@ define(['react', 'react_calendar_day'], function(React, ReactCalendarDay){
       }
     },
     handleConfirmSchedule: function() {
+      if (!this.props.sessionStoreState.isSignedIn) {
+        this.props.flux.actions.sessionActions.checkAndRedirect();
+        return;
+      }
       this.props.flux.actions.eventActions.mergeResultsToCalendar();
       if (this.props.applicationStoreState.mapMode == "interactive-mode") {
         this.props.flux.actions.applicationActions.toggleMapMode();

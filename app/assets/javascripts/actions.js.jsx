@@ -108,6 +108,9 @@ define(['constants'], function(Constants){
       },
       logout: function() {
         this.dispatch(Constants.ActionTypes.LOGOUT, {});
+      },
+      checkAndRedirect: function() {
+        this.dispatch(Constants.ActionTypes.CHECK_AND_REDIRECT, {});
       }
     },
     predictionActions: {

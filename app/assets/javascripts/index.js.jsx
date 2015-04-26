@@ -116,6 +116,7 @@ define(['event_history_list', 'steps_bar', 'constants', 'optimized_schedule', 's
           rightComponent =
             (<OptimizedSchedule
               flux={this.getFlux()}
+              sessionStoreState={this.getStateFromFlux().sessionStoreState}
               applicationStoreState={this.getStateFromFlux().applicationStoreState}
               stepExplanationCollapsed={this.getStateFromFlux().applicationStoreState.stepExplanationCollapsed}
               results = {this.getStateFromFlux().eventStoreState.optimizedResults}
