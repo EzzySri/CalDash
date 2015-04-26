@@ -9,6 +9,7 @@
   <script src="http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyB0EmPhb_aKaLjZMYVnMRe8XFR-3t9ZyfY&libraries=places"></script>
   <link rel='stylesheet' href='assets/fullcalendar/dist/fullcalendar.css' />
+  <%= tag(:meta, content: UserSerializer.new(current_user).to_json(root: false), name: 'current-user') if user_signed_in? %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= requirejs_include_tag 'application' %>
   <%= csrf_meta_tags %>

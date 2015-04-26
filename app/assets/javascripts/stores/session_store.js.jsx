@@ -4,8 +4,6 @@ define(['jquery_ujs', 'jquery', 'fluxxor', 'constants'], function(_, $, Fluxxor,
   var ActionTypes = Constants.ActionTypes;
   var CHANGE_EVENT = 'change';
 
-  var _accessToken = sessionStorage.getItem('accessToken')
-  var _email = sessionStorage.getItem('email')
   var _errors = [];
 
 
@@ -19,11 +17,28 @@ define(['jquery_ujs', 'jquery', 'fluxxor', 'constants'], function(_, $, Fluxxor,
       this.name = null;
       this.userId = null;
 
+      if ($("meta[name=current-user]").length > 0) {
+        var userInfo = JSON.parse($("meta[name=current-user]").attr("content"));
+        var data = {
+          id: userInfo.id,
+          email: userInfo.email,
+          first_name: userInfo.first_name,
+          last_name: userInfo.last_name
+        };
+        this.onLoginResponse({json: data, errors: null});
+      }
+
       this.bindActions(
         Constants.ActionTypes.LOGIN, this.onLogin,
         Constants.ActionTypes.LOGOUT, this.onLogout,
         Constants.ActionTypes.SIGNUP, this.onSignup
       );
+    },
+
+    onCheckStatusAndredirectToLogIn: function() {
+      if (!this.isSignedIn) {
+        this.flux.store("ApplicationStore").onSetLogisticsPageLabel({label: "signIn"});
+      }
     },
 
     emitChange: function() {
@@ -46,18 +61,6 @@ define(['jquery_ujs', 'jquery', 'fluxxor', 'constants'], function(_, $, Fluxxor,
       return this.isSignedIn;    
     },
 
-    getEmail: function() {
-      return this.email;
-    },
-
-    getName: function() {
-      return this.name;
-    },
-
-    getErrors: function() {
-      return this.errors;
-    },
-
     getState: function() {
       return {
         errors: this.errors,
@@ -74,9 +77,6 @@ define(['jquery_ujs', 'jquery', 'fluxxor', 'constants'], function(_, $, Fluxxor,
         this.email = payload.json.email;
         this.name = payload.json.first_name + " " + payload.json.last_name;
         this.isSignedIn = true;
-        // Token will always live in the session, so that the API can grab it with no hassle
-        // sessionStorage.setItem('accessToken', _accessToken);
-        // sessionStorage.setItem('email', _email);
       }
       if (payload.errors) {
         this.errors = payload.errors;
@@ -89,8 +89,6 @@ define(['jquery_ujs', 'jquery', 'fluxxor', 'constants'], function(_, $, Fluxxor,
       this.name = null;
       this.userId = null;
       this.isSignedIn = false;
-      // sessionStorage.removeItem("email");
-      // sessionStorage.removeItem('');
       this.emitChange();
     },
 
@@ -115,12 +113,19 @@ define(['jquery_ujs', 'jquery', 'fluxxor', 'constants'], function(_, $, Fluxxor,
           }
         }, 
         success: function(data) {
+          this.onLoginResponse({json: data, errors: null});
+          this.flux.store("ApplicationStore").onSetLogisticsPageLabel({label: ""});
+          this.flux.store("FlashMessageStore").onDisplayFlashMessage({
+            flashMessage: "You have signed up successfully.",
+            flashMessageType: "notice",
+            random: Math.random()});
           this.emit(Constants.SIGNUP_EVENT, Constants.SUCCESS);
-          // ServerActions.receiveLogin(json, null);
         }.bind(this),
         error: function(xhr, status, err) {
-          // var errorMsgs = _getErrors(err);
-          // ServerActions.receiveLogin(null, errorMsgs);
+          this.flux.store("FlashMessageStore").onDisplayFlashMessage({
+            flashMessage: "Signup was not successful for the following reason: " + err,
+            flashMessageType: "error",
+            random: Math.random()});
         }.bind(this)
       });
     },
@@ -138,17 +143,24 @@ define(['jquery_ujs', 'jquery', 'fluxxor', 'constants'], function(_, $, Fluxxor,
           user: {
             email: email, 
             password: password,
-            remember_me: 0
+            remember_me: 1
           },
           commit: "Log in"
         }, 
         success: function(data) {
           this.onLoginResponse({json: data, errors: null});
+          this.flux.store("FlashMessageStore").onDisplayFlashMessage({
+            flashMessage: "You are signed in successfully.",
+            flashMessageType: "notice",
+            random: Math.random()});
+          this.flux.store("ApplicationStore").onSetLogisticsPageLabel({label: ""});
           this.emit(Constants.SIGNIN_EVENT, Constants.SUCCESS);
         }.bind(this),
         error: function(xhr, status, err) {
-          // var errorMsgs = _getErrors(err);
-          // ServerActions.receiveLogin(null, errorMsgs);
+          this.flux.store("FlashMessageStore").onDisplayFlashMessage({
+            flashMessage: "Login was not successful for the following reason: " + err,
+            flashMessageType: "error",
+            random: Math.random()});
         }.bind(this)
       });
     },
@@ -159,10 +171,16 @@ define(['jquery_ujs', 'jquery', 'fluxxor', 'constants'], function(_, $, Fluxxor,
         method: "DELETE",
         success: function(data) {
           this.onLogoutResponse({json: null, errors: null});
+          this.flux.store("FlashMessageStore").onDisplayFlashMessage({
+            flashMessage: "You have logged out.",
+            flashMessageType: "notice",
+            random: Math.random()});
         }.bind(this),
         error: function(xhr, status, err) {
-          // var errorMsgs = _getErrors(err);
-          // ServerActions.receiveLogin(null, errorMsgs);
+          this.flux.store("FlashMessageStore").onDisplayFlashMessage({
+            flashMessage: "Logout was not successful for the following reason: " + err,
+            flashMessageType: "error",
+            random: Math.random()});
         }.bind(this)
       });
     }

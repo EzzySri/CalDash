@@ -67,7 +67,6 @@ define(['event_history_list', 'steps_bar', 'constants', 'optimized_schedule', 's
     afterSignIn: function(status) {
       if (status == Constants.SUCCESS) {
         this.refs.email.getDOMNode().value = "";
-        this.getFlux().actions.applicationActions.setLogisticsPageLabel("");
       }
       this.refs.password.getDOMNode().value = "";
     },
@@ -75,7 +74,6 @@ define(['event_history_list', 'steps_bar', 'constants', 'optimized_schedule', 's
       if (status == Constants.SUCCESS) {
         this.refs.newName.getDOMNode().value = "";
         this.refs.newEmail.getDOMNode().value = "";
-        this.getFlux().actions.applicationActions.setLogisticsPageLabel("");
       }
       this.refs.newPassword.getDOMNode().value = "";
       this.refs.newPasswordConfirmation.getDOMNode().value = "";
@@ -268,6 +266,16 @@ define(['event_history_list', 'steps_bar', 'constants', 'optimized_schedule', 's
         case "myProfile":
           logisticsPage = (
             <div key={logisticsPageLabel} className="my-profile-section full-extend-dark-red-background">
+              <div className="col-sm-4"></div>
+              <div className="col-sm-4 vert-ctr">
+                <div>
+                  <div className="user-name-text profile-row"> {"Name: " + this.getStateFromFlux().sessionStoreState.name} </div>
+                </div>
+                <div>
+                  <div className="user-email-text profile-row"> {"Email: " + this.getStateFromFlux().sessionStoreState.email} </div>
+                </div>
+              </div>
+              <div className="col-sm-4"></div>
             </div>
           );
           break;
