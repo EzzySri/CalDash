@@ -13,6 +13,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
       this.explanationVisible = true;
       this.stepCount = 0;
       this.mode = "events-mode";
+      this.mapMode = "interactive-mode";
       this.logisticsPageLabel = "";
       this.eventHistoryListCollapsed = false;
 
@@ -30,7 +31,8 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
         ActionTypes.EVENT_HISTORY_LIST_EXPAND, this.onEventHistoryListExpand,
         ActionTypes.EVENT_HISTORY_LIST_COLLAPSE, this.onEventHistoryListCollapse,
         ActionTypes.SET_LOGISTICS_PAGE_LABEL, this.onSetLogisticsPageLabel,
-        ActionTypes.TOGGLE_DAY_IN_WEEK, this.onToggleDayInWeek
+        ActionTypes.TOGGLE_DAY_IN_WEEK, this.onToggleDayInWeek,
+        ActionTypes.TOGGLE_MAP_MODE, this.onToggleMapMode
       );
     },
 
@@ -70,6 +72,15 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
       this.emit("change");
     },
 
+    onToggleMapMode: function() {
+      if (this.mapMode == "interactive-mode") {
+        this.mapMode = "result-mode";
+      } else {
+        this.mapMode = "interactive-mode";
+      }
+      this.emit("change");
+    },
+
     onSetMode: function(payload) {
       this.mode = payload.mode;
       this.emit("change");
@@ -78,6 +89,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
     onSetSelectedDay: function(payload) {
       this.selectedDay = payload.selectedDay;
       this.prepareMultiSelectInWeek();
+      this.flux.store("GoogleServiceStore").onDisplayRoutesForDay();
       this.emit("change");
     },
 
@@ -126,7 +138,8 @@ define(['jquery', 'fluxxor', 'constants', 'moment'], function($, Fluxxor, Consta
         calendarMode: this.calendarMode,
         eventHistoryListCollapsed: this.eventHistoryListCollapsed,
         logisticsPageLabel: this.logisticsPageLabel,
-        selectedWeekDays: this.selectedWeekDays
+        selectedWeekDays: this.selectedWeekDays,
+        mapMode: this.mapMode
       };
     }
   });

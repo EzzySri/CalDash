@@ -2,10 +2,17 @@ define(['react', 'react_calendar_day'], function(React, ReactCalendarDay){
   var OptimizedSchedule = React.createClass({
     restartScheduling: function() {
       this.props.flux.actions.applicationActions.setStepCount(0);
+      if (this.props.applicationStoreState.mapMode == "result-mode") {
+        this.props.flux.actions.applicationActions.toggleMapMode();
+      }
     },
     handleConfirmSchedule: function() {
       this.props.flux.actions.eventActions.mergeResultsToCalendar();
+      if (this.props.applicationStoreState.mapMode == "interactive-mode") {
+        this.props.flux.actions.applicationActions.toggleMapMode();
+      }
       this.props.flux.actions.eventActions.syncScheduleChoice();
+      this.props.flux.actions.eventActions.setRoutesForDay();
       this.props.flux.actions.applicationActions.setStepCount(2);
     },
     render: function() {

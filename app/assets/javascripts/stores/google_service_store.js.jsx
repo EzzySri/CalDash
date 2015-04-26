@@ -3,7 +3,11 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
     initialize: function() {
       this.geocoderService = null;
       this.locationService = null;
+      this.directionsService = null;
+      this.directionsRenderer = null;
       this.map = null;
+      this.resultMap = null;
+      this.routes = {};
 
       this.curDraggableMarker = null;
 
@@ -14,7 +18,9 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
         ActionTypes.SET_LOCATION_SERVICE, this.onSetLocationService,
         ActionTypes.RETRIEVE_GEO_LOCATION, this.onRetrieveGeoLocation,
         ActionTypes.SET_MAP, this.onSetMap,
-        ActionTypes.RETRIEVE_MAP_PREDICTIONS, this.onRetrieveMapPredictions
+        ActionTypes.SET_RESULT_MAP, this.onSetResultMap,
+        ActionTypes.RETRIEVE_MAP_PREDICTIONS, this.onRetrieveMapPredictions,
+        ActionTypes.DISPLAY_ROUTES_FOR_DAY, this.onDisplayRoutesForDay
       );
     },
 
@@ -28,12 +34,55 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
       this.emit("change");
     },
 
+    onSetResultMap: function() {
+      var mapOptions = {
+        zoom: 14
+      }, map = this.resultMap;
+      if (!map) {
+        map = new google.maps.Map(document.getElementById('result-map'), mapOptions);
+        this.resultMap =  map;
+        if(navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = new google.maps.LatLng(position.coords.latitude,
+                                             position.coords.longitude);
+            var image = new google.maps.MarkerImage(
+              Constants.Images.MAP_MARKER,
+              null,
+              null,
+              null,
+              new google.maps.Size(40, 40)
+            );
+            var marker = new google.maps.Marker({
+              map: map,
+              position: pos,
+              title: 'You are here.',
+              icon: image
+            });
+            map.setCenter(pos);
+          }, function() {
+            this.handleNoGeolocation(map, true);
+          }.bind(this));
+
+          /** set map toggle button */
+
+          var switchMapButtonDiv = document.createElement('div');
+          var switchMapButton = new this.SwitchMapButton(switchMapButtonDiv, map, this);
+          switchMapButtonDiv.index = 2;
+          map.controls[google.maps.ControlPosition.TOP_RIGHT].push(switchMapButtonDiv);
+
+        } else {
+          // Browser doesn't support Geolocation
+          this.handleNoGeolocation(map, false);
+        }
+      }
+    },
+
     onSetMap: function(payload) {
       var mapOptions = {
         zoom: 14
       }, map = this.map;
       if (!map) {
-        map = new google.maps.Map(document.getElementById('interative-map'), mapOptions);
+        map = new google.maps.Map(document.getElementById('interactive-map'), mapOptions);
         this.map =  map;
         if(navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
@@ -59,11 +108,20 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
 
           google.maps.event.addListener(this.map, 'click', this.clickEventListener, this);
 
+          /** set confirm button */
+
           var confirmButtonDiv = document.createElement('div');
           var confirmButton = new this.ConfirmButton(confirmButtonDiv, map, this);
-
           confirmButtonDiv.index = 1;
           map.controls[google.maps.ControlPosition.TOP_RIGHT].push(confirmButtonDiv);
+
+
+          /** set map toggle button */
+
+          var switchMapButtonDiv = document.createElement('div');
+          var switchMapButton = new this.SwitchMapButton(switchMapButtonDiv, map, this);
+          switchMapButtonDiv.index = 2;
+          map.controls[google.maps.ControlPosition.TOP_RIGHT].push(switchMapButtonDiv);
         } else {
           // Browser doesn't support Geolocation
           this.handleNoGeolocation(map, false);
@@ -246,6 +304,37 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
       this.emit("change");
     },
 
+    onDisplayRoutesForDay: function() {
+      var dayInUnix = moment(this.flux.store("ApplicationStore").getState().selectedDay).startOf("day").valueOf();
+      var events = this.flux.store("EventStore").getEvents();
+      var response = this.routes[dayInUnix];
+      var service = this.directionsRenderer;
+      if (!service) {
+        service = new google.maps.DirectionsRenderer();
+        this.directionsRenderer = service;
+      }
+      service.setMap(this.resultMap);
+      if (events.length > 0 && !response) {
+        this.flux.store("EventStore").onSetRoutesForDay();
+      } else if (events.length > 0 && response) {
+        service.setDirections(response);
+      } else {
+        service.setMap(null);
+      }
+      this.emit("change");
+    },
+
+    getState: function() {
+      return {
+        geocoderService: this.geocoderService,
+        locationService: this.locationService,
+        map: this.map,
+        resultMap: this.resultMap
+      };
+    },
+
+    /** map buttons */
+
     ConfirmButton: function(controlDiv, map, context) {
       var controlUI = document.createElement('div');
       controlUI.style.backgroundColor = '#fff';
@@ -273,18 +362,44 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
       }, context);
     },
 
-    getState: function() {
-      return {
-        geocoderService: this.geocoderService,
-        locationService: this.locationService,
-        map: this.map
-      };
-    },
+    SwitchMapButton: function(controlDiv, map, context) {
+      var controlUI = document.createElement('div');
+      controlUI.style.backgroundColor = '#fff';
+      controlUI.style.marginRight = '-5px';
+      controlUI.style.border = '1px solid rgba(0, 0, 0, 0.14902)';
+      controlUI.style.boxShadow = "rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px";
+      controlUI.style.webkitBoxShadow = "rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px";
+      controlUI.style.borderRadius = '1px';
+      controlUI.style.cursor = 'pointer';
+      controlUI.style.marginTop = '5px';
+      controlUI.style.textAlign = 'center';
+      controlUI.title = 'Toggle between interactive and result mode';
+      controlDiv.appendChild(controlUI);
+
+      var controlText = document.createElement('div');
+      controlText.style.padding = '1px 6px';
+      controlText.innerHTML = 'Toggle Routes';
+      controlUI.appendChild(controlText);
+
+      google.maps.event.addDomListener(controlUI, 'click', function(event) {
+        var appStore = context.flux.store("ApplicationStore");
+        appStore.onToggleMapMode();
+        var map = appStore.getState().mapMode == "interactive-mode" ? context.map : context.resultMap;
+        var center = map.getCenter();
+        google.maps.event.trigger(map, "resize");
+        map.setCenter(center);
+      }, context);
+    },    
 
     /** utils */
 
     /** all arguments are LatLng Type */
-    fetchRoutes: function(origin, dest, waypoints, directionsService) {
+    fetchAndDisplayRoutes: function(origin, waypoints, dest) {
+      var service = this.directionsService;
+      if (!service) {
+        service = new google.maps.DirectionsService();
+        this.directionsService = service;
+      }
 
       var request = {
           origin: origin,
@@ -293,11 +408,24 @@ define(['jquery', 'fluxxor', 'constants'], function($, Fluxxor, Constants){
           optimizeWaypoints: true,
           travelMode: google.maps.TravelMode.DRIVING
       };
-      directionsService.route(request, function(response, status) {
+      var context = this;
+      service.route(request, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
-          directionsDisplay.setDirections(response);
+          context.routes[moment(this.flux.store("ApplicationStore").selectedDay).startOf("day").valueOf()] = response;
+          var service = context.directionsRenderer;
+          if (!service) {
+            service = new google.maps.DirectionsRenderer();
+            context.directionsRenderer = service;
+          }
+          service.setMap(context.resultMap);
+          service.setDirections(response);
+        } else {
+          context.flux.store("FlashMessageStore").onDisplayFlashMessage({
+            flashMessage: "DirectionsService was not successful for the following reason: " + status,
+            flashMessageType: "error",
+            random: Math.random()});
         }
-      });
+      }, context);
     }
   });
   return GoogleServiceStore;

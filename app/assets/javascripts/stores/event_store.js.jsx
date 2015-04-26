@@ -44,7 +44,8 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
         Constants.ActionTypes.SET_DURATION, this.onSetDuration,
         Constants.ActionTypes.SET_EVENT_DESCRIPTION, this.onSetEventDescription,
         Constants.ActionTypes.SYNC_SCHEDULE_CHOICE, this.onSyncScheduleChoice,
-        Constants.ActionTypes.BATCH_FETCH_EVENTS, this.onBatchFetchEvents
+        Constants.ActionTypes.BATCH_FETCH_EVENTS, this.onBatchFetchEvents,
+        Constants.ActionTypes.SET_ROUTES_FOR_DAY, this.onSetRoutesForDay
       );
     },
 
@@ -166,6 +167,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
           this.allEvents[dateInUnix] = data.event_assignments.map(function(event){
             return Adapters.reverseEventAssignmentAdapter(event);
           });
+          this.onSetRoutesForDay();
           this.emit("change");
         }.bind(this),
         error: function(xhr, status, err) {
@@ -380,6 +382,20 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
       this.emit("change");
     },
 
+    onSetRoutesForDay: function() {
+      var mandEvents =  this.getMandatoryEvents();
+      if (mandEvents.length <= 1) return;
+      var sortedEvents = mandEvents.sort(function(a, b) {
+        return (a.start.valueOf() - b.start.valueOf());
+      });
+      var startPosition = new google.maps.LatLng(mandEvents[0].lat, mandEvents[0].lng);
+      var endPosition = new google.maps.LatLng(mandEvents[mandEvents.length - 1].lat, mandEvents[mandEvents.length - 1].lng);
+      var waypoints = mandEvents.slice(1, mandEvents.length).map(function(event, index){
+        return {location: new google.maps.LatLng(event.lat, event.lng)};
+      });
+      this.flux.store("GoogleServiceStore").fetchAndDisplayRoutes(startPosition, waypoints, endPosition);
+    },
+
     onClearOptimizedResults: function() {
       this.optimizedResults.splice(0, this.optimizedResults.length);
       this.emit("change");
@@ -404,6 +420,8 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
         currentEventInput: this.currentEventInput
       };
     }
+
+    /** helpers */
   });
   return EventStore;
 });

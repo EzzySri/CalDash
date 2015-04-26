@@ -37,6 +37,9 @@ define(['constants'], function(Constants){
       },
       toggleDayInWeek: function(dayIndex) {
         this.dispatch(Constants.ActionTypes.TOGGLE_DAY_IN_WEEK, {dayIndex: dayIndex});
+      },
+      toggleMapMode: function() {
+        this.dispatch(Constants.ActionTypes.TOGGLE_MAP_MODE, {});
       }
     },
     eventActions: {
@@ -90,6 +93,9 @@ define(['constants'], function(Constants){
       },
       batchFetchEvents: function(dateStart, dateEnd) {
         this.dispatch(Constants.ActionTypes.BATCH_FETCH_EVENTS, {dateStart: dateStart, dateEnd: dateEnd});
+      },
+      setRoutesForDay: function() {
+        this.dispatch(Constants.ActionTypes.SET_ROUTES_FOR_DAY, {});
       }
     },
     sessionActions: {
@@ -127,6 +133,12 @@ define(['constants'], function(Constants){
       },
       retrieveMapPredictions: function(loc) {
         this.dispatch(Constants.ActionTypes.RETRIEVE_MAP_PREDICTIONS, {locationInput: loc});
+      },
+      setResultMap: function() {
+        this.dispatch(Constants.ActionTypes.SET_RESULT_MAP, {});
+      },
+      displayRoutesForDay: function() {
+        this.dispatch(Constants.ActionTypes.DISPLAY_ROUTES_FOR_DAY, {});
       }
     },
     flashMessageActions: {

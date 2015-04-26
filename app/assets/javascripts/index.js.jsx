@@ -177,6 +177,7 @@ define(['event_history_list', 'steps_bar', 'constants', 'optimized_schedule', 's
               </div>
               <GoogleMapSection
                 flux={this.getFlux()}
+                applicationStoreState={this.getStateFromFlux().applicationStoreState}
                 googleServiceStoreState={this.getStateFromFlux().googleServiceStoreState} />
             </div>
             <div className="col-sm-8">
