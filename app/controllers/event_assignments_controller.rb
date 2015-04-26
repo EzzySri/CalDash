@@ -3,14 +3,15 @@ class EventAssignmentsController < ApplicationController
   include IceCube
 
   before_action :set_event_assignment, only: [:show, :edit, :update, :destroy]
+  before_action :require_login
 
   # GET /event_assignments
   # GET /event_assignments.json
   def index
     if params[:size]
-      @event_assignments = EventAssignment.order(:created_at).limit(params[:size])
+      @event_assignments = EventAssignment.where(user: current_user).order(:created_at).limit(params[:size])
     else
-      @event_assignments = EventAssignment.all
+      @event_assignments = EventAssignment.where(user: current_user)
     end
     render json: {event_assignments: @event_assignments}, status: 200
   end
@@ -85,6 +86,7 @@ class EventAssignmentsController < ApplicationController
   end
 
   # dummy function for testing front-test
+  # Currently not used
   def save_schedule
 
     #input_schedule = optimize_params[:events]
@@ -153,12 +155,13 @@ class EventAssignmentsController < ApplicationController
         :description => event_params[:description],
         :is_private => event_params[:is_private],
         :repeat_type => event_params[:repeat_type],
-        :schedule => event_params[:schedule]
+        :schedule => event_params[:schedule],
+        :user_id => current_user.id
       )
       event_assignment
     end
     begin
-      EventAssignment.destroy_all(:repeat_type => "once", :start_unix => date_start.to_i()..date_end.to_i()).to_a()
+      EventAssignment.where(user: current_user).destroy_all(:repeat_type => "once", :start_unix => date_start.to_i()..date_end.to_i()).to_a()
       ActiveRecord::Base.transaction do
         if (validates = @events.map(&:save)).all?
           render json: {}, status: 200
@@ -204,9 +207,9 @@ class EventAssignmentsController < ApplicationController
       date_start = Time.at(date_in_unix).beginning_of_day().to_datetime()
       date_end = date_start.end_of_day()
       
-      event_assignments = EventAssignment.where(:repeat_type => "once", :start_unix => date_start.to_i()..date_end.to_i())
+      event_assignments = EventAssignment.where(:repeat_type => "once", :start_unix => date_start.to_i()..date_end.to_i(), user: current_user)
       
-      EventAssignment.where(:repeat_type => "weekly").each do |recur_schedule|
+      EventAssignment.where(:repeat_type => "weekly", user: current_user).each do |recur_schedule|
         if Schedule.from_yaml(recur_schedule.schedule).occurs_between(date_start, date_end)
           event_assignments << recur_schedule
         end
@@ -235,6 +238,12 @@ class EventAssignmentsController < ApplicationController
       [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday]
     end
 
+    def require_login
+      unless user_signed_in?
+        flash[:error] = "You must be logged in."
+        render json: {}, status: 401
+      end
+    end
 
     class Sched
       attr_reader :curr_sched, :valids, :GAP, :final_length

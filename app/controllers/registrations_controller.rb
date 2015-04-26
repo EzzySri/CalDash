@@ -1,17 +1,19 @@
 class RegistrationsController < Devise::RegistrationsController
 
   clear_respond_to
+  skip_before_filter :verify_authenticity_token,
+                     :if => Proc.new { |c| c.request.format == 'application/json' }
 
   respond_to :json
 
   private
  
   def sign_up_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:first_name, :email, :password, :password_confirmation)
   end
  
   def account_update_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password)
+    params.require(:user).permit(:first_name, :email, :password, :password_confirmation, :current_password)
   end
 
 # before_filter :configure_sign_up_params, only: [:create]
