@@ -25,8 +25,6 @@ define(['react', 'jquery', 'moment'], function(React, $, moment){
       }
       var atIndex = 0;
       // TO-DO: make this dynamic
-      // TO-DO: does not yet support duration shorter than 0.5 hours; both need to sqeeuze
-      // into one row
       var rowHeight = 38;
       var context = this;
       var prevColorIndex = 0;

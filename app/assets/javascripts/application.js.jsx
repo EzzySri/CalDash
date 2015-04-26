@@ -14,12 +14,6 @@ require.config({
   }
 });
 
-// require(['jquery', 'routes', 'react', 'react_router'], function($, routes, React, ReactRouter) {
-//   ReactRouter.run(routes, function (Handler) {
-//     React.render(<Handler/>, document.getElementById('content'));
-//   });
-// });
-
 require(['jquery', 'react', 'index', 'fluxxor', 'event_form_store', 'flash_message_store', 'application_store', 'google_service_store', 'prediction_store', 'event_store', 'session_store', 'actions'],
   function($, React, CalDashApp, Fluxxor, EventFormStore, FlashMessageStore, ApplicationStore, GoogleServiceStore, PredictionStore, EventStore, SessionStore, actions) {
   
@@ -32,7 +26,7 @@ require(['jquery', 'react', 'index', 'fluxxor', 'event_form_store', 'flash_messa
 
   $.ajaxSetup({
       headers: {
-            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
       }
   });
 
