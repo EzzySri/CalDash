@@ -5,7 +5,6 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
       // stored temporarily; cleared after user confirms his choice
       this.optimizedResults = [];
       this.recentEvents = [];
-      this.fetchRecentEvents();
 
       this.currentEventInput = {
         location: "",
@@ -45,7 +44,8 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
         Constants.ActionTypes.SET_EVENT_DESCRIPTION, this.onSetEventDescription,
         Constants.ActionTypes.SYNC_SCHEDULE_CHOICE, this.onSyncScheduleChoice,
         Constants.ActionTypes.BATCH_FETCH_EVENTS, this.onBatchFetchEvents,
-        Constants.ActionTypes.SET_ROUTES_FOR_DAY, this.onSetRoutesForDay
+        Constants.ActionTypes.SET_ROUTES_FOR_DAY, this.onSetRoutesForDay,
+        Constants.ActionTypes.FETCH_RECENT_EVENTS, this.onFetchRecentEvents
       );
     },
 
@@ -77,7 +77,12 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
       }
     },
 
-    fetchRecentEvents: function() {
+    onFetchRecentEvents: function() {
+
+      if (!this.flux.store("SessionStore").checkAndRedirect()) {
+        return;
+      }
+
       $.ajax({
         url: Constants.APIEndpoints.FETCH_RECENT_EVENTS,
         method: "GET",
@@ -157,6 +162,11 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
     },
 
     fetchDayEvents: function(dateInUnix) {
+
+      if (!this.flux.store("SessionStore").checkAndRedirect()) {
+        return;
+      }
+
       $.ajax({
         url: Constants.APIEndpoints.FETCH_DAY_EVENTS,
         method: "GET",
@@ -178,6 +188,11 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
     },
 
     onBatchFetchEvents: function(payload) {
+
+      if (!this.flux.store("SessionStore").checkAndRedirect()) {
+        return;
+      }
+
       $.ajax({
         url: Constants.APIEndpoints.BATCH_FETCH_EVENTS,
         method: "GET",
@@ -207,6 +222,11 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
     },
 
     onSyncScheduleChoice: function () {
+
+      if (!this.flux.store("SessionStore").checkAndRedirect()) {
+        return;
+      }
+
       var eventAssignments = this.optimizedResults.map(function(item){
         return Adapters.eventAssignmentAdapter(item);
       });
@@ -345,7 +365,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
       if (!this.flux.store("SessionStore").checkAndRedirect()) {
         return;
       }
-      
+
       var events = this.getEvents();
       if (events.length == 0) {
         this.flux.store("FlashMessageStore").onDisplayFlashMessage({flashMessage: Constants.FlashMessages.NO_EVENTS_TO_OPTIMIZE, flashMessageType: "error", random: Math.random()});

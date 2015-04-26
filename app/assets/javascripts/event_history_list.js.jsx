@@ -50,6 +50,10 @@ define(['utils', 'react', 'constants', 'small_event_card', 'event_card'], functi
       this.setState({eventCardOnDisplay: e});
     },
 
+    componentDidMount: function() {
+      this.props.flux.actions.eventActions.fetchRecentEvents();
+    },
+
     render : function() {
 
       var smallCardsList = this.state.events.map(function(event){

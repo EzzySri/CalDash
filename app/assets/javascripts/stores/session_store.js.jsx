@@ -160,6 +160,7 @@ define(['jquery_ujs', 'jquery', 'fluxxor', 'constants'], function(_, $, Fluxxor,
           commit: "Log in"
         }, 
         success: function(data) {
+          location.reload();
           this.onLoginResponse({json: data, errors: null});
           this.flux.store("FlashMessageStore").onDisplayFlashMessage({
             flashMessage: "You are signed in successfully.",
@@ -182,6 +183,7 @@ define(['jquery_ujs', 'jquery', 'fluxxor', 'constants'], function(_, $, Fluxxor,
         url: "/users/sign_out",
         method: "DELETE",
         success: function(data) {
+          location.reload();
           this.onLogoutResponse({json: null, errors: null});
           this.flux.store("FlashMessageStore").onDisplayFlashMessage({
             flashMessage: "You have logged out.",

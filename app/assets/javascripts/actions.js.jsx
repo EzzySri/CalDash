@@ -96,6 +96,9 @@ define(['constants'], function(Constants){
       },
       setRoutesForDay: function() {
         this.dispatch(Constants.ActionTypes.SET_ROUTES_FOR_DAY, {});
+      },
+      fetchRecentEvents: function() {
+        this.dispatch(Constants.ActionTypes.FETCH_RECENT_EVENTS, {});
       }
     },
     sessionActions: {
