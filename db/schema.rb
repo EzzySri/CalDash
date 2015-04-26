@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150416194554) do
+ActiveRecord::Schema.define(version: 20150426222020) do
 
   create_table "event_assignments", force: :cascade do |t|
     t.string   "name",                        null: false
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20150416194554) do
     t.string   "schedule"
     t.string   "repeat_type"
     t.boolean  "mandatory"
+    t.integer  "user_id"
   end
 
   add_index "event_assignments", ["end_unix"], name: "index_event_assignments_on_end_unix"
@@ -49,6 +50,7 @@ ActiveRecord::Schema.define(version: 20150416194554) do
     t.boolean  "is_private",              default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   add_index "events", ["after_unix"], name: "index_events_on_after_unix"
