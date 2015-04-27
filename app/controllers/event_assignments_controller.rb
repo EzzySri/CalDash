@@ -55,12 +55,12 @@ class EventAssignmentsController < ApplicationController
     flexible = flexible.map {|e| Event.new(e)}
 
     sched = Sched.new(mandatory, flexible)
-    if not sched
-      render json: {message: "No valid schedules possible"}, status: 400
-      return
-    end
     final_schedule = sched.schedule
-    render json: {schedules: [final_schedule]}
+    if not final_schedule
+      render json: {message: "No valid schedules possible"}, status: 400
+    else
+      render json: {schedules: [final_schedule]}
+    end
   end
 
 
@@ -266,6 +266,9 @@ class EventAssignmentsController < ApplicationController
         old_end = event.end_unix
         event.start_unix = start_time
         event.end_unix = start_time + event.duration_in_miliseconds
+        if event.end_unix > event.before_unix
+          return false
+        end
         for other in @curr_sched
           if event.overlaps?(other)
             event.start_unix = old_start
