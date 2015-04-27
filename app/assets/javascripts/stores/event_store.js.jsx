@@ -288,6 +288,10 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
           this.flux.store("FlashMessageStore").onDisplayFlashMessage({flashMessage: "Before Estimate should not be less than or equal to After Estimate.", flashMessageType: "error", random: Math.random()});
           return;   
         }
+        if (momentBefore.valueOf() - momentAfter.valueOf() < this.currentEventInput.duration.valueOf()) {
+          this.flux.store("FlashMessageStore").onDisplayFlashMessage({flashMessage: "Event is too long to fit in the time range.", flashMessageType: "error", random: Math.random()});
+          return;   
+        }
         clone["before"] = momentBefore;
         clone["after"] = momentAfter;
       } else {
@@ -395,7 +399,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
         }.bind(this),
         error: function(xhr, status, err) {
           this.flux.store("FlashMessageStore").onDisplayFlashMessage({
-            flashMessage: "Optimization is not successful for the following reason: " + err,
+            flashMessage: "Optimization is not successful for the following reason: " + err + xhr.responseJSON.message ? ("; " + xhr.responseJSON.message) : "",
             flashMessageType: "error",
             random: Math.random()});
         }.bind(this)
