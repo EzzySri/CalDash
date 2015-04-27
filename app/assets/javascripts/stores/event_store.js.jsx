@@ -243,7 +243,10 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
           this.onClearOptimizedResults();
         }.bind(this),
         error: function(xhr, status, err) {
-          // TO-DO
+          this.flux.store("FlashMessageStore").onDisplayFlashMessage({
+            flashMessage: "Event update is not successful for the following reason: " + err,
+            flashMessageType: "error",
+            random: Math.random()});
         }.bind(this)
       });
       this.emit("change");
@@ -391,6 +394,10 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
           this.flux.store("ApplicationStore").onSetMode({mode: "results-mode"});
         }.bind(this),
         error: function(xhr, status, err) {
+          this.flux.store("FlashMessageStore").onDisplayFlashMessage({
+            flashMessage: "Optimization is not successful for the following reason: " + err,
+            flashMessageType: "error",
+            random: Math.random()});
         }.bind(this)
       });
       this.emit("change");
