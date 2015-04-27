@@ -288,6 +288,10 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
           this.flux.store("FlashMessageStore").onDisplayFlashMessage({flashMessage: "Before Estimate should not be less than or equal to After Estimate.", flashMessageType: "error", random: Math.random()});
           return;   
         }
+        if (momentBefore.valueOf() - momentAfter.valueOf() < this.currentEventInput.duration.valueOf()) {
+          this.flux.store("FlashMessageStore").onDisplayFlashMessage({flashMessage: "Event is too long to fit in the time range.", flashMessageType: "error", random: Math.random()});
+          return;   
+        }
         clone["before"] = momentBefore;
         clone["after"] = momentAfter;
       } else {
@@ -384,6 +388,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
         contentType: "application/json",
         data: JSON.stringify({events: json}), 
         success: function(data) {
+          debugger
           data.schedules.forEach(function(schedule){
             schedule.forEach(function(event){
               // TO-DO: no multiple results display yet; all add to this single array

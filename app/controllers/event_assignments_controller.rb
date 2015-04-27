@@ -57,6 +57,7 @@ class EventAssignmentsController < ApplicationController
     sched = Sched.new(mandatory, flexible)
     if not sched
       render json: {message: "No valid schedules possible"}, status: 400
+      return
     end
     final_schedule = sched.schedule
     render json: {schedules: [final_schedule]}
