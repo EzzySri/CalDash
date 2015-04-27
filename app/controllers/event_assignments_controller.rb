@@ -55,6 +55,9 @@ class EventAssignmentsController < ApplicationController
     flexible = flexible.map {|e| Event.new(e)}
 
     sched = Sched.new(mandatory, flexible)
+    if not sched
+      render json: {message: "No valid schedules possible"}, status: 400
+    end
     final_schedule = sched.schedule
     render json: {schedules: [final_schedule]}
   end
@@ -316,7 +319,10 @@ class EventAssignmentsController < ApplicationController
         if (@flexible.blank?) 
           return @curr_sched.map {|x| create_assignmnet(x)}
         else
-          found = schedule_helper(@flexible)
+          schedule_helper(@flexible)
+          if @best[0].nil?
+            return false
+          end
           return @best[0].map {|x| create_assignmnet(x)}
         end
       end
