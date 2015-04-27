@@ -18,6 +18,9 @@ define(['react', 'jquery', 'moment'], function(React, $, moment){
       var momentStrFormatInner = "h:mm a";
 
       var events = this.props.events;
+      events.sort(function(a, b) {
+        return (a.start.valueOf() - b.start.valueOf());
+      });
 
       for (i = 1; i < 24; i += 1) {
         times.push(startOfDay.add(1, "h").clone());

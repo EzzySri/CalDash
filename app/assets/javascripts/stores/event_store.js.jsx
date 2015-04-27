@@ -406,6 +406,14 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
           events.push(item);
         }
       });
+
+      for (var i = 0; i < events.length; i += 1) {
+        if (!events[i].mandatory) {
+          events.splice(i, 1);
+          i -= 1;
+        }
+      }
+      
       events.filter(function(item){
         return !item.mandatory;
       });
