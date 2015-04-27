@@ -388,7 +388,6 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
         contentType: "application/json",
         data: JSON.stringify({events: json}), 
         success: function(data) {
-          debugger
           data.schedules.forEach(function(schedule){
             schedule.forEach(function(event){
               // TO-DO: no multiple results display yet; all add to this single array
@@ -400,7 +399,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
         }.bind(this),
         error: function(xhr, status, err) {
           this.flux.store("FlashMessageStore").onDisplayFlashMessage({
-            flashMessage: "Optimization is not successful for the following reason: " + err,
+            flashMessage: "Optimization is not successful for the following reason: " + err + xhr.responseJSON.message ? ("; " + xhr.responseJSON.message) : "",
             flashMessageType: "error",
             random: Math.random()});
         }.bind(this)
