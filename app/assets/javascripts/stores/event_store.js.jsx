@@ -79,7 +79,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
 
     onFetchRecentEvents: function() {
 
-      if (!this.flux.store("SessionStore").checkAndRedirect()) {
+      if (!this.flux.store("SessionStore").isLoggedIn()) {
         return;
       }
 
@@ -163,7 +163,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
 
     fetchDayEvents: function(dateInUnix) {
 
-      if (!this.flux.store("SessionStore").checkAndRedirect()) {
+      if (!this.flux.store("SessionStore").isLoggedIn()) {
         return;
       }
 
@@ -189,7 +189,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
 
     onBatchFetchEvents: function(payload) {
 
-      if (!this.flux.store("SessionStore").checkAndRedirect()) {
+      if (!this.flux.store("SessionStore").isLoggedIn()) {
         return;
       }
 
@@ -223,7 +223,7 @@ define(['jquery', 'fluxxor', 'constants', 'moment', 'adapters'], function($, Flu
 
     onSyncScheduleChoice: function () {
 
-      if (!this.flux.store("SessionStore").checkAndRedirect()) {
+      if (!this.flux.store("SessionStore").isLoggedIn()) {
         return;
       }
 

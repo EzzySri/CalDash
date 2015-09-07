@@ -37,6 +37,7 @@ define(['jquery_ujs', 'jquery', 'fluxxor', 'constants'], function(_, $, Fluxxor,
     },
 
     checkAndRedirect: function() {
+      
       if (!this.isSignedIn) {
         this.flux.store("ApplicationStore").onSetLogisticsPageLabel({label: "signIn"});
         this.flux.store("FlashMessageStore").onDisplayFlashMessage({

@@ -72,6 +72,7 @@ class EventAssignmentsController < ApplicationController
   end
 
   def batch_fetch_events
+    
     date_start = params[:date_start].to_i
     date_end = params[:date_end].to_i
     
