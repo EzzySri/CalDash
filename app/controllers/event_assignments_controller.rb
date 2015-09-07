@@ -80,8 +80,8 @@ class EventAssignmentsController < ApplicationController
       render json: {}, status: 400
     end
 
-    first_date = Time.at(date_start).beginning_of_day().to_datetime()
-    last_date = Time.at(date_end).beginning_of_day().to_datetime()
+    first_date = Time.zone.at(date_start).beginning_of_day().to_datetime()
+    last_date = Time.zone.at(date_end).beginning_of_day().to_datetime()
     @event_assignments = {}
     while first_date <= last_date
       @event_assignments[first_date.to_i] = fetch_events(first_date.to_i)
@@ -209,7 +209,7 @@ class EventAssignmentsController < ApplicationController
     end
 
     def fetch_events(date_in_unix)
-      date_start = Time.at(date_in_unix).beginning_of_day().to_datetime()
+      date_start = Time.zone.at(date_in_unix).beginning_of_day().to_datetime()
       date_end = date_start.end_of_day()
       
       event_assignments = EventAssignment.where(:repeat_type => "once", :start_unix => date_start.to_i()..date_end.to_i(), user: current_user)
